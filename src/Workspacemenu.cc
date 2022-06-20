@@ -33,7 +33,6 @@
 #include "i18n.hh"
 #include "blackbox.hh"
 #include "Screen.hh"
-//#include "Toolbar.hh"
 #include "Workspacemenu.hh"
 #include "Workspace.hh"
 

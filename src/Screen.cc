@@ -1,4 +1,5 @@
-// Screen.cc for Blackbox - an X11 Window manager
+// Screen.cc for Hackedbox
+// Copyright (c) 2002 Larry Owen <larry@scrudgeware.org>
 // Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
@@ -39,13 +40,7 @@
 #include "Iconmenu.hh"
 #include "Image.hh"
 #include "Screen.hh"
-
-//#ifdef    SLIT
-//#include "Slit.hh"
-//#endif // SLIT
-
 #include "Rootmenu.hh"
-//#include "Toolbar.hh"
 #include "Window.hh"
 #include "Workspace.hh"
 #include "Workspacemenu.hh"
@@ -305,28 +300,6 @@ BScreen::BScreen(Blackbox *bb, int scrn) : ScreenInfo(bb, scrn) {
     XCreateGC(getBaseDisplay()->getXDisplay(), getRootWindow(),
 	      gc_value_mask, &gcv);
 
- // gcv.foreground = resource.tstyle.l_text.getPixel();
-//  if (resource.tstyle.font)
- //   gcv.font = resource.tstyle.font->fid;
-//  resource.tstyle.l_text_gc =
-//    XCreateGC(getBaseDisplay()->getXDisplay(), getRootWindow(),
-//	      gc_value_mask, &gcv);
-
-//  gcv.foreground = resource.tstyle.w_text.getPixel();
- // resource.tstyle.w_text_gc =
- //   XCreateGC(getBaseDisplay()->getXDisplay(), getRootWindow(),
-//	      gc_value_mask, &gcv);
-
-//  gcv.foreground = resource.tstyle.c_text.getPixel();
-//  resource.tstyle.c_text_gc =
-//    XCreateGC(getBaseDisplay()->getXDisplay(), getRootWindow(),
-//	      gc_value_mask, &gcv);
-
-//  gcv.foreground = resource.tstyle.b_pic.getPixel();
-//  resource.tstyle.b_pic_gc =
- //   XCreateGC(getBaseDisplay()->getXDisplay(), getRootWindow(),
-//	      gc_value_mask, &gcv);
-
   const char *s =  i18n->getMessage(ScreenSet, ScreenPositionLength,
 				    "0: 0000 x 0: 0000");
   int l = strlen(s);
@@ -409,12 +382,6 @@ BScreen::BScreen(Blackbox *bb, int scrn) : ScreenInfo(bb, scrn) {
   current_workspace = workspacesList->first();
   workspacemenu->setItemSelected(2, True);
 
-//  toolbar = new Toolbar(this);
-
-//#ifdef    SLIT
-//  slit = new Slit(this);
-//#endif // SLIT
-
   InitMenu();
 
   raiseWindows(0, 0);
@@ -473,10 +440,6 @@ BScreen::BScreen(Blackbox *bb, int scrn) : ScreenInfo(bb, scrn) {
     }
   }
 
-//  if (! resource.sloppy_focus)
- //   XSetInputFocus(getBaseDisplay()->getXDisplay(), toolbar->getWindowID(),
-//		   RevertToParent, CurrentTime);
-
   XFree(children);
   XFlush(getBaseDisplay()->getXDisplay());
 }
@@ -514,14 +477,7 @@ BScreen::~BScreen(void) {
   delete workspacemenu;
   delete iconmenu;
   delete configmenu;
-
-//#ifdef    SLIT
-//  delete slit;
-//#endif // SLIT
-
-//  delete toolbar;
   delete image_control;
-
   delete workspacesList;
   delete workspaceNames;
   delete rootmenuList;
@@ -534,8 +490,6 @@ BScreen::~BScreen(void) {
     XFreeFontSet(getBaseDisplay()->getXDisplay(), resource.mstyle.t_fontset);
   if (resource.mstyle.f_fontset)
     XFreeFontSet(getBaseDisplay()->getXDisplay(), resource.mstyle.f_fontset);
-//  if (resource.tstyle.fontset)
-//    XFreeFontSet(getBaseDisplay()->getXDisplay(), resource.tstyle.fontset);
 
   if (resource.wstyle.font)
     XFreeFont(getBaseDisplay()->getXDisplay(), resource.wstyle.font);
@@ -543,8 +497,6 @@ BScreen::~BScreen(void) {
     XFreeFont(getBaseDisplay()->getXDisplay(), resource.mstyle.t_font);
   if (resource.mstyle.f_font)
     XFreeFont(getBaseDisplay()->getXDisplay(), resource.mstyle.f_font);
-//  if (resource.tstyle.font)
-//    XFreeFont(getBaseDisplay()->getXDisplay(), resource.tstyle.font);
 
   XFreeGC(getBaseDisplay()->getXDisplay(), opGC);
 
@@ -567,15 +519,6 @@ BScreen::~BScreen(void) {
 	  resource.mstyle.d_text_gc);
   XFreeGC(getBaseDisplay()->getXDisplay(),
 	  resource.mstyle.hilite_gc);
-
-//  XFreeGC(getBaseDisplay()->getXDisplay(),
-//	  resource.tstyle.l_text_gc);
-//  XFreeGC(getBaseDisplay()->getXDisplay(),
-//	  resource.tstyle.w_text_gc);
- // XFreeGC(getBaseDisplay()->getXDisplay(),
-//	  resource.tstyle.c_text_gc);
- // XFreeGC(getBaseDisplay()->getXDisplay(),
-//	  resource.tstyle.b_pic_gc);
 }
 
 void BScreen::readDatabaseTexture(char *rname, char *rclass,
@@ -879,25 +822,7 @@ void BScreen::reconfigure(void) {
   gcv.foreground = resource.mstyle.hilite.getColor()->getPixel();
   XChangeGC(getBaseDisplay()->getXDisplay(), resource.mstyle.hilite_gc,
 	    gc_value_mask, &gcv);
-
-//  gcv.foreground = resource.tstyle.l_text.getPixel();
-//  if (resource.tstyle.font)
-//    gcv.font = resource.tstyle.font->fid;
-//  XChangeGC(getBaseDisplay()->getXDisplay(), resource.tstyle.l_text_gc,
-//	    gc_value_mask, &gcv);
-
-//  gcv.foreground = resource.tstyle.w_text.getPixel();
- // XChangeGC(getBaseDisplay()->getXDisplay(), resource.tstyle.w_text_gc,
-	//    gc_value_mask, &gcv);
-
- // gcv.foreground = resource.tstyle.c_text.getPixel();
-//  XChangeGC(getBaseDisplay()->getXDisplay(), resource.tstyle.c_text_gc,
-//	    gc_value_mask, &gcv);
-
- // gcv.foreground = resource.tstyle.b_pic.getPixel();
- // XChangeGC(getBaseDisplay()->getXDisplay(), resource.tstyle.b_pic_gc,
-//	    gc_value_mask, &gcv);
-
+  
   const char *s = i18n->getMessage(ScreenSet, ScreenPositionLength,
 				   "0: 0000 x 0: 0000");
   int l = strlen(s);
@@ -963,12 +888,6 @@ void BScreen::reconfigure(void) {
   }
 
   configmenu->reconfigure();
-
-//  toolbar->reconfigure();
-
-//#ifdef    SLIT
-//  slit->reconfigure();
-//#endif // SLIT
 
   LinkedListIterator<Workspace> wit(workspacesList);
   for (Workspace *w = wit.current(); w; wit++, w = wit.current())
@@ -1295,8 +1214,6 @@ int BScreen::addWorkspace(void) {
 			wkspc->getWorkspaceID() + 2);
   workspacemenu->update();
 
-//  toolbar->reconfigure();
-
   updateNetizenWorkspaceCount();
 
   return workspacesList->count();
@@ -1319,8 +1236,6 @@ int BScreen::removeLastWorkspace(void) {
 
   workspacesList->remove(wkspc);
   delete wkspc;
-
-//  toolbar->reconfigure();
 
   updateNetizenWorkspaceCount();
 
@@ -1348,8 +1263,7 @@ void BScreen::changeWorkspaceID(int id) {
 
     workspacemenu->setItemSelected(current_workspace->getWorkspaceID() + 2,
 				   True);
-//    toolbar->redrawWorkspaceLabel(True);
-
+	
     current_workspace->showAll();
 
     if (resource.focus_last && current_workspace->getLastFocusedWindow()) {
@@ -1471,28 +1385,10 @@ void BScreen::raiseWindows(Window *workspace_stack, int num) {
   *(session_stack + i++) = configmenu->getPlacementmenu()->getWindowID();
   *(session_stack + i++) = configmenu->getWindowID();
 
-//#ifdef    SLIT
-//  *(session_stack + i++) = slit->getMenu()->getDirectionmenu()->getWindowID();
-//  *(session_stack + i++) = slit->getMenu()->getPlacementmenu()->getWindowID();
-//  *(session_stack + i++) = slit->getMenu()->getWindowID();
-//#endif // SLIT
-
- // *(session_stack + i++) =
- //   toolbar->getMenu()->getPlacementmenu()->getWindowID();
-  //*(session_stack + i++) = toolbar->getMenu()->getWindowID();
-
   LinkedListIterator<Rootmenu> rit(rootmenuList);
   for (Rootmenu *tmp = rit.current(); tmp; rit++, tmp = rit.current())
     *(session_stack + i++) = tmp->getWindowID();
   *(session_stack + i++) = rootmenu->getWindowID();
-
- // if (toolbar->isOnTop())
-  //  *(session_stack + i++) = toolbar->getWindowID();
-
-//#ifdef    SLIT
-//  if (slit->isOnTop())
-//    *(session_stack + i++) = slit->getWindowID();
-//#endif // SLIT
 
   while (k--)
     *(session_stack + i++) = *(workspace_stack + k);
@@ -2126,10 +2022,6 @@ void BScreen::shutdown(void) {
     iconList->first()->restore();
     delete iconList->first();
   }
-
-//#ifdef    SLIT
-//  slit->shutdown();
-//#endif // SLIT
 
   blackbox->ungrab();
 }

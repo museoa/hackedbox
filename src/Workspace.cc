@@ -37,7 +37,6 @@
 #include "blackbox.hh"
 #include "Clientmenu.hh"
 #include "Screen.hh"
-//#include "Toolbar.hh"
 #include "Window.hh"
 #include "Workspace.hh"
 #include "Windowmenu.hh"
@@ -117,9 +116,6 @@ const int Workspace::removeWindow(BlackboxWindow *w) {
       BlackboxWindow *top = stackingList->first();
       if (! top || ! top->setInputFocus()) {
 	screen->getBlackbox()->setFocusedWindow((BlackboxWindow *) 0);
-//	XSetInputFocus(screen->getBlackbox()->getXDisplay(),
-//		       screen->getToolbar()->getWindowID(),
-//		       RevertToParent, CurrentTime);
       }
     }
   }
@@ -280,7 +276,6 @@ const int Workspace::getCount(void) {
 
 void Workspace::update(void) {
   clientmenu->update();
-//  screen->getToolbar()->redrawWindowLabel(True);
 }
 
 
@@ -327,18 +322,6 @@ void Workspace::placeWindow(BlackboxWindow *win) {
 
   const int win_w = win->getWidth() + (screen->getBorderWidth() * 4),
     win_h = win->getHeight() + (screen->getBorderWidth() * 4),
-//#ifdef    SLIT
- //   slit_x = screen->getSlit()->getX() - screen->getBorderWidth(),
- //   slit_y = screen->getSlit()->getY() - screen->getBorderWidth(),
- //   slit_w = screen->getSlit()->getWidth() +
-//      (screen->getBorderWidth() * 4),
-//    slit_h = screen->getSlit()->getHeight() +
- //     (screen->getBorderWidth() * 4),
-//#endif // SLIT
-   toolbar_x = 0,
-   toolbar_y = 0,
-  toolbar_w = 0,
-   toolbar_h = 0,
    start_pos = 0,
     change_y =
       ((screen->getColPlacementDirection() == BScreen::TopBottom) ? 1 : -1),
@@ -380,21 +363,6 @@ void Workspace::placeWindow(BlackboxWindow *win) {
             placed = False;
 	  }
         }
-
-//        if (placed &&
-//	    (toolbar_x < test_x + win_w &&
-//             toolbar_x + toolbar_w > test_x &&
-//             toolbar_y < test_y + win_h &&
-//             toolbar_y + toolbar_h > test_y)
-#ifdef    SLIT
-             ||
-            (slit_x < test_x + win_w &&
-             slit_x + slit_w > test_x &&
-             slit_y < test_y + win_h &&
-             slit_y + slit_h > test_y)
-#endif // SLIT
-//	    )
-//          placed = False;
 
         if (placed) {
           place_x = test_x;
@@ -442,21 +410,6 @@ void Workspace::placeWindow(BlackboxWindow *win) {
             placed = False;
 	  }
         }
-
-        if (placed &&
-	    (toolbar_x < test_x + win_w &&
-	     toolbar_x + toolbar_w > test_x &&
-	     toolbar_y < test_y + win_h &&
-	     toolbar_y + toolbar_h > test_y)
-#ifdef    SLIT
-	    ||
-	    (slit_x < test_x + win_w &&
-	     slit_x + slit_w > test_x &&
-	     slit_y < test_y + win_h &&
-	     slit_y + slit_h > test_y)
-#endif // SLIT
-	    )
-	  placed = False;
 
 	if (placed) {
 	  place_x = test_x;

@@ -1,31 +1,4 @@
 -- TODO for HackedBox 0.7.x  --
-
-Stuff from BlackBox project (may not do):
-Stuff TODO or On The Way(tm):
------------------------------
-ADD: add _BLACKBOX_STYLE and _BLACKBOX_MENU atoms so that bbtools, bbconf, etc.
-     can get the current path to the style in use and menu.
-
-CHANGE: when workspace name is greater than the width of its text area the
-	toolbar gets very ugly
-
-CHANGE: rework the .blackboxrc resources so that they give a more
-        uniform behavior across screens. (Still not sure how I want
-	to do this, so it'll have to wait.)
-
-ADD: support for KDE2 via the new WM Spec at
-     http://www.freedesktop.org/standards/wm-spec/
-
-ADD: get volunteers to translate blackbox into other languages
-
-ADD: draw resize frames using the styles borderWidth... should be fairly
-     simple to do...
+ADD: get volunteers to translate HackedBox into other language
 
 ADD: always on top/bottom support
-
-CHECK: look at why memory usage is up... RSS won't go < 1mb now
-       i noticed a memory leak from improper handling of non-existant
-       windows... this fixes this some... this will be on going
-
-(still here) better support for window groups... i don't know when i'm going to
-    ever get to this

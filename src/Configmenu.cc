@@ -1,4 +1,4 @@
-// Configmenu.cc for Blackbox - An X11 Window Manager
+// Configmenu.cc for Hackedbox
 // Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
@@ -32,7 +32,6 @@
 
 #include "i18n.hh"
 #include "Configmenu.hh"
-//#include "Toolbar.hh"
 #include "Window.hh"
 #include "Screen.hh"
 
@@ -165,12 +164,7 @@ void Configmenu::Focusmenu::itemSelected(int button, int index) {
     configmenu->screen->saveSloppyFocus(False);
     configmenu->screen->saveAutoRaise(False);
 
-//    if (! configmenu->screen->getBlackbox()->getFocusedWindow())
-//      XSetInputFocus(configmenu->screen->getBlackbox()->getXDisplay(),
-//		     configmenu->screen->getToolbar()->getWindowID(),
-//		     RevertToParent, CurrentTime);
-//    else
-      XSetInputFocus(configmenu->screen->getBlackbox()->getXDisplay(),
+    XSetInputFocus(configmenu->screen->getBlackbox()->getXDisplay(),
 		     configmenu->screen->getBlackbox()->
 		     getFocusedWindow()->getClientWindow(),
 		     RevertToParent, CurrentTime);

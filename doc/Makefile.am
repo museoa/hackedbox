@@ -1,17 +1,17 @@
-# doc/Makefile.am for Blackbox - an X11 Window manager
+# doc/Makefile.am for Hackedbox
 
-CLEANFILES = blackbox.1
+CLEANFILES = hackedbox.1
 MAINTAINERCLEANFILES = Makefile.in
-man_MANS = blackbox.1 bsetroot.1
-SUBDIRS = ja_JP nl_NL sl_SI
+man_MANS = hackedbox.1
+SUBDIRS = 
 
 DEFAULT_MENU=$(pkgdatadir)/menu
 
 distclean-local:
 	rm -f *\~
 
-blackbox.1: blackbox.1.in
+hackedbox.1: hackedbox.1.in
 	@regex_cmd@ -e "s,@defaultmenu@,$(DEFAULT_MENU)," \
 		-e "s,@pkgdatadir@,$(pkgdatadir)," \
 		-e "s,@version@,$(VERSION)," \
-		 @srcdir@/blackbox.1.in > blackbox.1
+		 @srcdir@/hackedbox.1.in > hackedbox.1

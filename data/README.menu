@@ -1,22 +1,20 @@
--- data/README.menu for Blackbox - an X11 Window manager
-
 Creating a user defined menu:
 -----------------------------
-Creating a menu for Blackbox requires a text editor of some sort.  Familiarity
+Creating a menu for Hackedbox requires a text editor of some sort.  Familiarity
 with your choice of text editor is assumed, since editor preference differs
 as much (if not more than) window manager preference.
 
 First, we need to decide on a location for our custom menu.  Your home
 directory is the most logical solution, since you will most likely not have
 write access anywhere else.  You place the menu file in any directory, and
-give it any name you choose, as we will later tell Blackbox the path or
+give it any name you choose, as we will later tell Hackedbox the path or
 location for this file.
 
 As an example, let's assume that my home directory is `/home/bhughes' (which it
-is).  I've decided to keep all my Blackbox related files in a directory named
-`blackbox.'  After creating the directory, I now have two options for creating
+is).  I've decided to keep all my Hackedbox related files in a directory named
+`hackedbox.'  After creating the directory, I now have two options for creating
 my new menu.  I can either copy the system default (usually in
-`/usr/local/share/Blackbox/menu') to this directory, or I can create a new
+`/usr/local/share/Hackedbox/menu') to this directory, or I can create a new
 one from scratch.  Let's do the latter, for the sake of completeness.
 
 I've decided to name the file `rootmenu.'  I fire up my favorite text editor
@@ -34,39 +32,39 @@ The supported tags are as follows:
 
 [begin] (label for root menu)
 
-	This tells Blackbox to start parsing the menu file.  This tag is
-	required for Blackbox to parse your menu file.  If it cannot find it,
+	This tells Hackedbox to start parsing the menu file.  This tag is
+	required for Hackedbox to parse your menu file.  If it cannot find it,
 	the system default menu is used instead.
 
 [end]
 
-	This tells Blackbox that it is at the end of a menu.  This can either
+	This tells Hackedbox that it is at the end of a menu.  This can either
 	be a submenu or the main root menu.  There must be at least one
 	of these tags in your menu to correspond to the required [begin] tag.
 
 [exec] (label for command) {shell command}
 
-	This tells Blackbox to insert a command item into the menu.  When you
-	select the menu item from the menu, Blackbox runs `shell command.'
+	This tells Hackedbox to insert a command item into the menu.  When you
+	select the menu item from the menu, Hackedbox runs `shell command.'
 
 [exit] (label for exit)
 
-	This tells Blackbox to insert an item that shuts down and exits
-	Blackbox.  Any open windows are reparented to the root window before
-	Blackbox exits.
+	This tells Hackedbox to insert an item that shuts down and exits
+	Hackedbox.  Any open windows are reparented to the root window before
+	Hackedbox exits.
 
 [include] (filename)
 
-	This tells Blackbox to parse the file specified by `filename' inline
+	This tells Hackedbox to parse the file specified by `filename' inline
 	with the current menu.  `filename' can be the full path to a file
-	(such as /usr/local/share/Blackbox/brueghel/stylesmenu) or it can
+	(such as /usr/local/share/Hackedbox/brueghel/stylesmenu) or it can
 	begin with `~/', which will be expanded into your home directory
-	(e.g. [include] (~/blackbox/stylesmenu) will include
-	/home/bhughes/blackbox/stylesmenu in my menu)
+	(e.g. [include] (~/.hackedbox/stylesmenu) will include
+	/home/bhughes/.hackedbox/stylesmenu in my menu)
 
 [nop] (label - optional)
 
-	This tells Blackbox to insert a non-operational item into the current
+	This tells Hackedbox to insert a non-operational item into the current
 	menu.  This can be used to help format the menu into blocks or sections
 	if so desired (e.g. you could put all your ssh accounts together, add
 	a [nop] and then add all your telnet accounts together).  [nop] does
@@ -75,16 +73,16 @@ The supported tags are as follows:
 
 [style] (label) {filename}
 
-	This tells Blackbox to read `filename' and apply the new textures,
+	This tells Hackedbox to read `filename' and apply the new textures,
 	colors and fonts to the current running session.  The filename is
 	just like the [include] tag, it can be the full path to the file,
-	or it can be of the form `~/path/from/home/dir.'  Blackbox also
+	or it can be of the form `~/path/from/home/dir.'  Hackedbox also
 	re-reads the entire menu structure from disk, incase the menu has
 	changed.
 
 [submenu] (label) {title for menu - optional}
 
-	This tells Blackbox to create and parse a new menu.  This menu is
+	This tells Hackedbox to create and parse a new menu.  This menu is
 	inserted as a submenu into the parent menu.  These menus are parsed
 	recursively, so there is no limit to the number of levels or nested
 	submenus you can have.  The title for the new menu is optional, if
@@ -92,20 +90,20 @@ The supported tags are as follows:
 
 [reconfig] (label)
 
-	This tells Blackbox to reread the current style and menu files and
+	This tells Hackedbox to reread the current style and menu files and
 	apply any changes.  This is useful for creating a new style or theme,
-	as you don't have to constantly restart Blackbox every time you save
+	as you don't have to constantly restart Hackedbox every time you save
 	your style.
 
 [restart] (label) {shell command - optional}
 
-	This tells Blackbox to restart.  If `shell command' is supplied, it
+	This tells Hackedbox to restart.  If `shell command' is supplied, it
 	shuts down and runs the command (which is commonly the name of another
-	window manager).  If the command is omitted, Blackbox restarts itself.
+	window manager).  If the command is omitted, Hackedbox restarts itself.
 
 [workspaces] (label)
 
-	This tells Blackbox to insert a "link" to the workspaces menu directly
+	This tells Hackedbox to insert a "link" to the workspaces menu directly
 	into your menu.  This is handy for those users who can't access the
 	workspace menu directly (e.g. if you don't have a 3 button mouse, it's
 	rather hard to middle click to show the workspace menu).  This is a
@@ -115,9 +113,9 @@ The supported tags are as follows:
 
 [config] (label)
 
-	This tells Blackbox to insert the ConfigMenu into your menu.  From
+	This tells Hackedbox to insert the ConfigMenu into your menu.  From
 	this menu you can configure several options stored in your
-	~/.blackboxrc, and the changes take effect immediately.
+	~/.hackedbox/rc, and the changes take effect immediately.
 
 Comments may be inserted on any line of the file, as long as the first
 character on the line is a `#.'
@@ -210,8 +208,8 @@ we take advantage of the [nop] tag:
 ...
 
 Now, let's create a submenu to put some items to change between all these
-themes we downloaded from http://blackbox.themes.org/.  Let's assume we
-untarred the themes into the ~/.blackbox directory like the documentation on
+themes we downloaded from http://bb.classic.themes.org/.  Let's assume we
+untarred the themes into the ~/.hackedbox directory like the documentation on
 the themes.org site recommends.
 
 ...
@@ -233,38 +231,38 @@ the themes.org site recommends.
 
 	[exec] (Video Tune) {xvidtune}
 
-	[submenu] (Themes) {Themes from blackbox.themes.org}
-		[style] (Blackbox) {~/.blackbox/Styles/blackbox}
-		[style] (Blackbox II) {~/.blackbox/Styles/blackbox2}
-		[style] (Hardware) {~/.blackbox/Styles/hardware}
-		[style] (Nova) {~/.blackbox/Styles/nova}
-		[style] (Orbital) {~/.blackbox/Styles/orbital}
-		[style] (Orbital II) {~/.blackbox/Styles/orbital2}
-		[style] (Seething) {~/.blackbox/Styles/seething}
-		[style] (Zero) {~/.blackbox/Styles/zero}
-		[style] (Cold Fusion) {~/.blackbox/Styles/coldfusion}
+	[submenu] (Themes) {Themes from bb.classic.themes.org}
+		[style] (Hackedbox) {~/.hackedbox/styles/blackbox}
+		[style] (Hackedbox II) {~/.hackedbox/styles/blackbox2}
+		[style] (Hardware) {~/.hackedbox/styles/hardware}
+		[style] (Nova) {~/.hackedbox/styles/nova}
+		[style] (Orbital) {~/.hackedbox/styles/orbital}
+		[style] (Orbital II) {~/.hackedbox/styles/orbital2}
+		[style] (Seething) {~/.hackedbox/styles/seething}
+		[style] (Zero) {~/.hackedbox/styles/zero}
+		[style] (Cold Fusion) {~/.hackedbox/styles/coldfusion}
 	[end]
 [end]
 ...
 
 Even better.  Now hold on a second, if we have our themes and styles in
-~/.blackbox why do we have to have our menu in ~/blackbox?  Answer:  WE DON'T!
+~/.hackedbox why do we have to have our menu in ~/hackedbox?  Answer:  WE DON'T!
 This is where the choice comes.  Do we keep our stuff in two separate
 directories? Do we put it all in one directory?  That is up to you to decide.
-I personally prefer to keep everything in one directory (but, I use ~/blackbox
-and have been for a long, long time; long before blackbox.themes.org was
+I personally prefer to keep everything in one directory (but, I use ~/.hackedbox
+and have been for a long, long time; long before bb.classic.themes.org was
 even thought of... and again that is *personal* preference, not a hard-fast
 rule).
 
 Now that we've gotten a feel for the menu syntax, we decide to finish off our
 menu.  In addition to the styles we downloaded, we decide we also want to
-keep a submenu for the default styles that came with Blackbox.  All we need
-to do is [include] the styles file from the share directory for Blackbox.
+keep a submenu for the default styles that came with Hackedbox.  All we need
+to do is [include] the styles file from the share directory for Hackedbox.
 After putting everything together, we have:
 
 
 ...
-# custom menu file for Blackbox
+# custom menu file for Hackedbox
 
 [begin] (Example \[Menu\])
 	[exec] (xterm) {xterm -ls}
@@ -286,29 +284,29 @@ After putting everything together, we have:
 
 	[nop] (...)
 
-	[submenu] (Themes) {Themes from blackbox.themes.org}
-		[style] (Blackbox) {~/.blackbox/Styles/blackbox}
-		[style] (Blackbox II) {~/.blackbox/Styles/blackbox2}
-		[style] (Hardware) {~/.blackbox/Styles/hardware}
-		[style] (Nova) {~/.blackbox/Styles/nova}
-		[style] (Orbital) {~/.blackbox/Styles/orbital}
-		[style] (Orbital II) {~/.blackbox/Styles/orbital2}
-		[style] (Seething) {~/.blackbox/Styles/seething}
-		[style] (Zero) {~/.blackbox/Styles/zero}
-		[style] (Cold Fusion) {~/.blackbox/Styles/coldfusion}
+	[submenu] (Themes) {Themes from bb.classic.themes.org}
+		[style] (Hackedbox) {~/.hackedbox/styles/blackbox}
+		[style] (Hackedbox II) {~/.hackedbox/styles/blackbox2}
+		[style] (Hardware) {~/.hackedbox/styles/hardware}
+		[style] (Nova) {~/.hackedbox/styles/nova}
+		[style] (Orbital) {~/.hackedbox/styles/orbital}
+		[style] (Orbital II) {~/.hackedbox/styles/orbital2}
+		[style] (Seething) {~/.hackedbox/styles/seething}
+		[style] (Zero) {~/.hackedbox/styles/zero}
+		[style] (Cold Fusion) {~/.hackedbox/styles/coldfusion}
 
-# include the default style menu... this is assuming Blackbox was installed
+# include the default style menu... this is assuming Hackedbox was installed
 # into /usr/local
 
 		[nop]
 
-		[include] (/usr/local/share/Blackbox/styles/stylesmenu)
+		[include] (/usr/local/share/Hackedbox/styles/stylesmenu)
 	[end]
 
 	[workspaces] (Workspace list)
 
 	[submenu] (Restart) {Restart which?}
-		[restart] (Blackbox)
+		[restart] (Hackedbox)
 
 # let's also give us access to some other window managers
 
@@ -325,18 +323,18 @@ After putting everything together, we have:
 [end]
 ...
 
-And voila!  our menu file is finished.  Now we need to tell Blackbox to read
-this menu file.  We do this by editing the file ~/.blackboxrc.
+And voila!  our menu file is finished.  Now we need to tell Hackedbox to read
+this menu file.  We do this by editing the file ~/.hackedbox/rc.
 
-NOTE: your ~/.blackboxrc is auotmatically updated every time Blackbox restarts,
+NOTE: your ~/.hackedbox/rc is auotmatically updated every time Hackedbox restarts,
 reconfigures, changes styles or exits.  Changes to dynamic data like workspace
 count, names, etc. is lost.  About the only thing you can change and have it
 preserved is the menu filename, which is what we are about to change.
 
-The format of ~/.blackboxrc is in the X resource database format (just like
+The format of ~/.hackedbox/rc is in the X resource database format (just like
 ~/.Xdefaults).  Since the file is updated automatically, it may be full of
 stuff or it may not even exist (especially if this is the first time we've
-ran Blackbox).  Don't worry if you have to create ~/.blackboxrc, Blackbox will
+ran Hackedbox).  Don't worry if you have to create ~/.hackedbox/rc, Hackedbox will
 see the file the next time it starts.
 
 What we need to do is change the resource for the menu's filename.  This is
@@ -350,21 +348,21 @@ If this resource exists, we change it.  If it does not, we add it.  Depending
 on where we put the menu file, our new resource could look like this:
 
 ...
-session.menuFile:	/home/bhughes/blackbox/rootmenu
+session.menuFile:	/home/bhughes/.hackedbox/rootmenu
 ...
 
-We save ~/.blackboxrc and then restart Blackbox (reconfiguring doesn't work,
-we need Blackbox to completely shutdown and reread ALL of it's configuration
+We save ~/.hackedbox/rc and then restart Hackedbox (reconfiguring doesn't work,
+we need Hackedbox to completely shutdown and reread ALL of it's configuration
 files, not just the ones that control colors/fonts/etc.)
 
-If we've done everything correctly, Blackbox restarts itself and our new menu
+If we've done everything correctly, Hackedbox restarts itself and our new menu
 is now ready for use.  If something doesn't work, read over the above example
 again to make sure you didn't forget a step or leave out the necessary tags.
 
-Now that Blackbox has been told where to find it's menu, it does a little more.
-Blackbox 0.51.x introduced automagic menu updates.  As long as you never
-change session.menuFile, you will never have to restart or reconfigure Blackbox
-whenever you change your menu.  Blackbox watches the timestamps on all the
+Now that Hackedbox has been told where to find it's menu, it does a little more.
+Hackedbox 0.51.x introduced automagic menu updates.  As long as you never
+change session.menuFile, you will never have to restart or reconfigure Hackedbox
+whenever you change your menu.  Hackedbox watches the timestamps on all the
 files it reads to build your menu.  If any of them change, they are reread and
 your menu updated.  This check is done everytime you open the root menu.  Like
 I said... it is a check, it doesn't reread the menu everytime, it just looks

@@ -1,21 +1,19 @@
--- data/README.style for Blackbox - an X11 Window manager
-
 Creating a new style (aka "theme"):
 -----------------------------------
-After getting Blackbox up and running, the next thing you want to do is change
-the colors/fonts/etc. on the screen.  Blackbox uses a "style" to read its
-configuration information.  A style in Blackbox consists of X resources placed
+After getting Hackedbox up and running, the next thing you want to do is change
+the colors/fonts/etc. on the screen.  Hackedbox uses a "style" to read its
+configuration information.  A style in Hackedbox consists of X resources placed
 in a file.  Just like the menu file (see README.menu), the style file can be
 put anywhere on the filesystem; as long as you have read access to the file,
-Blackbox can use it.
+Hackedbox can use it.
 
 First, we need to decide where to put our style file, and what to name it.
-I recommend using the naming scheme described on http://blackbox.themes.org/
+I recommend using the naming scheme described on http://bb.classic.themes.org/
 when creating styles.
 
 Let's get started.  Let's put our new style into a file named `results.'
 Following the themes.org naming scheme, this file will go into
-.blackbox/Styles.  Same as with the menu file, we use our favorite text editor
+.hackedbox/styles.  Same as with the menu file, we use our favorite text editor
 to create the new style.
 
 X resources consist of a key and a value.  The key is constructed of several
@@ -23,25 +21,25 @@ smaller keys, delimited by a period (`.').  Keys may also contain a star (`*')
 to serve as a wildcard, which means that one line of typed text will match
 several keys.  This is useful for styles that are based on one or two colors.
 
-Blackbox allows you to configure it's three main components: the toolbar, the
+Hackedbox allows you to configure it's three main components: the toolbar, the
 menus and the window decorations.  Lets begin by creating a style for our
 toolbar.
 
 First we need to define a "texture" for the toolbar and it's components.
-Textures tell Blackbox how to mold or shape the colors we supply.
+Textures tell Hackedbox how to mold or shape the colors we supply.
 
 A texture is comprised of the following elements:
 
 	Raised / Sunken / Flat		give the component a raised, sunken
 					or flat appearance (respectively)
 
-	Solid / Gradient		tell Blackbox whether to draw a solid
+	Solid / Gradient		tell Hackedbox whether to draw a solid
 					or gradiented texture
 
-	Interlaced			tells Blackbox to interlace a
+	Interlaced			tells Hackedbox to interlace a
 					gradient (and gradient ONLY) texture
 
-	Bevel1 / Bevel2			tells Blackbox which type of bevel
+	Bevel1 / Bevel2			tells Hackedbox which type of bevel
 					to use.
 
 NOTE on Bevel1 / Bevel2:
@@ -98,10 +96,10 @@ are required for gradient images.  For solids, only color is needed.  You will
 also notice that we have supplied the color for the text on the toolbar.  Not
 all textures have a text color, just certain base textures.
 
-Next, let's move onto the menus.  Since Blackbox was written in C++, all of
-the menus used in it are subclasses of one generic base class.  Blackbox reads
+Next, let's move onto the menus.  Since Hackedbox was written in C++, all of
+the menus used in it are subclasses of one generic base class.  Hackedbox reads
 the style for the configuration for that base class, which applies to all
-the menus used in Blackbox.
+the menus used in Hackedbox.
 
 The menu has two main parts, the title and the frame.  There is nothing
 visible under them, so we only configure these two components.  The menu frame
@@ -224,9 +222,9 @@ can have drastic effects on your style, so don't just leave it set to `black'
 all the time.  ;)
 
 The bevel and handle widths control the size and spacing of decorations in
-Blackbox.  The larger the number, the more space Blackbox takes up.
+Hackedbox.  The larger the number, the more space Hackedbox takes up.
 
-The window move style tells Blackbox how to move windows when you drag them
+The window move style tells Hackedbox how to move windows when you drag them
 with your mouse.  There are two options for it: Opaque or Wire.
 
 The root command is the command run every time the style is loaded (either at
@@ -240,7 +238,7 @@ and exclamation mark `!' and the rest of the line will be ignored.
 Let's finish off the details and take a look at our finished style:
 
 ...
-! Results - theme for Blackbox
+! Results - theme for Hackedbox
 ! by Brad Hughes bhughes@tcac.net
 
 toolbar:                        Raised Diagonal Gradient Bevel1
@@ -317,12 +315,12 @@ rootCommand:                    bsetroot -mod 4 4 -fg rgb:6/6/5c -bg grey20
 ...
 
 Alright!  Our style is finished.  Let's see how the sucker looks.  First we
-need to tell Blackbox to use the new style.  The way to do that is to edit
+need to tell Hackedbox to use the new style.  The way to do that is to edit
 your menu (refer to README.menu for this) and add:
 
-[style] (Results) {~/.blackbox/Styles/results}
+[style] (Results) {~/.hackedbox/styles/results}
 
-somewhere in our menu.  Taking advantage of Blackbox' automagic menu updates,
+somewhere in our menu.  Taking advantage of Hackedbox' automagic menu updates,
 all we have to do is close and reopen the root menu and our new style entry
-will be visible.  Select it and Blackbox will apply the new style we just
+will be visible.  Select it and Hackedbox will apply the new style we just
 created.

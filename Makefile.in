@@ -67,6 +67,7 @@ NLS = @NLS@
 ORDEREDPSEUDO = @ORDEREDPSEUDO@
 PACKAGE = @PACKAGE@
 SHAPE = @SHAPE@
+UTILS = @UTILS@
 TIMEDCACHE = @TIMEDCACHE@
 VERSION = @VERSION@
 X_CFLAGS = @X_CFLAGS@
@@ -78,7 +79,7 @@ regex_cmd = @regex_cmd@
 
 AUTOMAKE_OPTIONS = foreign
 
-SUBDIRS = data doc nls src util
+SUBDIRS = data doc nls src $(UTILS)
 MAINTAINERCLEANFILES = aclocal.m4 config.h.in configure Makefile.in stamp-h.in
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4

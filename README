@@ -61,7 +61,9 @@ Third-party utilities:
 
 Supported Platforms:
 --------------------
-PPC-Linux 2.4.x (glibc2.1)
+Linux 2.4.x PPC (glibc2.1)
+Linux i686
+WinNT (XFree cygwin)
 
 Please email larry@scrudgeware.org for other success reports.
 

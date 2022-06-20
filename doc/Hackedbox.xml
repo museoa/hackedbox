@@ -2,7 +2,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
    <bookinfo>
-   <title>Hackedbox</title><subtitle>The bastard son of Blackbox</subtitle></bookinfo>
+   <title>Hackedbox</title><subtitle>The bastard son of Blackbox<ulink url="screenshots"><mediaobject><imageobject><imagedata fileref="http://scrudgeware.org/hackedbox/screenshots/screenshot-20020510_thumbnail.jpg" format="JPG"/></imageobject></mediaobject></ulink></subtitle></bookinfo>
    <preface> 
  <title>ChangLog</title>
 <para>Initial release (Thu 9 May, 2002)</para>

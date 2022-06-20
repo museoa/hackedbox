@@ -1,6 +1,6 @@
-# data/Makefile.am for Blackbox - an X11 Window manager
+# data/Makefile.am for Openbox
 
-SUBDIRS = styles backgrounds
+SUBDIRS = styles
 CLEANFILES = menu
 MAINTAINERCLEANFILES = Makefile.in
 
@@ -15,3 +15,7 @@ menu: menu.in
 install-data-local: menu
 	test -f $(DESTDIR)$(pkgdatadir)/menu || \
 	$(INSTALL_DATA) menu $(DESTDIR)$(pkgdatadir)
+
+uninstall-am:
+	rm -f $(DESTDIR)$(pkgdatadir)/menu
+

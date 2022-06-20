@@ -13,7 +13,7 @@
 
 @SET_MAKE@
 
-# doc/Makefile.am for Blackbox - an X11 Window manager
+# doc/Makefile.am for Hackedbox
 
 SHELL = @SHELL@
 
@@ -76,10 +76,10 @@ X_PRE_LIBS = @X_PRE_LIBS@
 gencat_cmd = @gencat_cmd@
 regex_cmd = @regex_cmd@
 
-CLEANFILES = blackbox.1
+CLEANFILES = hackedbox.1
 MAINTAINERCLEANFILES = Makefile.in
-man_MANS = blackbox.1 bsetroot.1
-SUBDIRS = ja_JP nl_NL sl_SI
+man_MANS = hackedbox.1
+SUBDIRS = 
 
 DEFAULT_MENU = $(pkgdatadir)/menu
 subdir = doc
@@ -365,11 +365,11 @@ uninstall-man: uninstall-man1
 distclean-local:
 	rm -f *\~
 
-blackbox.1: blackbox.1.in
+hackedbox.1: hackedbox.1.in
 	@regex_cmd@ -e "s,@defaultmenu@,$(DEFAULT_MENU)," \
 		-e "s,@pkgdatadir@,$(pkgdatadir)," \
 		-e "s,@version@,$(VERSION)," \
-		 @srcdir@/blackbox.1.in > blackbox.1
+		 @srcdir@/hackedbox.1.in > hackedbox.1
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

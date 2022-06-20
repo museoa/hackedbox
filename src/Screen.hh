@@ -1,4 +1,5 @@
-// Screen.hh for Blackbox - an X11 Window manager
+// Screen.hh for Hackedbox
+// Copyright (c) 2002 Larry Owen <larry@scrudgeware.org>
 // Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
@@ -47,9 +48,6 @@
 #include "Workspace.hh"
 #include "Workspacemenu.hh"
 #include "blackbox.hh"
-//#ifdef    SLIT
-//#  include "Slit.hh"
-//#endif // SLIT
 #include "Image.hh"
 
 // forward declaration

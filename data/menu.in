@@ -6,16 +6,18 @@
   [exec] (Edit Menu) {gvim /usr/local/share/hackedbox/menu}
   [exec] (xScreenSaver) {xscreensaver-demo}
 
+  [nop] ()
+
   [submenu] (Office Tools)
-    [exec] (AbiWord)   {abiword}
-    [exec] (Gnumeric)   {gnumeric}
-    [exec] (Gvim)   {gvim}
-    [exec] (Samba)   {xfsamba}
+    [exec] (AbiWord)  {abiword}
+    [exec] (Gnumeric) {gnumeric}
+    [exec] (Gvim)     {gvim}
+    [exec] (Samba)    {xfsamba}
   [end]
 
   [submenu] (Development)
     [exec] (Anjuta)   {anjuta}
-    [exec] (BlueFish)  {bluefish -s}
+    [exec] (BlueFish) {bluefish}
   [end]
  
   [submenu] (Remote Terms)
@@ -49,13 +51,27 @@
   [end]
  
   [submenu] (Styles) {Choose a style...}
+    [nop] ( *** HackedBox Styles *** )
     [stylesdir] (/usr/local/share/hackedbox/styles)
+    [nop] ( *** Blackbox Styles *** )
+    [stylesdir] (/usr/local/share/blackbox/styles)
   [end]
 
   [workspaces] (Workspace List)
   [config] (Configuration)
 
   [reconfig] (Reconfigure)
-  [restart] (Restart)
+  
+    [submenu] (Change WM?) {Change WM?}
+        [restart] (Hackedbox)
+		[restart] (blackbox) {blackbox}
+		[restart] (openbox)  {openbox} 
+		[restart] (fluxbox)  {fluxbox}
+		[restart] (Window Maker) {wmaker}
+		[restart] (Enlightenment) {enlightenment}
+		[restart] (KWM) {kwm}
+		[restart] (TWM) {twm}
+	[end]
+
   [exit] (Exit)
 [end]

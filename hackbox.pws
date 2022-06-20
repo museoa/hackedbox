@@ -6,10 +6,10 @@ RunInTerminal=true
 ShowLocals=true
 
 [filenumbers]
-0=1
-1=116
+0=86
+1=1
 2=1
-3=81
+3=400
 4=163
 5=61
 6=33
@@ -26,20 +26,24 @@ ShowLocals=true
 7=
 
 [filelist]
-0=/usr/src/hackedbox-0.7.0/data/styles/Makefile
-1=/usr/src/hackedbox-0.7.0/data/backgrounds/Makefile
-2=/usr/src/hackedbox-0.7.0/data/styles/Makefile.in
-3=/usr/src/hackedbox-0.7.0/data/backgrounds/Makefile.in
+0=/usr/src/hackedbox-0.7.1/configure.in
+1=/usr/src/hackedbox-0.7.1/configure
 
 [replace_text]
 0=Hackedbox
+1=hackedbox
 
 [find_text]
-0=style
-1=data
-2=styledir
-3=SetStyle
-4=configmenu
-5=LoadStyle
-6=.blackbox
-7=boxrc
+0=util
+1=Openbox
+2=openbox
+3=AUTOCONF
+4=SHAPE
+5=shape
+6=AC_SUBST
+7=prefix
+
+[find_in_files]
+0=atoi
+1=BImageControl
+2=Netizen
