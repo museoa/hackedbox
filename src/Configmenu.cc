@@ -34,7 +34,6 @@
 #include "i18n.hh"
 #include "Configmenu.hh"
 #include "Image.hh"
-#include "Toolbar.hh"
 #include "Window.hh"
 #include "Screen.hh"
 

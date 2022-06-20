@@ -1,5 +1,5 @@
 MENU_DIR?=${HOME}/.@PACKAGE@/
-PIC_DIR?=${HOME}/@PACKAGE@/backgrounds
+PIC_DIR?=${HOME}/.@PACKAGE@/backgrounds
 MENU?=bgMenu
 
 all:

@@ -105,10 +105,6 @@ using std::string;
 #include "Image.hh"
 #include "Rootmenu.hh"
 #include "Screen.hh"
-#ifdef ADD_BLOAT
-#include "Slit.hh"
-#include "Toolbar.hh"
-#endif // ADD_BLOAT
 #include "Util.hh"
 #include "Window.hh"
 #include "Workspace.hh"
@@ -200,10 +196,6 @@ void Blackbox::process_event(XEvent *e) {
 
     BlackboxWindow *win = (BlackboxWindow *) 0;
     Basemenu *menu = (Basemenu *) 0;
-#ifdef ADD_BLOAT
-    Slit *slit = (Slit *) 0;
-    Toolbar *tbar = (Toolbar *) 0;
-#endif // ADD_BLOAT
     BScreen *scrn = (BScreen *) 0;
 
     if ((win = searchWindow(e->xbutton.window))) {
@@ -214,12 +206,6 @@ void Blackbox::process_event(XEvent *e) {
         win->installColormap(True);
     } else if ((menu = searchMenu(e->xbutton.window))) {
       menu->buttonPressEvent(&e->xbutton);
-#ifdef ADD_BLOAT
-    } else if ((slit = searchSlit(e->xbutton.window))) {
-      slit->buttonPressEvent(&e->xbutton);
-    } else if ((tbar = searchToolbar(e->xbutton.window))) {
-      tbar->buttonPressEvent(&e->xbutton);
-#endif // ADD_BLOAT
     } else if ((scrn = searchScreen(e->xbutton.window))) {
       scrn->buttonPressEvent(&e->xbutton);
       if (active_screen != scrn) {
@@ -241,34 +227,20 @@ void Blackbox::process_event(XEvent *e) {
 
     BlackboxWindow *win = (BlackboxWindow *) 0;
     Basemenu *menu = (Basemenu *) 0;
-#ifdef ADD_BLOAT
-    Toolbar *tbar = (Toolbar *) 0;
-#endif // ADD_BLOAT
 
     if ((win = searchWindow(e->xbutton.window)))
       win->buttonReleaseEvent(&e->xbutton);
     else if ((menu = searchMenu(e->xbutton.window)))
       menu->buttonReleaseEvent(&e->xbutton);
-#ifdef ADD_BLOAT
-    else if ((tbar = searchToolbar(e->xbutton.window)))
-      tbar->buttonReleaseEvent(&e->xbutton);
-#endif // ADD_BLOAT
 
     break;
   }
 
   case ConfigureRequest: {
     BlackboxWindow *win = (BlackboxWindow *) 0;
-#ifdef ADD_BLOAT
-    Slit *slit = (Slit *) 0;
-#endif // ADD_BLOAT
 
     if ((win = searchWindow(e->xconfigurerequest.window))) {
       win->configureRequestEvent(&e->xconfigurerequest);
-#ifdef ADD_BLOAT
-    } else if ((slit = searchSlit(e->xconfigurerequest.window))) {
-      slit->configureRequestEvent(&e->xconfigurerequest);
-#endif // ADD_BLOAT
     } else {
       if (validateWindow(e->xconfigurerequest.window)) {
         XWindowChanges xwc;
@@ -344,16 +316,9 @@ void Blackbox::process_event(XEvent *e) {
 
   case UnmapNotify: {
     BlackboxWindow *win = (BlackboxWindow *) 0;
-#ifdef ADD_BLOAT
-    Slit *slit = (Slit *) 0;
-#endif // ADD_BLOAT
 
     if ((win = searchWindow(e->xunmap.window))) {
       win->unmapNotifyEvent(&e->xunmap);
-#ifdef ADD_BLOAT
-    } else if ((slit = searchSlit(e->xunmap.window))) {
-      slit->unmapNotifyEvent(&e->xunmap);
-#endif // ADD_BLOAT
     }
 
     break;
@@ -361,17 +326,10 @@ void Blackbox::process_event(XEvent *e) {
 
   case DestroyNotify: {
     BlackboxWindow *win = (BlackboxWindow *) 0;
-#ifdef ADD_BLOAT
-    Slit *slit = (Slit *) 0;
-#endif // ADD_BLOAT
     BWindowGroup *group = (BWindowGroup *) 0;
 
     if ((win = searchWindow(e->xdestroywindow.window))) {
       win->destroyNotifyEvent(&e->xdestroywindow);
-#ifdef ADD_BLOAT
-    } else if ((slit = searchSlit(e->xdestroywindow.window))) {
-      slit->removeClient(e->xdestroywindow.window, False);
-#endif // ADD_BLOAT
     } else if ((group = searchGroup(e->xdestroywindow.window))) {
       delete group;
     }
@@ -389,12 +347,6 @@ void Blackbox::process_event(XEvent *e) {
     BlackboxWindow *win = searchWindow(e->xreparent.window);
     if (win) {
       win->reparentNotifyEvent(&e->xreparent);
-#ifdef ADD_BLOAT
-    } else {
-      Slit *slit = searchSlit(e->xreparent.window);
-      if (slit && slit->getWindowID() != e->xreparent.parent)
-        slit->removeClient(e->xreparent.window, True);
-#endif // ADD_BLOAT
     }
     break;
   }
@@ -443,10 +395,6 @@ void Blackbox::process_event(XEvent *e) {
     BScreen *screen = (BScreen *) 0;
     BlackboxWindow *win = (BlackboxWindow *) 0;
     Basemenu *menu = (Basemenu *) 0;
-#ifdef ADD_BLOAT
-    Toolbar *tbar = (Toolbar *) 0;
-    Slit *slit = (Slit *) 0;
-#endif // ADD_BLOAT
 
     if (e->xcrossing.mode == NotifyGrab) break;
 
@@ -458,12 +406,6 @@ void Blackbox::process_event(XEvent *e) {
         win->enterNotifyEvent(&e->xcrossing);
     } else if ((menu = searchMenu(e->xcrossing.window))) {
       menu->enterNotifyEvent(&e->xcrossing);
-#ifdef ADD_BLOAT
-    } else if ((tbar = searchToolbar(e->xcrossing.window))) {
-      tbar->enterNotifyEvent(&e->xcrossing);
-    } else if ((slit = searchSlit(e->xcrossing.window))) {
-      slit->enterNotifyEvent(&e->xcrossing);
-#endif // ADD_BLOAT
     }
     break;
   }
@@ -473,21 +415,11 @@ void Blackbox::process_event(XEvent *e) {
 
     BlackboxWindow *win = (BlackboxWindow *) 0;
     Basemenu *menu = (Basemenu *) 0;
-#ifdef ADD_BLOAT
-    Toolbar *tbar = (Toolbar *) 0;
-    Slit *slit = (Slit *) 0;
-#endif // ADD_BLOAT
 
     if ((menu = searchMenu(e->xcrossing.window)))
       menu->leaveNotifyEvent(&e->xcrossing);
     else if ((win = searchWindow(e->xcrossing.window)))
       win->leaveNotifyEvent(&e->xcrossing);
-#ifdef ADD_BLOAT
-    else if ((tbar = searchToolbar(e->xcrossing.window)))
-      tbar->leaveNotifyEvent(&e->xcrossing);
-    else if ((slit = searchSlit(e->xcrossing.window)))
-      slit->leaveNotifyEvent(&e->xcrossing);
-#endif // ADD_BLOAT
     break;
   }
 
@@ -521,30 +453,16 @@ void Blackbox::process_event(XEvent *e) {
 
     BlackboxWindow *win = (BlackboxWindow *) 0;
     Basemenu *menu = (Basemenu *) 0;
-#ifdef ADD_BLOAT
-    Toolbar *tbar = (Toolbar *) 0;
-#endif // ADD_BLOAT
 
     if ((win = searchWindow(e->xexpose.window)))
       win->exposeEvent(&e->xexpose);
     else if ((menu = searchMenu(e->xexpose.window)))
       menu->exposeEvent(&e->xexpose);
-#ifdef ADD_BLOAT
-    else if ((tbar = searchToolbar(e->xexpose.window)))
-      tbar->exposeEvent(&e->xexpose);
-#endif // ADD_BLOAT
 
     break;
   }
 
   case KeyPress: {
-#ifdef ADD_BLOAT
-    Toolbar *tbar = searchToolbar(e->xkey.window);
-
-    if (tbar && tbar->isEditing())
-      tbar->keyPressEvent(&e->xkey);
-#endif // ADD_BLOAT
-
     break;
   }
 
@@ -654,8 +572,10 @@ void Blackbox::process_event(XEvent *e) {
         BlackboxWindow *win = searchWindow(e->xclient.window);
         if (! win || ! win->validateClient()) return;
 
-        if (e->xclient.data.l[0] == IconicState)
+        if (e->xclient.data.l[0] == IconicState){
+  //        CreateIconWindow(win,10,10);
           win->iconify();
+        }
         if (e->xclient.data.l[0] == NormalState)
           win->deiconify();
       } else if(e->xclient.message_type == getBlackboxChangeWorkspaceAtom()) {
@@ -879,78 +799,29 @@ Basemenu *Blackbox::searchMenu(Window window) {
   return (Basemenu*) 0;
 }
 
-#ifdef ADD_BLOAT
-Toolbar *Blackbox::searchToolbar(Window window) {
-  ToolbarLookup::iterator it = toolbarSearchList.find(window);
-  if (it != toolbarSearchList.end())
-    return it->second;
-
-  return (Toolbar*) 0;
-}
-
-
-Slit *Blackbox::searchSlit(Window window) {
-  SlitLookup::iterator it = slitSearchList.find(window);
-  if (it != slitSearchList.end())
-    return it->second;
-
-  return (Slit*) 0;
-}
-#endif // ADD_BLOAT
-
-
 void Blackbox::saveWindowSearch(Window window, BlackboxWindow *data) {
   windowSearchList.insert(WindowLookupPair(window, data));
 }
-
 
 void Blackbox::saveGroupSearch(Window window, BWindowGroup *data) {
   groupSearchList.insert(GroupLookupPair(window, data));
 }
 
-
 void Blackbox::saveMenuSearch(Window window, Basemenu *data) {
   menuSearchList.insert(MenuLookupPair(window, data));
 }
-
-#ifdef ADD_BLOAT
-void Blackbox::saveToolbarSearch(Window window, Toolbar *data) {
-  toolbarSearchList.insert(ToolbarLookupPair(window, data));
-}
-
-
-void Blackbox::saveSlitSearch(Window window, Slit *data) {
-  slitSearchList.insert(SlitLookupPair(window, data));
-}
-#endif // ADD_BLOAT
-
 
 void Blackbox::removeWindowSearch(Window window) {
   windowSearchList.erase(window);
 }
 
-
 void Blackbox::removeGroupSearch(Window window) {
   groupSearchList.erase(window);
 }
 
-
 void Blackbox::removeMenuSearch(Window window) {
   menuSearchList.erase(window);
 }
-
-
-#ifdef ADD_BLOAT
-void Blackbox::removeToolbarSearch(Window window) {
-  toolbarSearchList.erase(window);
-}
-
-
-void Blackbox::removeSlitSearch(Window window) {
-  slitSearchList.erase(window);
-}
-#endif // ADD_BLOAT
-
 
 void Blackbox::restart(const char *prog) {
   shutdown();
@@ -967,7 +838,6 @@ void Blackbox::restart(const char *prog) {
   execvp(name.c_str(), argv);
 }
 
-
 void Blackbox::shutdown(void) {
   BaseDisplay::shutdown();
 
@@ -981,7 +851,6 @@ void Blackbox::shutdown(void) {
   save_rc();
 }
 
-
 void Blackbox::save_rc(void) {
   XrmDatabase new_blackboxrc = (XrmDatabase) 0;
   char rc_string[1024];
@@ -993,7 +862,7 @@ void Blackbox::save_rc(void) {
             ((enableKeyBindings()) ? "True" : "False"));
   XrmPutLineResource(&new_blackboxrc, rc_string);
 
-  sprintf(rc_string, "session.key_cmd:  %s", getkeycmd());
+/*  sprintf(rc_string, "session.key_cmd:  %s", getkeycmd()); */
   XrmPutLineResource(&new_blackboxrc, rc_string);
 #endif // ENABLE_KEYBINDINGS
 
@@ -1025,36 +894,6 @@ void Blackbox::save_rc(void) {
     int screen_number = screen->getScreenNumber();
 
     char *placement = (char *) 0;
-
-#ifdef ADD_BLOAT
-    switch (screen->getSlitPlacement()) {
-    case Slit::TopLeft: placement = "TopLeft"; break;
-    case Slit::CenterLeft: placement = "CenterLeft"; break;
-    case Slit::BottomLeft: placement = "BottomLeft"; break;
-    case Slit::TopCenter: placement = "TopCenter"; break;
-    case Slit::BottomCenter: placement = "BottomCenter"; break;
-    case Slit::TopRight: placement = "TopRight"; break;
-    case Slit::BottomRight: placement = "BottomRight"; break;
-    case Slit::CenterRight: default: placement = "CenterRight"; break;
-    }
-
-    sprintf(rc_string, "session.screen%d.slit.placement: %s", screen_number,
-            placement);
-    XrmPutLineResource(&new_blackboxrc, rc_string);
-
-    sprintf(rc_string, "session.screen%d.slit.direction: %s", screen_number,
-            ((screen->getSlitDirection() == Slit::Horizontal) ? "Horizontal" :
-             "Vertical"));
-    XrmPutLineResource(&new_blackboxrc, rc_string);
-
-    sprintf(rc_string, "session.screen%d.slit.onTop: %s", screen_number,
-            ((screen->getSlit()->isOnTop()) ? "True" : "False"));
-    XrmPutLineResource(&new_blackboxrc, rc_string);
-
-    sprintf(rc_string, "session.screen%d.slit.autoHide: %s", screen_number,
-            ((screen->getSlit()->doAutoHide()) ? "True" : "False"));
-    XrmPutLineResource(&new_blackboxrc, rc_string);
-#endif // ADD_BLOAT
 
     sprintf(rc_string, "session.opaqueMove: %s",
             ((screen->doOpaqueMove()) ? "True" : "False"));
@@ -1125,33 +964,9 @@ void Blackbox::save_rc(void) {
             screen->getWorkspaceCount());
     XrmPutLineResource(&new_blackboxrc, rc_string);
 
-#ifdef ADD_BLOAT
-    sprintf(rc_string, "session.screen%d.toolbar.onTop:  %s", screen_number,
-            ((screen->getToolbar()->isOnTop()) ? "True" : "False"));
-    XrmPutLineResource(&new_blackboxrc, rc_string);
-
-    sprintf(rc_string, "session.screen%d.toolbar.autoHide:  %s",
-            screen_number,
-            ((screen->getToolbar()->doAutoHide()) ? "True" : "False"));
-    XrmPutLineResource(&new_blackboxrc, rc_string);
-
-    switch (screen->getToolbarPlacement()) {
-    case Toolbar::TopLeft: placement = "TopLeft"; break;
-    case Toolbar::BottomLeft: placement = "BottomLeft"; break;
-    case Toolbar::TopCenter: placement = "TopCenter"; break;
-    case Toolbar::TopRight: placement = "TopRight"; break;
-    case Toolbar::BottomRight: placement = "BottomRight"; break;
-    case Toolbar::BottomCenter: default: placement = "BottomCenter"; break;
-    }
-
-    sprintf(rc_string, "session.screen%d.toolbar.placement: %s",
-            screen_number, placement);
-    XrmPutLineResource(&new_blackboxrc, rc_string);
-#endif // ADD_BLOAT
-
     load_rc(screen);
 
-    // these are static, but may not be saved in the users .hackedboxrc,
+    // these are static, but may not be saved in the users ~/.hackedbox/rc,
     // writing these resources will allow the user to edit them at a later
     // time... but loading the defaults before saving allows us to rewrite the
     // users changes...
@@ -1174,13 +989,6 @@ void Blackbox::save_rc(void) {
     sprintf(rc_string, "session.screen%d.edgeSnapThreshold: %d",
             screen_number, screen->getEdgeSnapThreshold());
     XrmPutLineResource(&new_blackboxrc, rc_string);
-
-#ifdef ADD_BLOAT
-    sprintf(rc_string, "session.screen%d.toolbar.widthPercent:  %d",
-            screen_number, screen->getToolbarWidthPercent());
-    XrmPutLineResource(&new_blackboxrc, rc_string);
-#endif // ADD_BLOAT
-
     // write out the user's workspace names
 
     string save_string = screen->getWorkspace(0)->getName();
@@ -1368,37 +1176,6 @@ void Blackbox::load_rc(BScreen *screen) {
     screen->saveWorkspaces(int_value);
   }
 
-#ifdef ADD_BLOAT
-  sprintf(name_lookup,  "session.screen%d.toolbar.widthPercent",
-          screen_number);
-  sprintf(class_lookup, "Session.Screen%d.Toolbar.WidthPercent",
-          screen_number);
-  screen->saveToolbarWidthPercent(66);
-  if (XrmGetResource(database, name_lookup, class_lookup, &value_type,
-                     &value) &&
-      sscanf(value.addr, "%d", &int_value) == 1 &&
-      int_value > 0 && int_value <= 100) {
-    screen->saveToolbarWidthPercent(int_value);
-  }
-
-  sprintf(name_lookup, "session.screen%d.toolbar.placement", screen_number);
-  sprintf(class_lookup, "Session.Screen%d.Toolbar.Placement", screen_number);
-  screen->saveToolbarPlacement(Toolbar::BottomCenter);
-  if (XrmGetResource(database, name_lookup, class_lookup, &value_type,
-                     &value)) {
-    if (! strncasecmp(value.addr, "TopLeft", value.size))
-      screen->saveToolbarPlacement(Toolbar::TopLeft);
-    else if (! strncasecmp(value.addr, "BottomLeft", value.size))
-      screen->saveToolbarPlacement(Toolbar::BottomLeft);
-    else if (! strncasecmp(value.addr, "TopCenter", value.size))
-      screen->saveToolbarPlacement(Toolbar::TopCenter);
-    else if (! strncasecmp(value.addr, "TopRight", value.size))
-      screen->saveToolbarPlacement(Toolbar::TopRight);
-    else if (! strncasecmp(value.addr, "BottomRight", value.size))
-      screen->saveToolbarPlacement(Toolbar::BottomRight);
-  }
-#endif // ADD_BLOAT
-
   sprintf(name_lookup,  "session.screen%d.workspaceNames", screen_number);
   sprintf(class_lookup, "Session.Screen%d.WorkspaceNames", screen_number);
   if (XrmGetResource(database, name_lookup, class_lookup, &value_type,
@@ -1414,26 +1191,6 @@ void Blackbox::load_rc(BScreen *screen) {
       ++it;
     }
   }
-
-#ifdef ADD_BLOAT
-  sprintf(name_lookup,  "session.screen%d.toolbar.onTop", screen_number);
-  sprintf(class_lookup, "Session.Screen%d.Toolbar.OnTop", screen_number);
-  screen->saveToolbarOnTop(False);
-  if (XrmGetResource(database, name_lookup, class_lookup, &value_type,
-                     &value) &&
-      ! strncasecmp(value.addr, "true", value.size)) {
-    screen->saveToolbarOnTop(True);
-  }
-
-  sprintf(name_lookup,  "session.screen%d.toolbar.autoHide", screen_number);
-  sprintf(class_lookup, "Session.Screen%d.Toolbar.autoHide", screen_number);
-  screen->saveToolbarAutoHide(False);
-  if (XrmGetResource(database, name_lookup, class_lookup, &value_type,
-                     &value) &&
-      ! strncasecmp(value.addr, "true", value.size)) {
-    screen->saveToolbarAutoHide(True);
-  }
-#endif // ADD_BLOAT
 
   sprintf(name_lookup,  "session.screen%d.focusModel", screen_number);
   sprintf(class_lookup, "Session.Screen%d.FocusModel", screen_number);
@@ -1468,56 +1225,6 @@ void Blackbox::load_rc(BScreen *screen) {
     else if (! strncasecmp(value.addr, "CascadePlacement", value.size))
       screen->savePlacementPolicy(BScreen::CascadePlacement);
   }
-
-#ifdef ADD_BLOAT
-  sprintf(name_lookup, "session.screen%d.slit.placement", screen_number);
-  sprintf(class_lookup, "Session.Screen%d.Slit.Placement", screen_number);
-  screen->saveSlitPlacement(Slit::CenterRight);
-  if (XrmGetResource(database, name_lookup, class_lookup, &value_type,
-                     &value)) {
-    if (! strncasecmp(value.addr, "TopLeft", value.size))
-      screen->saveSlitPlacement(Slit::TopLeft);
-    else if (! strncasecmp(value.addr, "CenterLeft", value.size))
-      screen->saveSlitPlacement(Slit::CenterLeft);
-    else if (! strncasecmp(value.addr, "BottomLeft", value.size))
-      screen->saveSlitPlacement(Slit::BottomLeft);
-    else if (! strncasecmp(value.addr, "TopCenter", value.size))
-      screen->saveSlitPlacement(Slit::TopCenter);
-    else if (! strncasecmp(value.addr, "BottomCenter", value.size))
-      screen->saveSlitPlacement(Slit::BottomCenter);
-    else if (! strncasecmp(value.addr, "TopRight", value.size))
-      screen->saveSlitPlacement(Slit::TopRight);
-    else if (! strncasecmp(value.addr, "BottomRight", value.size))
-      screen->saveSlitPlacement(Slit::BottomRight);
-  }
-
-  sprintf(name_lookup, "session.screen%d.slit.direction", screen_number);
-  sprintf(class_lookup, "Session.Screen%d.Slit.Direction", screen_number);
-  screen->saveSlitDirection(Slit::Vertical);
-  if (XrmGetResource(database, name_lookup, class_lookup, &value_type,
-                     &value) &&
-      ! strncasecmp(value.addr, "Horizontal", value.size)) {
-    screen->saveSlitDirection(Slit::Horizontal);
-  }
-
-  sprintf(name_lookup, "session.screen%d.slit.onTop", screen_number);
-  sprintf(class_lookup, "Session.Screen%d.Slit.OnTop", screen_number);
-  screen->saveSlitOnTop(False);
-  if (XrmGetResource(database, name_lookup, class_lookup, &value_type,
-                     &value) &&
-      ! strncasecmp(value.addr, "True", value.size)) {
-    screen->saveSlitOnTop(True);
-  }
-
-  sprintf(name_lookup, "session.screen%d.slit.autoHide", screen_number);
-  sprintf(class_lookup, "Session.Screen%d.Slit.AutoHide", screen_number);
-  screen->saveSlitAutoHide(False);
-  if (XrmGetResource(database, name_lookup, class_lookup, &value_type,
-                     &value) &&
-      ! strncasecmp(value.addr, "true", value.size)) {
-    screen->saveSlitAutoHide(True);
-  }
-#endif // ADD_BLOAT
 
 #ifdef    HAVE_STRFTIME
   sprintf(name_lookup,  "session.screen%d.strftimeFormat", screen_number);
@@ -1610,7 +1317,6 @@ void Blackbox::real_reconfigure(void) {
                 std::mem_fun(&BScreen::reconfigure));
 }
 
-
 void Blackbox::checkMenu(void) {
   bool reread = False;
   MenuTimestampList::iterator it = menuTimestamps.begin();
@@ -1646,12 +1352,10 @@ void Blackbox::real_rereadMenu(void) {
                 std::mem_fun(&BScreen::rereadMenu));
 }
 
-
 void Blackbox::saveStyleFilename(const string& filename) {
   assert(! filename.empty());
   resource.style_file = filename;
 }
-
 
 void Blackbox::saveMenuFilename(const string& filename) {
   assert(! filename.empty());
@@ -1675,7 +1379,6 @@ void Blackbox::saveMenuFilename(const string& filename) {
   }
 }
 
-
 void Blackbox::timeout(void) {
   if (reconfigure_wait)
     real_reconfigure();
@@ -1685,7 +1388,6 @@ void Blackbox::timeout(void) {
 
   reconfigure_wait = reread_menu_wait = False;
 }
-
 
 void Blackbox::setFocusedWindow(BlackboxWindow *win) {
   if (focused_window && focused_window == win) // nothing to do
@@ -1707,38 +1409,7 @@ void Blackbox::setFocusedWindow(BlackboxWindow *win) {
     focused_window = win;
   } else {
     focused_window = 0;
-#ifdef ADD_BLOAT
-    if (! old_screen) {
-      if (active_screen) {
-        // set input focus to the toolbar of the screen with mouse
-        XSetInputFocus(getXDisplay(),
-                       active_screen->getToolbar()->getWindowID(),
-                       RevertToPointerRoot, CurrentTime);
-      } else {
-        // set input focus to the toolbar of the first managed screen
-        XSetInputFocus(getXDisplay(),
-                       screenList.front()->getToolbar()->getWindowID(),
-                       RevertToPointerRoot, CurrentTime);
-      }
-    } else {
-      // set input focus to the toolbar of the last screen
-      XSetInputFocus(getXDisplay(), old_screen->getToolbar()->getWindowID(),
-                     RevertToPointerRoot, CurrentTime);
-    }
-#endif // ADD_BLOAT
   }
-
-#ifdef ADD_BLOAT
-  if (active_screen && active_screen->isScreenManaged()) {
-    active_screen->getToolbar()->redrawWindowLabel(True);
-    active_screen->updateNetizenWindowFocus();
-  }
-
-  if (old_screen && old_screen != active_screen) {
-    old_screen->getToolbar()->redrawWindowLabel(True);
-    old_screen->updateNetizenWindowFocus();
-  }
-#endif // ADD_BLOAT
 }
 
 #ifdef ENABLE_KEYBINDINGS
@@ -1758,10 +1429,42 @@ void Blackbox::setKeys() {
       if (chpid == 0){
 	    extern char **environ;
  
-	    char *args[]= {"sh", "-c", getkeycmd(), 0};
+	    char *args[]= {"sh", "-c", "@KEYCMD@", 0};
 	    execve("/bin/sh", args, environ);
 	    exit(0);
        }
     } 
 }
 #endif // ENABLE_KEYBINDINGS
+
+/*
+void Blackbox::CreateIconWindow(BlackboxWindow *tmp_win, int def_x, int def_y)
+{
+
+  
+/*   XSetWindowAttributes attributes; 
+    
+  attributes.background_pixel = XWhitePixel(blackbox->getXDisplay(),
+                                            DefaultScreen(blackbox->getXDisplay()));     
+  tmp_win->icon.window = XCreateWindow(blackbox->getXDisplay(),
+                       DefaultRootWindow(blackbox->getXDisplay()), 
+                       def_x, def_y, 
+                       36, 36, 
+                       2, 
+                       DefaultDepth(blackbox->getXDisplay(),DefaultScreen(blackbox->getXDisplay())), 
+                       InputOutput,
+                       DefaultVisual(blackbox->getXDisplay(),DefaultScreen(blackbox->getXDisplay())), 
+                       CWBackPixel, &attributes);
+
+  new_icon = XCreateSimpleWindow(getXDisplay(),
+                       DefaultRootWindow(getXDisplay()), 
+                       15, 15, 500, 500, 
+                       0, 
+                       1, 
+                       1);
+
+  active_screen->manageWindow(new_icon);
+  XMapWindow(getXDisplay(), new_icon);
+  XFlush(getXDisplay());
+}
+*/

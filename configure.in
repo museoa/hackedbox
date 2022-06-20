@@ -1,7 +1,7 @@
 dnl configure.in for HackedBox
 dnl Initialize autoconf and automake
 AC_INIT(src/blackbox.cc)
-AM_INIT_AUTOMAKE(hackedbox,0.8.2,no-define)
+AM_INIT_AUTOMAKE(hackedbox,0.8.3,no-define)
 
 dnl Determine default prefix
 test x$prefix = "xNONE" && prefix="$ac_default_prefix"
@@ -36,8 +36,8 @@ test x$no_x = "xyes" && AC_MSG_ERROR([Hackedbox requires the X Window System lib
 test x$x_includes = "x" && x_includes="/usr/include"
 test x$x_libraries = "x" && x_libraries="/usr/lib"
 
-CFLAGS="$CFLAGS $X_CFLAGS"
-CXXFLAGS="$CXXFLAGS $X_CFLAGS"
+CFLAGS="$CFLAGS $X_CFLAGS -lXpm"
+CXXFLAGS="$CXXFLAGS $X_CFLAGS -lXpm"
 LIBS="$LIBS $X_LIBS"
 LDFLAGS="$LDFLAGS $LIBS $X_PRE_LIBS"
 
@@ -136,31 +136,9 @@ fi,
 AC_ARG_WITH(keys-cmd, 
             [  --with-keys-cmd=COMMAND    Command to use for keybindings],
             [KEYCMD="$withval"],
-            [KEYCMD="epist"])
-
-if test x$KEYCMD = "xepist"; then :; else
-    KEYS=""
-fi
+            [KEYCMD="bbkeys"])
 
 AC_SUBST(KEYCMD)
-AC_SUBST(KEYS)
-
-dnl Check for adding toolbar and slit.
-AC_MSG_CHECKING([whether to build with toolbar and slit])
-AC_ARG_ENABLE(
-  bloat, 
-  [  --enable-bloat          enable toolbar and slit [default=no]],
-  if test x$enableval = "xyes"; then
-    AC_MSG_RESULT([yes])
-	BLOAT_HH="Toolbar.hh Slit.hh"
-	AM_CONDITIONAL(BLOAT_IT,true)
-	AC_DEFINE(ADD_BLOAT, 1, [Enable Slit and Toolbar])
-  else
-    AC_MSG_RESULT([no])
-  fi,
-    AC_MSG_RESULT([no])
-)
-AC_SUBST(BLOAT_HH)
 
 dnl Check for ordered 8bpp dithering
 ORDEREDPSEUDO=""
@@ -250,7 +228,7 @@ AM_MAINTAINER_MODE
 AC_CHECK_PROGS(launcher, launch bbrun quickrun xlaunch)
 AC_CHECK_PROGS(xterm, Eterm gnome-terminal aterm rxvt xterm)
 AC_CHECK_PROGS(editor, gvim xemacs gedit gnotepad+ beaver)
-AC_CHECK_PROGS(browser, skipstone mozilla opera netscape)
+AC_CHECK_PROGS(browser, firefox skipstone mozilla opera netscape)
 
 AC_SUBST(launcher)
 AC_SUBST(xterm)
@@ -265,14 +243,12 @@ src/inithack
 src/blackbox.cc
 util/Makefile
 util/bgmenu.mk
-epist/Makefile
 data/Makefile
 data/menu
 data/styles/Makefile
 data/styles/Hackedbox
 data/backgrounds/Makefile
 doc/hackedbox.1
-doc/epist.1
 doc/Makefile
 doc/fr_FR/Makefile
 doc/ja_JP/Makefile

@@ -83,10 +83,6 @@ using std::string;
 #include "Iconmenu.hh"
 #include "Image.hh"
 #include "Screen.hh"
-#ifdef ADD_BLOAT
-#include "Slit.hh"
-#include "Toolbar.hh"
-#endif // ADD_BLOAT
 #include "Rootmenu.hh"
 #include "Util.hh"
 #include "Window.hh"
@@ -96,7 +92,6 @@ using std::string;
 #ifndef   FONT_ELEMENT_SIZE
 #define   FONT_ELEMENT_SIZE 50
 #endif // FONT_ELEMENT_SIZE
-
 
 static bool running = True;
 
@@ -137,11 +132,6 @@ BScreen::BScreen(Blackbox *bb, unsigned int scrn) : ScreenInfo(bb, scrn) {
 
   resource.mstyle.t_fontset = resource.mstyle.f_fontset = resource.wstyle.fontset = (XFontSet) 0;
   resource.mstyle.t_font = resource.mstyle.f_font = resource.wstyle.font = (XFontStruct *) 0;
-#ifdef ADD_BLOAT
-  resource.tstyle.fontset = (XFontSet) 0;
-  resource.tstyle.font = (XFontStruct *) 0;
-#endif // ADD_BLOAT
-    
 
   geom_pixmap = None;
 
@@ -253,12 +243,6 @@ BScreen::BScreen(Blackbox *bb, unsigned int scrn) : ScreenInfo(bb, scrn) {
 
   removeWorkspaceNames(); // do not need them any longer
 
-#ifdef ADD_BLOAT
-  toolbar = new Toolbar(this);
-
-  slit = new Slit(this);
-#endif // ADD_BLOAT
-
   InitMenu();
 
   raiseWindows(0, 0);
@@ -337,10 +321,6 @@ BScreen::~BScreen(void) {
   delete workspacemenu;
   delete iconmenu;
   delete configmenu;
-#ifdef ADD_BLOAT
-  delete slit;
-  delete toolbar;
-#endif // ADD_BLOAT
   delete image_control;
 
   if (resource.wstyle.fontset)
@@ -349,12 +329,6 @@ BScreen::~BScreen(void) {
     XFreeFontSet(blackbox->getXDisplay(), resource.mstyle.t_fontset);
   if (resource.mstyle.f_fontset)
     XFreeFontSet(blackbox->getXDisplay(), resource.mstyle.f_fontset);
-#ifdef ADD_BLOAT
-  if (resource.tstyle.fontset)
-    XFreeFontSet(blackbox->getXDisplay(), resource.tstyle.fontset);
-  if (resource.tstyle.font)
-    XFreeFont(blackbox->getXDisplay(), resource.tstyle.font);
-#endif // ADD_BLOAT
   if (resource.wstyle.font)
     XFreeFont(blackbox->getXDisplay(), resource.wstyle.font);
   if (resource.mstyle.t_font)
@@ -434,12 +408,6 @@ void BScreen::reconfigure(void) {
 
   configmenu->reconfigure();
 
-#ifdef ADD_BLOAT
-  toolbar->reconfigure();
-
-  slit->reconfigure();
-#endif // ADD_BLOAT
-
   std::for_each(workspacesList.begin(), workspacesList.end(),
                 std::mem_fun(&Workspace::reconfigure));
 
@@ -473,44 +441,26 @@ void BScreen::LoadStyle(void) {
   // load fonts/fontsets
   if (resource.wstyle.fontset)
     XFreeFontSet(blackbox->getXDisplay(), resource.wstyle.fontset);
-#ifdef ADD_BLOAT
-  if (resource.tstyle.fontset)
-    XFreeFontSet(blackbox->getXDisplay(), resource.tstyle.fontset);
-#endif // ADD_BLOAT
   if (resource.mstyle.f_fontset)
     XFreeFontSet(blackbox->getXDisplay(), resource.mstyle.f_fontset);
   if (resource.mstyle.t_fontset)
     XFreeFontSet(blackbox->getXDisplay(), resource.mstyle.t_fontset);
   resource.wstyle.fontset = 0;
-#ifdef ADD_BLOAT
-  resource.tstyle.fontset = 0;
-#endif // ADD_BLOAT
   resource.mstyle.f_fontset = 0;
   resource.mstyle.t_fontset = 0;
   if (resource.wstyle.font)
     XFreeFont(blackbox->getXDisplay(), resource.wstyle.font);
-#ifdef ADD_BLOAT
-  if (resource.tstyle.font)
-    XFreeFont(blackbox->getXDisplay(), resource.tstyle.font);
-#endif // ADD_BLOAT
   if (resource.mstyle.f_font)
     XFreeFont(blackbox->getXDisplay(), resource.mstyle.f_font);
   if (resource.mstyle.t_font)
     XFreeFont(blackbox->getXDisplay(), resource.mstyle.t_font);
   resource.wstyle.font = 0;
-#ifdef ADD_BLOAT
-  resource.tstyle.font = 0;
-#endif // ADD_BLOAT
   resource.mstyle.f_font = 0;
   resource.mstyle.t_font = 0;
 
   if (i18n.multibyte()) {
     resource.wstyle.fontset =
       readDatabaseFontSet("window.font", "Window.Font");
-#ifdef ADD_BLOAT
-    resource.tstyle.fontset =
-      readDatabaseFontSet("toolbar.font", "Toolbar.Font");
-#endif // ADD_BLOAT
     resource.mstyle.t_fontset =
       readDatabaseFontSet("menu.title.font", "Menu.Title.Font");
     resource.mstyle.f_fontset =
@@ -520,19 +470,11 @@ void BScreen::LoadStyle(void) {
       XExtentsOfFontSet(resource.mstyle.t_fontset);
     resource.mstyle.f_fontset_extents =
       XExtentsOfFontSet(resource.mstyle.f_fontset);
-#ifdef ADD_BLOAT
-    resource.tstyle.fontset_extents =
-      XExtentsOfFontSet(resource.tstyle.fontset);
-#endif // ADD_BLOAT
     resource.wstyle.fontset_extents =
       XExtentsOfFontSet(resource.wstyle.fontset);
   } else {
     resource.wstyle.font =
       readDatabaseFont("window.font", "Window.Font");
-#ifdef ADD_BLOAT
-    resource.tstyle.font =
-      readDatabaseFont("toolbar.font", "Toolbar.Font");
-#endif // ADD_BLOAT
     resource.mstyle.t_font =
       readDatabaseFont("menu.title.font", "Menu.Title.Font");
     resource.mstyle.f_font =
@@ -614,53 +556,6 @@ void BScreen::LoadStyle(void) {
   if (resource.wstyle.h_unfocus.texture() == BTexture::Parent_Relative)
     resource.wstyle.h_unfocus = resource.wstyle.f_unfocus;
 
-  // load toolbar config
-#ifdef ADD_BLOAT
-  resource.tstyle.toolbar =
-    readDatabaseTexture("toolbar", "Toolbar", "black");
-  resource.tstyle.label =
-    readDatabaseTexture("toolbar.label", "Toolbar.Label", "black");
-  resource.tstyle.window =
-    readDatabaseTexture("toolbar.windowLabel", "Toolbar.WindowLabel", "black");
-  resource.tstyle.button =
-    readDatabaseTexture("toolbar.button", "Toolbar.Button", "white");
-  resource.tstyle.pressed =
-    readDatabaseTexture("toolbar.button.pressed",
-                        "Toolbar.Button.Pressed", "black");
-  resource.tstyle.clock =
-    readDatabaseTexture("toolbar.clock", "Toolbar.Clock", "black");
-  resource.tstyle.l_text =
-    readDatabaseColor("toolbar.label.textColor",
-                      "Toolbar.Label.TextColor", "white");
-  resource.tstyle.w_text =
-    readDatabaseColor("toolbar.windowLabel.textColor",
-                      "Toolbar.WindowLabel.TextColor", "white");
-  resource.tstyle.c_text =
-    readDatabaseColor("toolbar.clock.textColor",
-                      "Toolbar.Clock.TextColor", "white");
-  resource.tstyle.b_pic =
-    readDatabaseColor("toolbar.button.picColor",
-                      "Toolbar.Button.PicColor", "black");
-
-  resource.tstyle.justify = LeftJustify;
-  if (XrmGetResource(resource.stylerc, "toolbar.justify",
-                     "Toolbar.Justify", &value_type, &value)) {
-    if (strstr(value.addr, "right") || strstr(value.addr, "Right"))
-      resource.tstyle.justify = RightJustify;
-    else if (strstr(value.addr, "center") || strstr(value.addr, "Center"))
-      resource.tstyle.justify = CenterJustify;
-  }
-
-  // sanity checks
-  if (resource.tstyle.toolbar.texture() == BTexture::Parent_Relative) {
-    resource.tstyle.toolbar = BTexture("solid flat", getBaseDisplay(),
-                                       getScreenNumber(), image_control);
-    resource.tstyle.toolbar.setColor(BColor("black", getBaseDisplay(),
-                                            getScreenNumber()));
-  }
-#endif // ADD_BLOAT
-
-  // load menu config
   resource.mstyle.title =
     readDatabaseTexture("menu.title", "Menu.Title", "white");
   resource.mstyle.frame =
@@ -819,10 +714,6 @@ unsigned int BScreen::addWorkspace(void) {
                         wkspc->getID() + 2);
   workspacemenu->update();
 
-#ifdef ADD_BLOAT
-  toolbar->reconfigure();
-#endif // ADD_BLOAT
-
   updateNetizenWorkspaceCount();
 
   return workspacesList.size();
@@ -846,10 +737,6 @@ unsigned int BScreen::removeLastWorkspace(void) {
   workspacesList.pop_back();
   delete wkspc;
 
-#ifdef ADD_BLOAT
-  toolbar->reconfigure();
-#endif // ADD_BLOAT
-
   updateNetizenWorkspaceCount();
 
   return workspacesList.size();
@@ -868,9 +755,6 @@ void BScreen::changeWorkspaceID(unsigned int id) {
   current_workspace->show();
 
   workspacemenu->setItemSelected(current_workspace->getID() + 2, True);
-#ifdef ADD_BLOAT
-  toolbar->redrawWorkspaceLabel(True);
-#endif // ADD_BLOAT
     
   updateNetizenCurrentWorkspace();
 }
@@ -880,9 +764,6 @@ void BScreen::manageWindow(Window w) {
   XWMHints *wmhint = XGetWMHints(blackbox->getXDisplay(), w);
   if (wmhint && (wmhint->flags & StateHint) &&
       wmhint->initial_state == WithdrawnState) {
-#ifdef ADD_BLOAT
-    slit->addClient(w);
-#endif // ADD_BLOAT
     return;
   }
 
@@ -1036,28 +917,10 @@ void BScreen::raiseWindows(Window *workspace_stack, unsigned int num) {
   *(session_stack + i++) = configmenu->getPlacementmenu()->getWindowID();
   *(session_stack + i++) = configmenu->getWindowID();
 
-#ifdef ADD_BLOAT
-  *(session_stack + i++) = slit->getMenu()->getDirectionmenu()->getWindowID();
-  *(session_stack + i++) = slit->getMenu()->getPlacementmenu()->getWindowID();
-  *(session_stack + i++) = slit->getMenu()->getWindowID();
-
-  *(session_stack + i++) =
-    toolbar->getMenu()->getPlacementmenu()->getWindowID();
-  *(session_stack + i++) = toolbar->getMenu()->getWindowID();
-#endif // ADD_BLOAT
-
   RootmenuList::iterator rit = rootmenuList.begin();
   for (; rit != rootmenuList.end(); ++rit)
     *(session_stack + i++) = (*rit)->getWindowID();
   *(session_stack + i++) = rootmenu->getWindowID();
-
-#ifdef ADD_BLOAT
-  if (toolbar->isOnTop())
-    *(session_stack + i++) = toolbar->getWindowID();
-
-  if (slit->isOnTop())
-    *(session_stack + i++) = slit->getWindowID();
-#endif // ADD_BLOAT
 
   while (k--)
     *(session_stack + i++) = *(workspace_stack + k);
@@ -1124,11 +987,6 @@ void BScreen::propagateWindowName(const BlackboxWindow *bw) {
     Clientmenu *clientmenu = getWorkspace(bw->getWorkspaceNumber())->getMenu();
     clientmenu->changeItemLabel(bw->getWindowNumber(), bw->getTitle());
     clientmenu->update();
-
-#ifdef ADD_BLOAT
-    if (blackbox->getFocusedWindow() == bw)
-      toolbar->redrawWindowLabel(True);
-#endif // ADD_BLOAT
   }
 }
 
@@ -1286,12 +1144,13 @@ void BScreen::InitMenu(void) {
 	pid = fork();
 	  
 	if (pid == -1) {
-		fprintf(stderr, "hackedbox: Could not fork a process for genmenu.\n");
+		fprintf(stderr, i18n(ScreenSet, ScreenInitHackError,
+                "hackedbox: Could not fork a process for inithack.\n"));
 		return;
 	}
 
 	if (pid == 0) {
-		const char *const argv[] = {"sh","-c", "xterm -l -e inithack",0};
+		const char *const argv[] = {"sh","-c", "xterm -e inithack",0};
 		execve("/bin/sh", (char *const *)argv, environ);
 		exit(127);
 	}
@@ -1623,10 +1482,6 @@ void BScreen::shutdown(void) {
 
   while(! windowList.empty())
     unmanageWindow(windowList.front(), True);
-
-#ifdef ADD_BLOAT
- slit->shutdown();
-#endif // ADD_BLOAT
 }
 
 

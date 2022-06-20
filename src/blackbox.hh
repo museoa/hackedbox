@@ -84,18 +84,12 @@ struct BlackboxAttributes {
 #define PropBlackboxHintsElements      (5)
 #define PropBlackboxAttributesElements (9)
 
-
 //forward declaration
 class BScreen;
 class Blackbox;
 class BlackboxWindow;
 class BWindowGroup;
 class Basemenu;
-
-#ifdef ADD_BLOAT
-class Toolbar;
-class Slit;
-#endif // ADD_BLOAT
 
 extern I18n i18n;
 
@@ -120,7 +114,7 @@ private:
     unsigned long cache_life, cache_max;
 #ifdef ENABLE_KEYBINDINGS
     bool enable_Key_Bindings;
-	std::string  key_cmd;
+	std::string key_cmd;
 #endif // ENABLE_KEYBINDINGS
   } resource;
 
@@ -135,16 +129,6 @@ private:
   typedef std::map<Window, Basemenu*> MenuLookup;
   typedef MenuLookup::value_type MenuLookupPair;
   MenuLookup menuSearchList;
-
-#ifdef ADD_BLOAT
-  typedef std::map<Window, Toolbar*> ToolbarLookup;
-  typedef ToolbarLookup::value_type ToolbarLookupPair;
-  ToolbarLookup toolbarSearchList;
-
-  typedef std::map<Window, Slit*> SlitLookup;
-  typedef SlitLookup::value_type SlitLookupPair;
-  SlitLookup slitSearchList;
-#endif // ADD_BLOAT
 
   typedef std::list<MenuTimestamp*> MenuTimestampList;
   MenuTimestampList menuTimestamps;
@@ -213,8 +197,6 @@ private:
   void init_icccm(void);
 
   virtual void process_event(XEvent *e);
-
-
 public:
   Blackbox(char **m_argv, char *dpy_name = 0, char *rc = 0);
   virtual ~Blackbox(void);
@@ -224,30 +206,18 @@ public:
   BlackboxWindow *searchWindow(Window window);
   BScreen *searchScreen(Window window);
 
-#ifdef ADD_BLOAT
-  Toolbar *searchToolbar(Window);
-  Slit *searchSlit(Window);
-#endif // ADD_BLOAT
-
   void saveMenuSearch(Window window, Basemenu *data);
   void saveWindowSearch(Window window, BlackboxWindow *data);
   void saveGroupSearch(Window window, BWindowGroup *data);
-#ifdef ADD_BLOAT
-  void saveToolbarSearch(Window window, Toolbar *data);
-  void saveSlitSearch(Window window, Slit *data);
-#endif // ADD_BLOAT
+
   void removeMenuSearch(Window window);
   void removeWindowSearch(Window window);
   void removeGroupSearch(Window window);
-#ifdef ADD_BLOAT
-  void removeToolbarSearch(Window window);
-  void removeSlitSearch(Window window);
-#endif // ADD_BLOAT
 
 #ifdef ENABLE_KEYBINDINGS
   inline bool enableKeyBindings(void) const { return resource.enable_Key_Bindings;};
   inline void saveEnableKeyBindings(bool e) { resource.enable_Key_Bindings = e;};
-  inline const char *getkeycmd(void) const { return resource.key_cmd.c_str(); }
+//  inline const char *getkeycmd(void) const { return resource.key_cmd.c_str(); }
 
   void setKeys();
 
@@ -297,12 +267,14 @@ public:
   void reconfigure(void);
   void rereadMenu(void);
   void checkMenu(void);
+  void CreateIconWindow(BlackboxWindow *tmp_win, int def_x, int def_y);
 
   bool validateWindow(Window window);
 
   virtual bool handleSignal(int sig);
 
   virtual void timeout(void);
+    
 
 #ifndef   HAVE_STRFTIME
   enum { B_AmericanDate = 1, B_EuropeanDate };

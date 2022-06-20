@@ -51,4 +51,5 @@ $ #PositionFormat
 # X: %4d x Y: %4d
 $ #GeometryFormat
 # W: %4d x H: %4d
-
+$ #InitHackError
+# hackedbox: Could not fork a process for inithack.\n

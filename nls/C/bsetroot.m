@@ -3,7 +3,8 @@ $set 16 #bsetroot
 $ #MustSpecify
 # %s: error: must specify one of: -solid, -mod, -gradient\n
 $ #Usage
-# %s 2.0: (c) 1997-2000 Brad Hughes\n\n\
+# %s 2.0: Copyright (c) 2003 Larry Owen\n\
+      (c) 1997-2000 Brad Hughes\n\n\
 	  (c) 2001-2002 Sean 'Shaleh' Perry\n\n\
   -display <string>        use display connection\n\
   -mod <x> <y>             modula pattern\n\
@@ -14,4 +15,3 @@ $ #Usage
   -to <color>              gradient end color\n\n\
   -solid <color>           solid color\n\n\
   -help                    print this help text and exit\n
-

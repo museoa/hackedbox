@@ -813,6 +813,9 @@ Dostopna bo ¹e v mnogih jezikih.
 .IR bsetroot (1), \ bbkeys (1)  \" ni ¹e èisto narejen ;-(
 .\"
 .\" $Log: blackbox.1.in,v $
+.\" Revision 1.1  2003/04/28 12:29:38  Scrudge
+.\" *** empty log message ***
+.\"
 .\" Revision 1.1.1.2  2002/01/25 10:33:18  shaleh
 .\" blackbox 0.62.0
 .\"

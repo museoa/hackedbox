@@ -50,7 +50,6 @@ using std::string;
 #include "Clientmenu.hh"
 #include "Netizen.hh"
 #include "Screen.hh"
-#include "Toolbar.hh"
 #include "Util.hh"
 #include "Window.hh"
 #include "Workspace.hh"

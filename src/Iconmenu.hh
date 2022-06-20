@@ -21,8 +21,8 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-#ifndef   __Icon_hh
-#define   __Icon_hh
+#ifndef   __Iconmenu_hh
+#define   __Iconmenu_hh
 
 #include "Basemenu.hh"
 
@@ -43,4 +43,4 @@ public:
 };
 
 
-#endif // __Icon_hh
+#endif // __Iconmenu_hh

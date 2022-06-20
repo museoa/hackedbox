@@ -73,22 +73,6 @@ struct WindowStyle {
                 unsigned int modifier, bool multibyte) const;
 };
 
-#ifdef ADD_BLOAT
-struct ToolbarStyle {
-  BColor l_text, w_text, c_text, b_pic;
-  BTexture toolbar, label, window, button, pressed, clock;
-
-  XFontSet fontset;
-  XFontSetExtents *fontset_extents;
-  XFontStruct *font;
-
-  TextJustify justify;
-
-  int doJustify(const char *text, int &start_pos, unsigned int max_length,
-                unsigned int modifier, bool multibyte) const;
-};
-#endif // ADD_BLOAT
-
 struct MenuStyle {
   BColor t_text, f_text, h_text, d_text;
   BTexture title, frame, hilite;
@@ -127,10 +111,6 @@ private:
   NetizenList netizenList;
   BlackboxWindowList iconList, windowList;
 
-#ifdef ADD_BLOAT
-  Slit *slit;
-  Toolbar *toolbar;
-#endif // ADD_BLOAT
   Workspace *current_workspace;
   Workspacemenu *workspacemenu;
 
@@ -148,14 +128,7 @@ private:
 
   struct screen_resource {
     WindowStyle wstyle;
-#ifdef ADD_BLOAT
-    ToolbarStyle tstyle;
-#endif // ADD_BLOAT
     MenuStyle mstyle;
-
-#ifdef ADD_BLOAT
-    bool toolbar_on_top, toolbar_auto_hide;
-#endif // ADD_BLOAT
 	  
 	bool sloppy_focus, auto_raise, auto_edge_balance, image_dither, 
 	     ordered_dither, opaque_move, full_max, focus_new, focus_last, 
@@ -164,15 +137,7 @@ private:
     XrmDatabase stylerc;
 
     unsigned int workspaces;
-#ifdef ADD_BLOAT
-    int toolbar_placement, toolbar_width_percent;
-#endif // ADD_BLOAT
 	int placement_policy, edge_snap_threshold, row_direction, col_direction;
-
-#ifdef ADD_BLOAT
-    bool slit_on_top, slit_auto_hide;
-    int slit_placement, slit_direction;
-#endif // ADD_BLOAT
 
     unsigned int handle_width, bevel_width, frame_width, border_width;
 
@@ -218,12 +183,6 @@ public:
   BScreen(Blackbox *bb, unsigned int scrn);
   ~BScreen(void);
 
-#ifdef ADD_BLOAT
-  inline bool isToolbarOnTop(void) const
-  { return resource.toolbar_on_top; }
-  inline bool doToolbarAutoHide(void) const
-  { return resource.toolbar_auto_hide; }
-#endif //ADD_BLOAT
   inline bool isSloppyFocus(void) const
   { return resource.sloppy_focus; }
   inline bool isRootColormapInstalled(void) const
@@ -248,23 +207,6 @@ public:
   inline BImageControl *getImageControl(void) { return image_control; }
   inline Rootmenu *getRootmenu(void) { return rootmenu; }
 
-#ifdef ADD_BLOAT
-  inline bool isSlitOnTop(void) const { return resource.slit_on_top; }
-  inline bool doSlitAutoHide(void) const
-  { return resource.slit_auto_hide; }
-  inline Slit *getSlit(void) { return slit; }
-  inline int getSlitPlacement(void) const
-  { return resource.slit_placement; }
-  inline int getSlitDirection(void) const
-  { return resource.slit_direction; }
-  inline void saveSlitPlacement(int p) { resource.slit_placement = p; }
-  inline void saveSlitDirection(int d) { resource.slit_direction = d; }
-  inline void saveSlitOnTop(bool t)    { resource.slit_on_top = t; }
-  inline void saveSlitAutoHide(bool t) { resource.slit_auto_hide = t; }
-
-  inline Toolbar *getToolbar(void) { return toolbar; }
-#endif // ADD_BLOAT
-
   Workspace *getWorkspace(unsigned int index);
 
   inline Workspace *getCurrentWorkspace(void) { return current_workspace; }
@@ -287,12 +229,6 @@ public:
   inline unsigned int getIconCount(void) const { return iconList.size(); }
   inline unsigned int getNumberOfWorkspaces(void) const
   { return resource.workspaces; }
-#ifdef ADD_BLOAT
-  inline int getToolbarPlacement(void) const
-  { return resource.toolbar_placement; }
-  inline int getToolbarWidthPercent(void) const
-  { return resource.toolbar_width_percent; }
-#endif // ADD_BLOAT
   inline int getPlacementPolicy(void) const
   { return resource.placement_policy; }
   inline int getEdgeSnapThreshold(void) const
@@ -307,12 +243,6 @@ public:
   inline void saveAutoRaise(bool a) { resource.auto_raise = a; }
   inline void saveClickRaise(bool c) { resource.click_raise = c; }
   inline void saveWorkspaces(unsigned int w) { resource.workspaces = w; }
-#ifdef ADD_BLOAT
-  inline void saveToolbarOnTop(bool r) { resource.toolbar_on_top = r; }
-  inline void saveToolbarAutoHide(bool r) { resource.toolbar_auto_hide = r; }
-  inline void saveToolbarWidthPercent(int w) { resource.toolbar_width_percent = w; }
-  inline void saveToolbarPlacement(int p) { resource.toolbar_placement = p; }
-#endif // ADD_BLOAT
   inline void savePlacementPolicy(int p) { resource.placement_policy = p; }
   inline void saveRowPlacementDirection(int d) { resource.row_direction = d; }
   inline void saveColPlacementDirection(int d) { resource.col_direction = d; }
@@ -340,9 +270,6 @@ public:
 
   inline WindowStyle *getWindowStyle(void) { return &resource.wstyle; }
   inline MenuStyle *getMenuStyle(void) { return &resource.mstyle; }
-#ifdef ADD_BLOAT
-  inline ToolbarStyle *getToolbarStyle(void) { return &resource.tstyle; }
-#endif // ADD_BLOAT
 
   BlackboxWindow *getIcon(unsigned int index);
 

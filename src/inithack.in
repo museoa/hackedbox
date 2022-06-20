@@ -1,18 +1,4 @@
 #!/bin/bash
-# This script is developed with bash and should work with ksh. It works with
-# some versions of zsh (while some versions just segfault). It *might* work 
-# with a plain #!/bin/sh that supports "select" if there is such at thing.
-
-# Zsh has problems without this
-if [ -n "$ZSH_VERSION" ]; then
-	setopt shwordsplit
-fi
-
-# THANKS
-# Jens Gjerdbakken <m3gboy@frisurf.no>
-# BatmanX (#windowmaker@openprojects) for help with the wmaker menu format
-# Kevin Verma <kevinverma@yahoo.com> for the Fluxbox support
-
 # LICENSE
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,6 +13,11 @@ fi
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# Zsh has problems without this
+if [ -n "$ZSH_VERSION" ]; then
+	setopt shwordsplit
+fi
 
 # -----------------------------------------------------------------------------
 # Configuration
@@ -66,7 +57,7 @@ utilities | gdict gpsdrive vncviewer xvncviewer wfcmgr switch +
 
 work | abiword kword soffice kpresenter lyx klyx gnucash gnumeric kspread kchart gcalc kcalc xcalc gnomecal gnomecard korganizer kab karm quanta + 
 
-development | glimmer glade kdevelop designer kbabel idle ghex khexedit memprof !tclsh !python !gdb xxgdb !xev +
+development | anjuta glimmer glade kdevelop designer kbabel idle ghex khexedit memprof !tclsh !python !gdb xxgdb !xev +
 
 system | gtop !top kpm bp6mon gw guname gnorpm red-carpet monkeytalk bug-buddy gnomecc gkrellm !sndconfig tksysv ksysv gnome-ppp kppp qtisdnlinux internet-config firewall-config printconf-gui +"
 

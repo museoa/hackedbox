@@ -444,11 +444,6 @@ fenêtre emprunte son style aux barres de titre des fenêtres.
 .PP
 Voici quelques exemples rapides\ :
 .EX
-toolbar.clock.color:	green
-.EE
-Ici, la valeur `green' (vert) est affectée à la ressource couleur de
-l'horloge présente sur la barre-outil.
-.EX
 menu*color:	rgb:3/4/5
 .EE
 Dans cet exemple, la valeur `rgb:3/4/5' est affectée à la ressource couleur
@@ -471,15 +466,6 @@ Mais ce qui rend Blackbox si spectaculaire, c'est sa capacité à produire
 des textures à la volée.
 Les descriptions de textures sont spécifiées d'une façon semblable à celle
 des couleurs illustrée précédemment. Par exemple\ :
-.ta \w'toolbar.clock.colorTo:\ 'u
-.EX
-toolbar.clock:	Raised Gradient Diagonal Bevel1
-toolbar.clock.color:	rgb:8/6/4
-toolbar.clock.colorTo:	rgb:4/3/2
-.EE
-Pas de panique\~! Nous expliquons tout de suite.
-La description d'une texture est composée d'au plus cinq champs, qui
-peuvent prendre les valeurs suivantes\ :
 .TP
 .B Flat / Raised / Sunken
 donne au composant un aspect plat (Flat), bombé (Raised) ou enfoncé (Sunken).
@@ -538,51 +524,6 @@ autant que dans les fichiers de ressources X.
 .\"
 .\" Les commentaires sont aussi à traduire !
 .\"
-! La barre-outil elle-même.
-toolbar:	Texture
-toolbar.color:	Couleur
-toolbar.colorTo:	Couleur
-
-! Les boutons de la barre-outil.
-toolbar.button:	Texture ou \fIParentRelative\fR
-toolbar.button.color:	Couleur
-toolbar.button.colorTo:	Couleur
-
-! Couleur des flèches des boutons.
-toolbar.button.picColor:	Couleur
-
-! Boutons dans l'état enfoncé (cliqué).
-toolbar.button.pressed:	Texture \fI(p.ex. Sunken)\fR ou \fIParentRelative\fR
-toolbar.button.pressed.color:	Couleur
-toolbar.button.pressed.colorTo:	Couleur
-
-! Couleur des flèches des boutons dans l'état enfoncé (cliqué).
-toolbar.button.pressed.picColor:	Couleur
-
-! Le libellé de l'espace de travail sur la barre-outil.
-toolbar.label:	Texture ou \fIParentRelative\fR
-toolbar.label.color:	Couleur
-toolbar.label.colorTo:	Couleur
-toolbar.label.textColor:	Couleur
-
-! Le titre de la fenêtre active sur la barre-outil.
-toolbar.windowLabel:	Texture ou \fIParentRelative\fR
-toolbar.windowLabel.color:	Couleur
-toolbar.windowLabel.colorTo:	Couleur
-toolbar.windowLabel.textColor:	Couleur
-
-! L'horloge sur la barre-outil.
-toolbar.clock:	Texture ou \fIParentRelative\fR
-toolbar.clock.color:	Couleur
-toolbar.clock.colorTo:	Couleur
-toolbar.clock.textColor:	Couleur
-
-! Comment le texte de la barre-outil doit être aligné.
-! Centré (center), à gauche (left) ou à droite (right).
-toolbar.justify:	\fIcenter\fR, \fIleft\fR, or \fIright\fR
-
-! Police de caractères à utiliser avec tous les composants de la barre-outil.
-toolbar.font:	Fonte \fI(p.ex. -*-helvetica-medium-r-normal-*-*-100-*)\fR
 
 ! Barre de titre du menu.
 menu.title:	Texture

@@ -83,28 +83,9 @@ directory\n
 22 0: 0000 x 0: 0000
 23 X: %4d x Y: %4d
 24 W: %4d x H: %4d
+25 hackedbox: Could not fork a process for inithack.\n
 
-
-$set 7 #Slit
-
-1 Slit
-2 Slit Direction
-3 Slit Placement
-
-$set 8 #Toolbar
-
-1 00:00000
-2 %02d/%02d/%02d
-3 %02d.%02d.%02d
-4  %02d:%02d 
-5 %02d:%02d %sm
-6 p
-7 a
-8 Toolbar
-9 Edit current workspace name
-10 Toolbar Placement
-
-$set 9 #Window
+$set 7 #Window
 
 
 1 BlackboxWindow::BlackboxWindow: creating 0x%lx\n
@@ -115,7 +96,7 @@ $set 9 #Window
 6 BlackboxWindow::unmapNotifyEvent() for 0x%lx\n
 7 BlackboxWindow::reparentNotifyEvent: reparent 0x%lx to 0x%lx\n
 
-$set 10 #Windowmenu
+$set 8 #Windowmenu
 
 1 Send To ...
 2 Shade
@@ -127,22 +108,22 @@ $set 10 #Windowmenu
 8 Kill Client
 9 Close
 
-$set 11 #Workspace
+$set 9 #Workspace
 
 1 Workspace %d
 
-$set 12 #Workspacemenu
+$set 10 #Workspacemenu
 
 1 Workspaces
 2 New Workspace
 3 Remove Last
 
-$set 13 #blackbox
+$set 11 #blackbox
 
 1 Blackbox::Blackbox: no managable screens found, aborting\n
 2 Blackbox::process_event: MapRequest for 0x%lx\n
 
-$set 14 #Common
+$set 12 #Common
 
 1 Yes
 2 No
@@ -165,26 +146,28 @@ $set 14 #Common
 
 16 Auto hide
 
-$set 15 #main
+$set 13 #main
 
 1 error: '-rc' requires an argument\n
 2 error: '-display' requires an argument\n
 3 warning: could not set environment variable 'DISPLAY'\n
-4 Blackbox %s : (c) 2001 - 2002 Sean 'Shaleh' Perry\n\
-  \t\t\t 1997 - 2000, 2002 Brad Hughes\n\n\
-  -display <string>\t\tuse display connection.\n\
-  -rc <string>\t\t\tuse alternate resource file.\n\
-  -version\t\t\tdisplay version and exit.\n\
+4 Hackedbox %s : (c) 2003 Larry Owen\n \
+  \t\t\t     2001 - 2002 Sean 'Shaleh' Perry\n \
+  \t\t\t    1997 - 2000, 2002 Brad Hughes\n\n \
+  -display <string>\t\tuse display connection.\n \
+  -rc <string>\t\t\tuse alternate resource file.\n \
+  -version\t\t\tdisplay version and exit.\n \
   -help\t\t\t\tdisplay this help text and exit.\n\n
 5 Compile time options:\n\
   Debugging\t\t\t%s\n\
   Shape:\t\t\t%s\n\
   8bpp Ordered Dithering:\t%s\n\n
 
-$set 16 #bsetroot
+$set 14 #bsetroot
 
 1 %s: error: must specify one of: -solid, -mod, -gradient\n
-2 %s 2.0: (c) 1997-2000 Brad Hughes\n\n\
+2 %s 2.0: Copyright (c) 2003 Larry Owen\n\
+      (c) 1997-2000 Brad Hughes\n\n\
 	  (c) 2001-2002 Sean 'Shaleh' Perry\n\n\
   -display <string>        use display connection\n\
   -mod <x> <y>             modula pattern\n\
@@ -195,4 +178,3 @@ $set 16 #bsetroot
   -to <color>              gradient end color\n\n\
   -solid <color>           solid color\n\n\
   -help                    print this help text and exit\n
-

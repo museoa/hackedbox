@@ -350,6 +350,7 @@ void bsetroot::usage(int exit_code) {
     fprintf(stderr,
 	    i18n(bsetrootSet, bsetrootUsage,
 		 "%s 2.0\n\n"
+         "Copyright (c) 2003 Larry Owen\n"
 		 "Copyright (c) 1997-2000, 2002 Bradley T Hughes\n"
 		 "Copyright (c) 2001-2002 Sean 'Shaleh' Perry\n\n"
 		 "  -display <string>        use display connection\n"

@@ -1,6 +1,6 @@
 # util/Makefile.am for Blackbox - an X11 Window manager
 
-CPPFLAGS= @CPPFLAGS@ @DEBUG@ @NLS@ @TIMEDCACHE@ @ORDEREDPSEUDO@
+AM_CPPFLAGS= @DEBUG@ @NLS@ @TIMEDCACHE@ @ORDEREDPSEUDO@
 
 bin_SCRIPTS = 		bsetbg 
 bin_PROGRAMS =		bsetroot

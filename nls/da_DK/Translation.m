@@ -83,26 +83,7 @@ defineret\n
 24 W: %4d x H: %4d
 
 
-$set 7 #Slit
-
-1 Slit
-2 Slit retning
-3 Slit placering
-
-$set 8 #Toolbar
-
-1 00:00000
-2 %02d/%02d/%02d
-3 %02d.%02d.%02d
-4  %02d:%02d 
-5 %02d:%02d %sm
-6 p
-7 a
-8 Værktøjsbjælke
-9 Andring af skrivebordets navn
-10 Værktøjsbjælkens placering
-
-$set 9 #Window
+$set 7 #Window
 
 
 1 BlackboxWindow::BlackboxWindow: skaber 0x%lx\n
@@ -113,7 +94,7 @@ $set 9 #Window
 6 BlackboxWindow::unmapNotifyEvent() for 0x%lx\n
 7 BlackboxWindow::reparentNotifyEvent: sætter 0x%lx til 0x%lx\n
 
-$set 10 #Windowmenu
+$set 8 #Windowmenu
 
 1 Send til ...
 2 Skygge
@@ -125,22 +106,22 @@ $set 10 #Windowmenu
 8 Dræb klient
 9 Luk
 
-$set 11 #Workspace
+$set 9 #Workspace
 
 1 Skrivebord %d
 
-$set 12 #Workspacemenu
+$set 10 #Workspacemenu
 
 1 Skriveborde
 2 Nyt skrivebord
 3 Fjern sidste
 
-$set 13 #blackbox
+$set 11 #blackbox
 
 1 Blackbox::Blackbox: ingen håndterbare skærme fundet, afslutter\n
 2 Blackbox::process_event: MapRequest for 0x%lx\n
 
-$set 14 #Common
+$set 12 #Common
 
 1 Ja
 2 Nej
@@ -163,7 +144,7 @@ $set 14 #Common
 
 16 Gem automatisk
 
-$set 15 #main
+$set 13 #main
 
 1 fejl: '-rc' kræver et argument\n
 2 fjel: '-display' kræver et argument\n
@@ -179,7 +160,7 @@ $set 15 #main
   Shape:\t\t\t%s\n\
   8bpp Ordered Dithering:\t%s\n\n
 
-$set 16 #bsetroot
+$set 14 #bsetroot
 
 1 %s: fejl: specificér en af følgende: -solid, -mod, -gradient\n
 2 %s 2.0: (c) 1997-2000 Brad Hughes\n\n\

@@ -1,5 +1,5 @@
 MENU_DIR?=${HOME}/.hackedbox/
-PIC_DIR?=${HOME}/hackedbox/backgrounds
+PIC_DIR?=${HOME}/.hackedbox/backgrounds
 MENU?=bgMenu
 
 all:

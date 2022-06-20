@@ -74,25 +74,9 @@
 #define ScreenPositionLength 0x16
 #define ScreenPositionFormat 0x17
 #define ScreenGeometryFormat 0x18
+#define ScreenInitHackError 0x19
 
-#define SlitSet 0x7
-#define SlitSlitTitle 0x1
-#define SlitSlitDirection 0x2
-#define SlitSlitPlacement 0x3
-
-#define ToolbarSet 0x8
-#define ToolbarNoStrftimeLength 0x1
-#define ToolbarNoStrftimeDateFormat 0x2
-#define ToolbarNoStrftimeDateFormatEu 0x3
-#define ToolbarNoStrftimeTimeFormat24 0x4
-#define ToolbarNoStrftimeTimeFormat12 0x5
-#define ToolbarNoStrftimeTimeFormatP 0x6
-#define ToolbarNoStrftimeTimeFormatA 0x7
-#define ToolbarToolbarTitle 0x8
-#define ToolbarEditWkspcName 0x9
-#define ToolbarToolbarPlacement 0xa
-
-#define WindowSet 0x9
+#define WindowSet 0x7
 #define WindowCreating 0x1
 #define WindowXGetWindowAttributesFail 0x2
 #define WindowCannotFindScreen 0x3
@@ -101,7 +85,7 @@
 #define WindowUnmapNotify 0x6
 #define WindowReparentNotify 0x7
 
-#define WindowmenuSet 0xa
+#define WindowmenuSet 0x8
 #define WindowmenuSendTo 0x1
 #define WindowmenuShade 0x2
 #define WindowmenuIconify 0x3
@@ -112,19 +96,19 @@
 #define WindowmenuKillClient 0x8
 #define WindowmenuClose 0x9
 
-#define WorkspaceSet 0xb
+#define WorkspaceSet 0x9
 #define WorkspaceDefaultNameFormat 0x1
 
-#define WorkspacemenuSet 0xc
+#define WorkspacemenuSet 0xa
 #define WorkspacemenuWorkspacesTitle 0x1
 #define WorkspacemenuNewWorkspace 0x2
 #define WorkspacemenuRemoveLast 0x3
 
-#define blackboxSet 0xd
+#define blackboxSet 0xb
 #define blackboxNoManagableScreens 0x1
 #define blackboxMapRequest 0x2
 
-#define CommonSet 0xe
+#define CommonSet 0xc
 #define CommonYes 0x1
 #define CommonNo 0x2
 #define CommonDirectionTitle 0x3
@@ -142,13 +126,13 @@
 #define CommonPlacementBottomRight 0xf
 #define CommonAutoHide 0x10
 
-#define mainSet 0xf
+#define mainSet 0xd
 #define mainRCRequiresArg 0x1
 #define mainDISPLAYRequiresArg 0x2
 #define mainWarnDisplaySet 0x3
 #define mainUsage 0x4
 #define mainCompileOptions 0x5
 
-#define bsetrootSet 0x10
+#define bsetrootSet 0xe
 #define bsetrootMustSpecify 0x1
 #define bsetrootUsage 0x2

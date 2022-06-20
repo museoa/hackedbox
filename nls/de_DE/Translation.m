@@ -82,26 +82,7 @@ ein anderer Windowmanager benutzt Display %s bereits.\n
 24 W: %4d x H: %4d
 
 
-$set 7 #Slit
-
-1 Slit
-2 Slit Ausrichtung 
-3 Slit Platzierung
-
-$set 8 #Toolbar
-
-1 00:00000
-2 %02d/%02d/%02d
-3 %02d.%02d.%02d
-4  %02d:%02d 
-5 %02d:%02d %sm
-6 p
-7 a
-8 Toolbar
-9 Arbeitsplatzname ändern
-10 Toolbar Platzierung
-
-$set 9 #Window
+$set 7 #Window
 
 
 1 BlackboxWindow::BlackboxWindow: Erstelle 0x%lx\n
@@ -111,7 +92,7 @@ $set 9 #Window
 5 BlackboxWindow::mapRequestEvent() von 0x%lx\n
 6 BlackboxWindow::reparentNotifyEvent: 0x%lx nun Child des 0x%lx\n
 
-$set 10 #Windowmenu
+$set 8 #Windowmenu
 
 1 Senden an...
 2 Aufrollen
@@ -123,22 +104,22 @@ $set 10 #Windowmenu
 8 Abbrechen
 9 Schliessen
 
-$set 11 #Workspace
+$set 9 #Workspace
 
 1 Arbeitsplatz %d
 
-$set 12 #Workspacemenu
+$set 10 #Workspacemenu
 
 1 Arbeitsplätze
 2 Neuer Arbeitsplatz
 3 Letzten Arbeitsplatz löschen
 
-$set 13 #blackbox
+$set 11 #blackbox
 
 1 Blackbox::Blackbox: keine verwaltbaren Bildschirme gefunden, Abbruch\n
 2 Blackbox::process_event: MapRequest von 0x%lx\n
 
-$set 14 #Common
+$set 12 #Common
 
 1 Ja
 2 Nein
@@ -161,7 +142,7 @@ $set 14 #Common
 
 16 Automatisch Verbergen
 
-$set 15 #main
+$set 13 #main
 
 1 Fehler: '-rc' benötigt einen Parameter\n
 2 Fehler: '-display' benötigt einen Parameter\n
@@ -177,7 +158,7 @@ $set 15 #main
   Shape:\t\t\t%s\n\
   8bpp Ordered Dithering:\t%s\n\n
 
-$set 16 #bsetroot
+$set 14 #bsetroot
 
 1 %s: error: must specify one of: -solid, -mod, -gradient\n
 2 %s 2.0: (c) 1997-2000 Brad Hughes\n\n\

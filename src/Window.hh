@@ -38,6 +38,7 @@ extern "C" {
 #include "Timer.hh"
 #include "Util.hh"
 #include "Windowmenu.hh"
+#include "Screen.hh"
 
 #define MwmHintsFunctions     (1l << 0)
 #define MwmHintsDecorations   (1l << 1)
@@ -227,6 +228,13 @@ private:
       button_w, grip_w, mwm_border_w, border_w,
       bevel_w;
   } frame;
+  
+  struct _icon {
+    // u -> unfocused, f -> has focus
+    Pixmap ulabel, flabel, ubutton, fbutton, pbutton, pixmap;
+
+    Window window,title,label;
+  } icon;
 
   BlackboxWindow(const BlackboxWindow&);
   BlackboxWindow& operator=(const BlackboxWindow&);
@@ -235,7 +243,7 @@ private:
   Window createToplevelWindow();
   Window createChildWindow(Window parent, unsigned long event_mask,
                            Cursor = None);
-
+  
   void getWMName(void);
   void getWMIconName(void);
   void getWMNormalHints(void);
@@ -270,14 +278,15 @@ private:
   void restoreGravity(Rect &r);
   void setState(unsigned long new_state);
   void upsize(void);
+  void showIcon(void);
 
   enum Corner { TopLeft, TopRight };
   void constrain(Corner anchor, unsigned int *pw = 0, unsigned int *ph = 0);
-
+ 
 public:
   BlackboxWindow(Blackbox *b, Window w, BScreen *s);
   virtual ~BlackboxWindow(void);
-
+  
   inline bool isTransient(void) const { return client.transient_for != 0; }
   inline bool isFocused(void) const { return flags.focused; }
   inline bool isVisible(void) const { return flags.visible; }

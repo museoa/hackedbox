@@ -28,7 +28,6 @@
 
 // forward declaration
 class Workspacemenu;
-class Toolbar;
 
 class Workspacemenu : public Basemenu {
 private:
@@ -44,4 +43,3 @@ public:
 
 
 #endif // __Workspacemenu_hh
-

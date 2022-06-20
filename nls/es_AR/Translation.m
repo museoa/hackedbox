@@ -80,26 +80,7 @@ $set 6 #Screen
 23 X: %4d x Y: %4d
 24 W: %4d x H: %4d
 
-$set 7 #Slit
-
-1 Slit
-2 Dirección de la Slit
-3 Ubicación de la Slit
-
-$set 8 #Toolbar
-
-1 00:00000
-2 %02d/%02d/%02d
-3 %02d.%02d.%02d
-4  %02d:%02d 
-5 %02d:%02d %sm
-6 p
-7 a
-8 Barra de Herramientas
-9 Renombrar el Escritorio Actual
-10 Ubicación de la Barra de Tareas
-
-$set 9 #Window
+$set 7 #Window
 
 
 1 BlackboxWindow::BlackboxWindow: creando 0x%lx\n
@@ -110,7 +91,7 @@ $set 9 #Window
 6 BlackboxWindow::unmapNotifyEvent() para 0x%lx\n
 7 BlackboxWindow::reparentNotifyEvent: cambiar padre de 0x%lx a 0x%lx\n
 
-$set 10 #Windowmenu
+$set 8 #Windowmenu
 
 1 Enviar A ...
 2 Enrollar
@@ -122,22 +103,22 @@ $set 10 #Windowmenu
 8 Matar Cliente
 9 Cerrar
 
-$set 11 #Workspace
+$set 9 #Workspace
 
 1 Escritorio %d
 
-$set 12 #Workspacemenu
+$set 10 #Workspacemenu
 
 1 Escritorios
 2 Nuevo Escritorio
 3 Quitar Ultimo
 
-$set 13 #blackbox
+$set 11 #blackbox
 
 1 Blackbox::Blackbox: no se encontraron pantallas manejables, abortando\n
 2 Blackbox::process_event: MapRequest para 0x%lx\n
 
-$set 14 #Common
+$set 12 #Common
 
 1 Sí
 2 No
@@ -160,7 +141,7 @@ $set 14 #Common
 
 16 Ocultar Automáticamente
 
-$set 15 #main
+$set 13 #main
 
 1 error: '-rc' requiere un argumento\n
 2 error: '-display' requiere un argumento\n
@@ -176,7 +157,7 @@ $set 15 #main
   Forma:\t\t\t%s\n\
   Simulación ordenada de colores de 8bpp:\t%s\n\n
 
-$set 16 #bsetroot
+$set 14 #bsetroot
 
 1 %s: error: debe especificarse uno entre: -solid, -mod, -gradient\n
 2 %s 2.0: (c) 1997-2000 Brad Hughes\n\n\

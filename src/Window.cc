@@ -28,6 +28,7 @@
 extern "C" {
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
+#include <X11/xpm.h>
 
 #ifdef HAVE_STRING_H
 #  include <string.h>
@@ -44,18 +45,21 @@ extern "C" {
 #endif // HAVE_STDLIB_H
 }
 
+#include <assert.h>
+
 #include "i18n.hh"
 #include "blackbox.hh"
 #include "GCCache.hh"
 #include "Iconmenu.hh"
 #include "Image.hh"
 #include "Screen.hh"
-#include "Toolbar.hh"
 #include "Util.hh"
 #include "Window.hh"
 #include "Windowmenu.hh"
 #include "Workspace.hh"
 
+
+#define NIL (0) 
 
 /*
  * Initializes the class with default values/the window's set initial values.
@@ -284,7 +288,7 @@ BlackboxWindow::BlackboxWindow(Blackbox *b, Window w, BScreen *s) {
 
   if (flags.maximized && (functions & Func_Maximize))
     remaximize();
-
+  
   // create this last so it only needs to be configured once
   windowmenu = new Windowmenu(this);
 }
@@ -1449,9 +1453,10 @@ bool BlackboxWindow::setInputFocus(void) {
   return ret;
 }
 
-
 void BlackboxWindow::iconify(void) {
-  // walk up to the topmost transient_for that is not iconified
+//  showIcon();
+
+    // walk up to the topmost transient_for that is not iconified
   if (isTransient() &&
       client.transient_for != (BlackboxWindow *) ~0ul &&
       ! client.transient_for->isIconic()) {
@@ -1461,7 +1466,7 @@ void BlackboxWindow::iconify(void) {
   }
 
   if (flags.iconic) return;
-
+  
   /*
    * unmap the frame window first, so when all the transients are
    * unmapped, we don't get an enter event in sloppy focus mode
@@ -1479,7 +1484,7 @@ void BlackboxWindow::iconify(void) {
     std::for_each(client.transientList.begin(), client.transientList.end(),
                   std::mem_fun(&BlackboxWindow::iconify));
   }
-
+  
   /*
    * remove the window from the workspace and add it to the screen's
    * icons *AFTER* we have process all transients.  since we always
@@ -1533,6 +1538,8 @@ void BlackboxWindow::show(void) {
 
 
 void BlackboxWindow::deiconify(bool reassoc, bool raise) {
+  XUnmapWindow(blackbox->getXDisplay(),icon.window);
+    
   if (flags.iconic || reassoc)
     screen->reassociateWindow(this, BSENTINEL, False);
   else if (blackbox_attrib.workspace != screen->getCurrentWorkspaceID())
@@ -3278,6 +3285,54 @@ void BlackboxWindow::constrain(Corner anchor,
   }
 }
 
+/*
+void BlackboxWindow::showIcon (void) {
+  XSetWindowAttributes attrib_create;
+  XpmAttributes attributes;
+  Pixmap icon_pixmap, shape;
+  int    status;
+  XTextProperty text_prop;
+  unsigned long create_mask = CWColormap | CWOverrideRedirect | CWEventMask | CWCursor;   
+  char * iconname;
+    
+  status = XGetWMIconName(blackbox->getXDisplay(), client.window, &text_prop);
+
+  if (!status || !text_prop.value) {
+     iconname = text_prop.value;
+  } else {
+     iconname = "/etc/X11/xdm/pixmaps/XFree86.xpm";
+  }
+  
+  attributes.valuemask = 0;
+  XpmReadFileToPixmap(blackbox->getXDisplay(), screen->getRootWindow(), 
+				      iconname, 
+                      &icon_pixmap, 
+                      &shape, 
+				      &attributes);
+
+  attrib_create.background_pixmap = None;
+  attrib_create.colormap = CopyFromParent;
+  attrib_create.override_redirect = True;
+  attrib_create.cursor = CopyFromParent;
+  attrib_create.event_mask = ButtonPressMask | ButtonReleaseMask |
+                             ButtonMotionMask | ExposureMask;
+
+  icon.window = XCreateWindow(blackbox->getXDisplay(), screen->getRootWindow(),
+                       10, 10, attributes.width, attributes.height, 1, CopyFromParent,
+                       CopyFromParent,CopyFromParent, create_mask,
+                       &attrib_create);
+
+  blackbox->saveWindowSearch(icon.window, this);
+  
+  XSetWindowBackgroundPixmap(blackbox->getXDisplay(),icon.window,icon_pixmap);
+  XShapeCombineMask(blackbox->getXDisplay(),icon.window,0,0,0,shape,0);
+  XMapWindow(blackbox->getXDisplay(), icon.window);
+  XLowerWindow(blackbox->getXDisplay(), icon.window);
+  XFlush(blackbox->getXDisplay());
+  XFreePixmap (blackbox->getXDisplay(), icon_pixmap);
+//  screen->manageWindow(icon.window);
+}
+*/
 
 int WindowStyle::doJustify(const char *text, int &start_pos,
                            unsigned int max_length, unsigned int modifier,
