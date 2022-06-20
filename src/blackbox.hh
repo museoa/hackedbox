@@ -118,6 +118,9 @@ private:
     int colors_per_channel;
     timeval auto_raise_delay;
     unsigned long cache_life, cache_max;
+#ifdef ENABLE_KEYBINDINGS
+    bool enable_Key_Bindings;
+#endif // ENABLE_KEYBINDINGS
   } resource;
 
   typedef std::map<Window, BlackboxWindow*> WindowLookup;
@@ -239,6 +242,16 @@ public:
   void removeToolbarSearch(Window window);
   void removeSlitSearch(Window window);
 #endif // ADD_BLOAT
+
+#ifdef ENABLE_KEYBINDINGS
+  inline bool enableKeyBindings(void) const { return resource.enable_Key_Bindings;};
+  inline void saveEnableKeyBindings(bool e) { resource.enable_Key_Bindings = e;};
+
+  void setKeys();
+
+  int pid;
+  int chpid;
+#endif // ENABLE_KEYBINDINGS
 
   inline BlackboxWindow *getFocusedWindow(void) { return focused_window; }
 

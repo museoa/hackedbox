@@ -65,9 +65,6 @@ Configmenu::Configmenu(BScreen *scr) : Basemenu(scr) {
 #ifdef ENABLE_KEYBINDINGS
   insert(i18n(ConfigmenuSet, ConfigmenuEnableKeybindings, 
               "Enable Keybindings"), 7);
-
-  pid = getpid();
-  chpid = getpid();
 #endif // ENABLE_KEYBINDINGS
 
   update();
@@ -78,6 +75,8 @@ Configmenu::Configmenu(BScreen *scr) : Basemenu(scr) {
   setItemSelected(5, getScreen()->doFocusNew());
   setItemSelected(6, getScreen()->doFocusLast());
   setItemSelected(7, getScreen()->allowScrollLock());
+  setItemSelected(8, getScreen()->getBlackbox()->enableKeyBindings());
+  
 }
 
 
@@ -142,31 +141,10 @@ void Configmenu::itemSelected(int button, unsigned int index) {
   }
 #ifdef ENABLE_KEYBINDINGS
   case 7:{ //enable keybindings
-    setItemSelected(index,pid==chpid); 
-	  
-    if (getpid() != chpid){
-      kill(chpid,SIGTERM);
-      chpid = getpid();
-      break;
-    }
-	
-    if (pid == chpid){ 
-      chpid = fork();
-		
-      if (chpid < 0){
-          //cerr << "Error: Can't Fork epistrophy" << endl;
-      }
-	  
-      if (chpid == 0){
-	    extern char** environ;
- 
-	    char *args[]= {"sh", "-c", "epist", 0};
-	    execve("/bin/sh", args, environ);
-	    exit(0);
-      }
-    } 
-	else
-      break;
+    getScreen()->getBlackbox()->saveEnableKeyBindings(! getScreen()->getBlackbox()->enableKeyBindings());
+    setItemSelected(index, getScreen()->getBlackbox()->enableKeyBindings());
+    getScreen()->getBlackbox()->setKeys();
+    break;
   }
 #endif // ENABLE_KEYBINDINGS
   } // switch
@@ -179,7 +157,6 @@ void Configmenu::reconfigure(void) {
 
   Basemenu::reconfigure();
 }
-
 
 Configmenu::Focusmenu::Focusmenu(Configmenu *cm) : Basemenu(cm->getScreen()) {
   setLabel(i18n(ConfigmenuSet, ConfigmenuFocusModel, "Focus Model"));

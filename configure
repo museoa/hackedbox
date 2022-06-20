@@ -1232,7 +1232,7 @@ fi
 
 # Define the identity of the package.
 PACKAGE=hackedbox
-VERSION=0.8.0
+VERSION=0.8.1
 
 # Autoconf 2.50 wants to disallow AM_ names.  We explicitly allow
 # the ones we care about.
@@ -4778,7 +4778,7 @@ fi
 
 		    		    		    ac_config_headers="$ac_config_headers config.h"
 
-ac_config_files="$ac_config_files Makefile src/Makefile util/Makefile epist/Makefile data/Makefile data/styles/Makefile data/backgrounds/Makefile doc/Makefile doc/fr_FR/Makefile doc/ja_JP/Makefile doc/nl_NL/Makefile doc/sl_SI/Makefile nls/Makefile nls/C/Makefile nls/da_DK/Makefile nls/de_DE/Makefile nls/es_AR/Makefile nls/es_ES/Makefile nls/et_EE/Makefile nls/fr_FR/Makefile nls/hu_HU/Makefile nls/it_IT/Makefile nls/ja_JP/Makefile nls/ko_KR/Makefile nls/nl_NL/Makefile nls/no_NO/Makefile nls/pl_PL/Makefile nls/pt_BR/Makefile nls/ro_RO/Makefile nls/ru_RU/Makefile nls/sk_SK/Makefile nls/sl_SI/Makefile nls/sv_SE/Makefile nls/tr_TR/Makefile nls/uk_UA/Makefile nls/zh_CN/Makefile nls/zh_TW/Makefile version.h"
+ac_config_files="$ac_config_files Makefile src/Makefile util/Makefile epist/Makefile data/Makefile data/styles/Makefile data/styles/Hackedbox data/backgrounds/Makefile doc/Makefile doc/fr_FR/Makefile doc/ja_JP/Makefile doc/nl_NL/Makefile doc/sl_SI/Makefile nls/Makefile nls/C/Makefile nls/da_DK/Makefile nls/de_DE/Makefile nls/es_AR/Makefile nls/es_ES/Makefile nls/et_EE/Makefile nls/fr_FR/Makefile nls/hu_HU/Makefile nls/it_IT/Makefile nls/ja_JP/Makefile nls/ko_KR/Makefile nls/nl_NL/Makefile nls/no_NO/Makefile nls/pl_PL/Makefile nls/pt_BR/Makefile nls/ro_RO/Makefile nls/ru_RU/Makefile nls/sk_SK/Makefile nls/sl_SI/Makefile nls/sv_SE/Makefile nls/tr_TR/Makefile nls/uk_UA/Makefile nls/zh_CN/Makefile nls/zh_TW/Makefile version.h"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -5104,6 +5104,7 @@ do
   "epist/Makefile" ) CONFIG_FILES="$CONFIG_FILES epist/Makefile" ;;
   "data/Makefile" ) CONFIG_FILES="$CONFIG_FILES data/Makefile" ;;
   "data/styles/Makefile" ) CONFIG_FILES="$CONFIG_FILES data/styles/Makefile" ;;
+  "data/styles/Hackedbox" ) CONFIG_FILES="$CONFIG_FILES data/styles/Hackedbox" ;;
   "data/backgrounds/Makefile" ) CONFIG_FILES="$CONFIG_FILES data/backgrounds/Makefile" ;;
   "doc/Makefile" ) CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
   "doc/fr_FR/Makefile" ) CONFIG_FILES="$CONFIG_FILES doc/fr_FR/Makefile" ;;
@@ -5138,7 +5139,7 @@ do
   "version.h" ) CONFIG_FILES="$CONFIG_FILES version.h" ;;
   "default-1" ) CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
   "config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
-  *) { { echo "$as_me:5141: error: invalid argument: $ac_config_target" >&5
+  *) { { echo "$as_me:5142: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
   esac
@@ -5387,7 +5388,7 @@ done; }
   esac
 
   if test x"$ac_file" != x-; then
-    { echo "$as_me:5390: creating $ac_file" >&5
+    { echo "$as_me:5391: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
     rm -f "$ac_file"
   fi
@@ -5405,7 +5406,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo $tmp/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:5408: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:5409: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -5418,7 +5419,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo $srcdir/$f
          else
            # /dev/null tree
-           { { echo "$as_me:5421: error: cannot find input file: $f" >&5
+           { { echo "$as_me:5422: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -5479,7 +5480,7 @@ for ac_file in : $CONFIG_HEADERS; do test "x$ac_file" = x: && continue
   * )   ac_file_in=$ac_file.in ;;
   esac
 
-  test x"$ac_file" != x- && { echo "$as_me:5482: creating $ac_file" >&5
+  test x"$ac_file" != x- && { echo "$as_me:5483: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
 
   # First look for the input files in the build tree, otherwise in the
@@ -5490,7 +5491,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo $tmp/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:5493: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:5494: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -5503,7 +5504,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo $srcdir/$f
          else
            # /dev/null tree
-           { { echo "$as_me:5506: error: cannot find input file: $f" >&5
+           { { echo "$as_me:5507: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;
@@ -5620,7 +5621,7 @@ cat >>$CONFIG_STATUS <<\EOF
   rm -f $tmp/in
   if test x"$ac_file" != x-; then
     if cmp -s $ac_file $tmp/config.h 2>/dev/null; then
-      { echo "$as_me:5623: $ac_file is unchanged" >&5
+      { echo "$as_me:5624: $ac_file is unchanged" >&5
 echo "$as_me: $ac_file is unchanged" >&6;}
     else
       ac_dir=`$as_expr X"$ac_file" : 'X\(.*[^/]\)//*[^/][^/]*/*$' \| \
@@ -5746,25 +5747,25 @@ if test "$no_create" != yes; then
 fi
 
 # Print results
-echo "$as_me:5749: result: " >&5
+echo "$as_me:5750: result: " >&5
 echo "${ECHO_T}" >&6
-echo "$as_me:5751: result: ***************************************************" >&5
+echo "$as_me:5752: result: ***************************************************" >&5
 echo "${ECHO_T}***************************************************" >&6
-echo "$as_me:5753: result: " >&5
+echo "$as_me:5754: result: " >&5
 echo "${ECHO_T}" >&6
-echo "$as_me:5755: result: $PACKAGE version $VERSION configured successfully." >&5
+echo "$as_me:5756: result: $PACKAGE version $VERSION configured successfully." >&5
 echo "${ECHO_T}$PACKAGE version $VERSION configured successfully." >&6
-echo "$as_me:5757: result: " >&5
+echo "$as_me:5758: result: " >&5
 echo "${ECHO_T}" >&6
-echo "$as_me:5759: result: Using '$prefix' for installation." >&5
+echo "$as_me:5760: result: Using '$prefix' for installation." >&5
 echo "${ECHO_T}Using '$prefix' for installation." >&6
-echo "$as_me:5761: result: Using '$CXX' for C++ compiler." >&5
+echo "$as_me:5762: result: Using '$CXX' for C++ compiler." >&5
 echo "${ECHO_T}Using '$CXX' for C++ compiler." >&6
-echo "$as_me:5763: result: Building with '$CXXFLAGS' for C++ compiler flags." >&5
+echo "$as_me:5764: result: Building with '$CXXFLAGS' for C++ compiler flags." >&5
 echo "${ECHO_T}Building with '$CXXFLAGS' for C++ compiler flags." >&6
-echo "$as_me:5765: result: Building with '$LIBS' for linker flags." >&5
+echo "$as_me:5766: result: Building with '$LIBS' for linker flags." >&5
 echo "${ECHO_T}Building with '$LIBS' for linker flags." >&6
-echo "$as_me:5767: result: " >&5
+echo "$as_me:5768: result: " >&5
 echo "${ECHO_T}" >&6
-echo "$as_me:5769: result: ***************************************************" >&5
+echo "$as_me:5770: result: ***************************************************" >&5
 echo "${ECHO_T}***************************************************" >&6

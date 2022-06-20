@@ -75,7 +75,7 @@ PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
 UTILS = 
-VERSION = 0.8.0
+VERSION = 0.8.1
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
@@ -92,12 +92,12 @@ style_DATA = Hackedbox artwiz bluebox cthulhain deep flux frobozz frobust nyz ny
 subdir = data/styles
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = Hackedbox
 depcomp =
 DIST_SOURCES =
 DATA = $(style_DATA)
 
-DIST_COMMON = Makefile.am Makefile.in
+DIST_COMMON = Hackedbox.in Makefile.am Makefile.in
 all: all-am
 
 .SUFFIXES:
@@ -108,6 +108,8 @@ Makefile: # $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
+Hackedbox: $(top_builddir)/config.status Hackedbox.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
 uninstall-info-am:
 install-styleDATA: $(style_DATA)
 	@$(NORMAL_INSTALL)
@@ -153,7 +155,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(DATA)
+all-am: Makefile $(DATA) all-local
 
 installdirs:
 	$(mkinstalldirs) $(DESTDIR)$(styledir)
@@ -218,15 +220,20 @@ mostlyclean-am: mostlyclean-generic
 
 uninstall-am: uninstall-info-am uninstall-styleDATA
 
-.PHONY: all all-am check check-am clean clean-generic distclean \
-	distclean-generic distclean-local distdir dvi dvi-am info \
-	info-am install install-am install-data install-data-am \
+.PHONY: all all-am all-local check check-am clean clean-generic \
+	distclean distclean-generic distclean-local distdir dvi dvi-am \
+	info info-am install install-am install-data install-data-am \
 	install-exec install-exec-am install-info install-info-am \
 	install-man install-strip install-styleDATA installcheck \
 	installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-generic \
 	uninstall uninstall-am uninstall-info-am uninstall-styleDATA
 
+
+all-local: Hackedbox
+
+Hackedbox: Hackedbox.in
+	sed -e "s,@pkgdatadir@,$(pkgdatadir)," ./Hackedbox.in > Hackedbox
 
 distclean-local:
 	rm -f *\~

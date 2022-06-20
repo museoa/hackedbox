@@ -988,6 +988,12 @@ void Blackbox::save_rc(void) {
 
   load_rc();
 
+#ifdef ENABLE_KEYBINDINGS
+  sprintf(rc_string, "session.keyBindings: %s",
+            ((enableKeyBindings()) ? "True" : "False"));
+  XrmPutLineResource(&new_blackboxrc, rc_string);
+#endif // ENABLE_KEYBINDINGS
+
   sprintf(rc_string, "session.menuFile:  %s", getMenuFilename());
   XrmPutLineResource(&new_blackboxrc, rc_string);
 
@@ -1205,6 +1211,14 @@ void Blackbox::load_rc(void) {
   char *value_type;
   int int_value;
   unsigned long long_value;
+
+#ifdef ENABLE_KEYBINDINGS
+  if (XrmGetResource(database, "session.keyBindings", "Session.KeyBindings",
+                     &value_type, &value)) {
+      saveEnableKeyBindings(value.addr);
+      setKeys();
+  } 
+#endif // ENABLE_KEYBINDINGS
 
   if (XrmGetResource(database, "session.menuFile", "Session.MenuFile",
                      &value_type, &value)) {
@@ -1716,3 +1730,28 @@ void Blackbox::setFocusedWindow(BlackboxWindow *win) {
   }
 #endif // ADD_BLOAT
 }
+
+#ifdef ENABLE_KEYBINDINGS
+void Blackbox::setKeys() {
+    if (chpid != 0){
+        kill(chpid,SIGTERM);
+        chpid = 0;
+    }
+    
+    if (enableKeyBindings()) { 
+      chpid = fork();
+		
+      if (chpid < 0){
+          //cerr << "Error: Can't Fork epistrophy" << endl;
+      }
+	  
+      if (chpid == 0){
+	    extern char** environ;
+ 
+	    char *args[]= {"sh", "-c", "epist", 0};
+	    execve("/bin/sh", args, environ);
+	    exit(0);
+       }
+    } 
+}
+#endif // ENABLE_KEYBINDINGS

@@ -78,9 +78,6 @@ public:
   inline Basemenu *getPlacementmenu(void) { return placementmenu; }
 
   void reconfigure(void);
-  
-  int pid;
-  int chpid;
 };
 
 #endif // __Configmenu_hh
