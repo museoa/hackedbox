@@ -13,7 +13,7 @@
 
 @SET_MAKE@
 
-# nls/sv_SE/Makefile.am for Blackbox - an X11 Window Manager
+# Makefile.am for Blackbox - an X11 Window Manager
 
 SHELL = @SHELL@
 
@@ -59,15 +59,14 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 AMTAR = @AMTAR@
 AWK = @AWK@
+BLOAT_HH = @BLOAT_HH@
 CC = @CC@
 CXX = @CXX@
 DEBUG = @DEBUG@
 DEPDIR = @DEPDIR@
 EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTERLACE = @INTERLACE@
 MAINT = @MAINT@
-NEWWMSPEC = @NEWWMSPEC@
 NLS = @NLS@
 OBJEXT = @OBJEXT@
 ORDEREDPSEUDO = @ORDEREDPSEUDO@
@@ -87,6 +86,8 @@ install_sh = @install_sh@
 regex_cmd = @regex_cmd@
 
 NLSTEST = @NLS@
+THE_LANG = sv_SE
+THE_NLS_PATH = $(DESTDIR)$(pkgdatadir)/nls/$(THE_LANG)
 CLEANFILES = blackbox.cat
 MAINTAINERCLEANFILES = Makefile.in Translation.m
 DISTCLEANFILES = Translation.m
@@ -215,14 +216,14 @@ uninstall-am: uninstall-info-am uninstall-local
 all-local: blackbox.cat
 install-data-local: blackbox.cat
 	@if test x$(NLSTEST) = "x-DNLS"; then \
-		echo "Installing catalog in $(DESTDIR)$(pkgdatadir)/nls/sv_SE"; \
-		$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/nls/sv_SE; \
-		$(INSTALL_DATA) blackbox.cat $(DESTDIR)$(pkgdatadir)/nls/sv_SE; \
+		echo "Installing catalog in $(THE_NLS_PATH)"; \
+		$(mkinstalldirs) $(THE_NLS_PATH); \
+		$(INSTALL_DATA) blackbox.cat $(THE_NLS_PATH); \
 	fi
 uninstall-local:
 	@if test x$(NLSTEST) = "x-DNLS"; then \
-		rm -f $(DESTDIR)$(pkgdatadir)/nls/sv_SE/blackbox.cat; \
-		rmdir $(DESTDIR)$(pkgdatadir)/nls/sv_SE; \
+		rm -f $(THE_NLS_PATH)/blackbox.cat; \
+		rmdir $(THE_NLS_PATH); \
 	fi
 
 Translation.m: $(MFILES)
@@ -236,7 +237,7 @@ blackbox.cat: Translation.m
 	fi
 
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

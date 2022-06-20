@@ -59,15 +59,14 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 AMTAR = @AMTAR@
 AWK = @AWK@
+BLOAT_HH = @BLOAT_HH@
 CC = @CC@
 CXX = @CXX@
 DEBUG = @DEBUG@
 DEPDIR = @DEPDIR@
 EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTERLACE = @INTERLACE@
 MAINT = @MAINT@
-NEWWMSPEC = @NEWWMSPEC@
 NLS = @NLS@
 OBJEXT = @OBJEXT@
 ORDEREDPSEUDO = @ORDEREDPSEUDO@
@@ -86,11 +85,12 @@ gencat_cmd = @gencat_cmd@
 install_sh = @install_sh@
 regex_cmd = @regex_cmd@
 
-EXTRA_DIST = util bootstrap
+EXTRA_DIST = util bootstrap nls doc
 
 AUTOMAKE_OPTIONS = foreign
 
 SUBDIRS = data doc nls src @UTILS@
+
 MAINTAINERCLEANFILES = aclocal.m4 config.h.in configure Makefile.in stamp-h.in
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -421,7 +421,7 @@ uninstall-local:
 	-rmdir $(pkgdatadir)
 
 distclean-local:
-	rm -f *\~ gmon.out
+	rm -f *\~ gmon.out .\#*
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

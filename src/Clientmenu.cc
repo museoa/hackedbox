@@ -1,6 +1,6 @@
-// Clientmenu.cc for Hackedbox
-// Copyright (c) 2002 Larry Owen <larry@scrudgeware.org>
-// Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
+// -*- mode: C++; indent-tabs-mode: nil; -*-
+// Clientmenu.cc for Blackbox - an X11 Window manager
+// Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -21,12 +21,6 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-// stupid macros needed to access some functions in version 2 of the GNU C
-// library
-#ifndef   _GNU_SOURCE
-#define   _GNU_SOURCE
-#endif // _GNU_SOURCE
-
 #ifdef    HAVE_CONFIG_H
 #  include "../config.h"
 #endif // HAVE_CONFIG_H
@@ -41,13 +35,12 @@
 
 Clientmenu::Clientmenu(Workspace *ws) : Basemenu(ws->getScreen()) {
   wkspc = ws;
-  screen = wkspc->getScreen();
 
   setInternalMenu();
 }
 
 
-void Clientmenu::itemSelected(int button, int index) {
+void Clientmenu::itemSelected(int button, unsigned int index) {
   if (button > 2) return;
 
   BlackboxWindow *win = wkspc->getWindow(index);
@@ -61,5 +54,6 @@ void Clientmenu::itemSelected(int button, int index) {
     win->setInputFocus();
   }
 
-  if (! (screen->getWorkspacemenu()->isTorn() || isTorn())) hide();
+  Workspacemenu* wkspcmenu = wkspc->getScreen()->getWorkspacemenu();
+  if (! (wkspcmenu->isTorn() || isTorn())) hide();
 }

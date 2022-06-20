@@ -1,9 +1,9 @@
 # data/Makefile.am for Hackedbox
 
-SUBDIRS = styles
+SUBDIRS = styles backgrounds
 CLEANFILES = menu
 MAINTAINERCLEANFILES = Makefile.in
-EXTRA_DIST = styles README.* menu.in
+EXTRA_DIST = backgrounds styles README.* menu.in 
 
 all-local: menu
 

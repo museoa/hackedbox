@@ -7,8 +7,8 @@ $ #DISPLAYRequiresArg
 $ #WarnDisplaySet
 # opozorilo: spremenljivke okolja 'DISPLAY' ni moè nastaviti\n
 $ #Usage
-# Blackbox %s: (c) 2002 - 2001 Sean 'Shaleh' Perry\n\
-  \t\t\t  1997 - 2000 Brad Hughes\n\n\
+# Blackbox %s: (c) 2001 - 2002 Sean 'Shaleh' Perry\n\
+  \t\t\t 1997 - 2000, 2002 Brad Hughes\n\n\
   -display <string>\t\tuporabi prikazovalnik.\n\
   -rc <string>\t\t\tuporabi nadomestno datoteko z viri.\n\
   -version\t\t\tprika¾i oznako razlièice in konèaj.\n\
@@ -16,7 +16,5 @@ $ #Usage
 $ #CompileOptions
 # Izbire pri prevajanju:\n\
   Razhro¹èevanje\t\t\t%s\n\
-  Prepletanje:\t\t\t%s\n\
   Oblika:\t\t\t%s\n\
-  Re¾a:\t\t\t\t%s\n\
   Osembitno stresanje barv:\t%s\n\n

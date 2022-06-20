@@ -13,6 +13,8 @@
 
 
 
+# nls/Makefile.am for Blackbox - an X11 Window Manager
+
 SHELL = /bin/sh
 
 srcdir = .
@@ -38,10 +40,10 @@ pkglibdir = $(libdir)/hackedbox
 pkgincludedir = $(includedir)/hackedbox
 top_builddir = ..
 
-ACLOCAL = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run aclocal
-AUTOCONF = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoconf
-AUTOMAKE = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run automake
-AUTOHEADER = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoheader
+ACLOCAL = ${SHELL} /usr/src/hackedbox-current/missing --run aclocal
+AUTOCONF = ${SHELL} /usr/src/hackedbox-current/missing --run autoconf
+AUTOMAKE = ${SHELL} /usr/src/hackedbox-current/missing --run automake
+AUTOHEADER = ${SHELL} /usr/src/hackedbox-current/missing --run autoheader
 
 INSTALL = /bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -55,17 +57,16 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-AMTAR = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run tar
+AMTAR = ${SHELL} /usr/src/hackedbox-current/missing --run tar
 AWK = mawk
+BLOAT_HH = 
 CC = gcc
 CXX = g++
-DEBUG = 
+DEBUG = -DNDEBUG
 DEPDIR = .deps
 EXEEXT = 
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
-INTERLACE = -DINTERLACE
 MAINT = #
-NEWWMSPEC = 
 NLS = -DNLS
 OBJEXT = o
 ORDEREDPSEUDO = 
@@ -73,7 +74,7 @@ PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
 UTILS = 
-VERSION = 0.7.2
+VERSION = 0.7.3
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
@@ -81,16 +82,16 @@ X_PRE_LIBS =  -lSM -lICE
 am__include = include
 am__quote = 
 gencat_cmd = gencat
-install_sh = /usr/src/hackedbox-0.7.3/install-sh
+install_sh = /usr/src/hackedbox-current/install-sh
 regex_cmd = sed
 
 NLSTEST = -DNLS
-SUBDIRS = C da_DK de_DE es_ES et_EE fr_FR it_IT ja_JP  nl_NL pt_BR ru_RU \
-	sl_SI sv_SE tr_TR zh_CN
+SUBDIRS = C da_DK de_DE es_AR es_ES fr_FR hu_HU it_IT ja_JP ko_KR nl_NL \
+	  no_NO pl_PL pt_BR ro_RO ru_RU sk_SK sl_SI sv_SE tr_TR uk_UA \
+	  zh_CN zh_TW
 
 MAINTAINERCLEANFILES = Makefile.in blackbox-nls.hh
 DISTCLEANFILES = blackbox-nls.hh
-EXTRA_DIST = convert.awk *
 subdir = nls
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
@@ -326,12 +327,13 @@ uninstall-info: uninstall-info-recursive
 	uninstall-am uninstall-info-am uninstall-info-recursive \
 	uninstall-local uninstall-recursive
 
+
 uninstall-local:
 	@if test x$(NLSTEST) = "x-DNLS"; then \
 		rmdir $(DESTDIR)$(pkgdatadir)/nls; \
 	fi
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

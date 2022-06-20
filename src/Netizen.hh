@@ -1,5 +1,5 @@
-// Netizen.hh for Hackedbox
-// Copyright (c) 2002 Larry Owen <larry@scrudgeware.org>
+// -*- mode: C++; indent-tabs-mode: nil; -*-
+// Netizen.hh for Blackbox - An X11 Window Manager
 // Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
@@ -24,26 +24,26 @@
 #ifndef   __Netizen_hh
 #define   __Netizen_hh
 
+extern "C" {
 #include <X11/Xlib.h>
+}
 
 // forward declaration
-class BaseDisplay;
+class Blackbox;
 class BScreen;
 class Netizen;
 
 class Netizen {
 private:
-  BaseDisplay *basedisplay;
+  Blackbox *blackbox;
   BScreen *screen;
   Window window;
   XEvent event;
 
-protected:
-
 public:
   Netizen(BScreen *, Window);
 
-  inline const Window &getWindowID(void) const { return window; }
+  inline Window getWindowID(void) const { return window; }
 
   void sendWorkspaceCount(void);
   void sendCurrentWorkspace(void);

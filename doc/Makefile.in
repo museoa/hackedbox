@@ -13,7 +13,7 @@
 
 @SET_MAKE@
 
-# doc/Makefile.am for Hackedbox
+# doc/Makefile.am for hackedbox 
 
 SHELL = @SHELL@
 
@@ -59,15 +59,14 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 AMTAR = @AMTAR@
 AWK = @AWK@
+BLOAT_HH = @BLOAT_HH@
 CC = @CC@
 CXX = @CXX@
 DEBUG = @DEBUG@
 DEPDIR = @DEPDIR@
 EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTERLACE = @INTERLACE@
 MAINT = @MAINT@
-NEWWMSPEC = @NEWWMSPEC@
 NLS = @NLS@
 OBJEXT = @OBJEXT@
 ORDEREDPSEUDO = @ORDEREDPSEUDO@
@@ -86,11 +85,10 @@ gencat_cmd = @gencat_cmd@
 install_sh = @install_sh@
 regex_cmd = @regex_cmd@
 
-EXTRA_DIST = hackedbox.1.in HackedBox.* *.pl
 CLEANFILES = hackedbox.1
 MAINTAINERCLEANFILES = Makefile.in
 man_MANS = hackedbox.1
-SUBDIRS = 
+SUBDIRS = fr_FR ja_JP nl_NL sl_SI
 
 DEFAULT_MENU = $(pkgdatadir)/menu
 subdir = doc
@@ -375,7 +373,7 @@ uninstall-man: uninstall-man1
 
 
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*
 
 hackedbox.1: hackedbox.1.in
 	@regex_cmd@ -e "s,@defaultmenu@,$(DEFAULT_MENU)," \

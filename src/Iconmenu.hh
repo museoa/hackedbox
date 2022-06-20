@@ -1,6 +1,6 @@
-// Icon.hh for Hackedbox
-// Copyright (c) 2002 Larry Owen <larry@scrudgeware.org>
-// Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
+// -*- mode: C++; indent-tabs-mode: nil; -*-
+// Icon.hh for Blackbox - an X11 Window manager
+// Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -32,13 +32,14 @@ class BScreen;
 
 class Iconmenu : public Basemenu {
 private:
-  BScreen *screen;
+  Iconmenu(const Iconmenu&);
+  Iconmenu& operator=(const Iconmenu&);
 
 protected:
-  virtual void itemSelected(int, int);
+  virtual void itemSelected(int button, unsigned int index);
 
 public:
-  Iconmenu(BScreen *);
+  Iconmenu(BScreen *scrn);
 };
 
 

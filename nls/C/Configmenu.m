@@ -16,12 +16,16 @@ $ #FocusNew
 # Focus New Windows
 $ #FocusLast
 # Focus Window on Workspace Change
+$ #DisableBindings
+# Disable Bindings with Scroll Lock
 $ #ClickToFocus
 # Click to Focus
 $ #SloppyFocus
 # Sloppy Focus
 $ #AutoRaise
 # Auto Raise
+$ #ClickRaise
+# Click Raise
 $ #SmartRows
 # Smart Placement (Rows)
 $ #SmartCols

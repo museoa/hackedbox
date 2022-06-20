@@ -13,7 +13,7 @@
 
 
 
-# nls/sl_SI/Makefile.am for Blackbox - an X11 Window Manager
+# Makefile.am for Blackbox - an X11 Window Manager
 
 SHELL = /bin/sh
 
@@ -40,10 +40,10 @@ pkglibdir = $(libdir)/hackedbox
 pkgincludedir = $(includedir)/hackedbox
 top_builddir = ../..
 
-ACLOCAL = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run aclocal
-AUTOCONF = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoconf
-AUTOMAKE = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run automake
-AUTOHEADER = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoheader
+ACLOCAL = ${SHELL} /usr/src/hackedbox-current/missing --run aclocal
+AUTOCONF = ${SHELL} /usr/src/hackedbox-current/missing --run autoconf
+AUTOMAKE = ${SHELL} /usr/src/hackedbox-current/missing --run automake
+AUTOHEADER = ${SHELL} /usr/src/hackedbox-current/missing --run autoheader
 
 INSTALL = /bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -57,17 +57,16 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-AMTAR = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run tar
+AMTAR = ${SHELL} /usr/src/hackedbox-current/missing --run tar
 AWK = mawk
+BLOAT_HH = 
 CC = gcc
 CXX = g++
-DEBUG = 
+DEBUG = -DNDEBUG
 DEPDIR = .deps
 EXEEXT = 
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
-INTERLACE = -DINTERLACE
 MAINT = #
-NEWWMSPEC = 
 NLS = -DNLS
 OBJEXT = o
 ORDEREDPSEUDO = 
@@ -75,7 +74,7 @@ PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
 UTILS = 
-VERSION = 0.7.2
+VERSION = 0.7.3
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
@@ -83,10 +82,12 @@ X_PRE_LIBS =  -lSM -lICE
 am__include = include
 am__quote = 
 gencat_cmd = gencat
-install_sh = /usr/src/hackedbox-0.7.3/install-sh
+install_sh = /usr/src/hackedbox-current/install-sh
 regex_cmd = sed
 
 NLSTEST = -DNLS
+THE_LANG = sl_SI
+THE_NLS_PATH = $(DESTDIR)$(pkgdatadir)/nls/$(THE_LANG)
 CLEANFILES = blackbox.cat
 MAINTAINERCLEANFILES = Makefile.in Translation.m
 DISTCLEANFILES = Translation.m
@@ -215,14 +216,14 @@ uninstall-am: uninstall-info-am uninstall-local
 all-local: blackbox.cat
 install-data-local: blackbox.cat
 	@if test x$(NLSTEST) = "x-DNLS"; then \
-		echo "Installing catalog in $(DESTDIR)$(pkgdatadir)/nls/sl_SI"; \
-		$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/nls/sl_SI; \
-		$(INSTALL_DATA) blackbox.cat $(DESTDIR)$(pkgdatadir)/nls/sl_SI; \
+		echo "Installing catalog in $(THE_NLS_PATH)"; \
+		$(mkinstalldirs) $(THE_NLS_PATH); \
+		$(INSTALL_DATA) blackbox.cat $(THE_NLS_PATH); \
 	fi
 uninstall-local:
 	@if test x$(NLSTEST) = "x-DNLS"; then \
-		rm -f $(DESTDIR)$(pkgdatadir)/nls/sl_SI/blackbox.cat; \
-		rmdir $(DESTDIR)$(pkgdatadir)/nls/sl_SI; \
+		rm -f $(THE_NLS_PATH)/blackbox.cat; \
+		rmdir $(THE_NLS_PATH); \
 	fi
 
 Translation.m: $(MFILES)
@@ -236,7 +237,7 @@ blackbox.cat: Translation.m
 	fi
 
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

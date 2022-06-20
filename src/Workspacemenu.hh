@@ -1,5 +1,6 @@
+// -*- mode: C++; indent-tabs-mode: nil; -*-
 // WorkspaceMenu.hh for Blackbox - an X11 Window manager
-// Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
+// Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -31,13 +32,14 @@ class Toolbar;
 
 class Workspacemenu : public Basemenu {
 private:
-  BScreen *screen;
+  Workspacemenu(const Workspacemenu&);
+  Workspacemenu& operator=(const Workspacemenu&);
 
 protected:
-  virtual void itemSelected(int, int);
+  virtual void itemSelected(int button, unsigned int index);
 
 public:
-  Workspacemenu(BScreen *);
+  Workspacemenu(BScreen *scrn);
 };
 
 

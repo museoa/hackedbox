@@ -1,6 +1,6 @@
-// Rootmenu.hh for Hackedbox
-// Copyright (c) 2002 Larry Owen <larry@scrudgeware.org>
-// Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
+// -*- mode: C++; indent-tabs-mode: nil; -*-
+// Rootmenu.hh for Blackbox - an X11 Window manager
+// Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -25,24 +25,21 @@
 #define   __Rootmenu_hh
 
 // forward declarations
-class Rootmenu;
-class Blackbox;
 class BScreen;
 
 #include "Basemenu.hh"
 
+
 class Rootmenu : public Basemenu {
 private:
-  Blackbox *blackbox;
-  BScreen *screen;
-
+  Rootmenu(const Rootmenu&);
+  Rootmenu& operator=(const Rootmenu&);
 
 protected:
-  virtual void itemSelected(int, int);
-
+  virtual void itemSelected(int button, unsigned int index);
 
 public:
-  Rootmenu(BScreen *);
+  Rootmenu(BScreen *scrn);
 };
 
 

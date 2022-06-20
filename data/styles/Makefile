@@ -13,7 +13,7 @@
 
 
 
-# data/styles/Makefile.am for Openbox
+# data/styles/Makefile.am for Hackedbox
 
 SHELL = /bin/sh
 
@@ -40,10 +40,10 @@ pkglibdir = $(libdir)/hackedbox
 pkgincludedir = $(includedir)/hackedbox
 top_builddir = ../..
 
-ACLOCAL = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run aclocal
-AUTOCONF = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoconf
-AUTOMAKE = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run automake
-AUTOHEADER = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoheader
+ACLOCAL = ${SHELL} /usr/src/hackedbox-current/missing --run aclocal
+AUTOCONF = ${SHELL} /usr/src/hackedbox-current/missing --run autoconf
+AUTOMAKE = ${SHELL} /usr/src/hackedbox-current/missing --run automake
+AUTOHEADER = ${SHELL} /usr/src/hackedbox-current/missing --run autoheader
 
 INSTALL = /bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -57,17 +57,16 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-AMTAR = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run tar
+AMTAR = ${SHELL} /usr/src/hackedbox-current/missing --run tar
 AWK = mawk
+BLOAT_HH = 
 CC = gcc
 CXX = g++
-DEBUG = 
+DEBUG = -DNDEBUG
 DEPDIR = .deps
 EXEEXT = 
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
-INTERLACE = -DINTERLACE
 MAINT = #
-NEWWMSPEC = 
 NLS = -DNLS
 OBJEXT = o
 ORDEREDPSEUDO = 
@@ -75,7 +74,7 @@ PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
 UTILS = 
-VERSION = 0.7.2
+VERSION = 0.7.3
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
@@ -83,12 +82,12 @@ X_PRE_LIBS =  -lSM -lICE
 am__include = include
 am__quote = 
 gencat_cmd = gencat
-install_sh = /usr/src/hackedbox-0.7.3/install-sh
+install_sh = /usr/src/hackedbox-current/install-sh
 regex_cmd = sed
 
 styledir = $(pkgdatadir)/styles
 MAINTAINERCLEANFILES = Makefile.in
-style_DATA = artwiz bluebox cthulhain deep flux frobozz frobust nyz nyzclone operation outcomes shade steelblue steelblue2 the_orange trisb twice
+style_DATA = Hackedbox artwiz bluebox cthulhain deep flux frobozz frobust nyz nyzclone operation outcomes shade steelblue steelblue2 the_orange trisb twice
 subdir = data/styles
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h

@@ -1,5 +1,6 @@
+// -*- mode: C++; indent-tabs-mode: nil; -*-
 // i18n.hh for Blackbox - an X11 Window manager
-// Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
+// Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -28,20 +29,20 @@
 // add ifdefs to every call to getMessage
 #include "../nls/blackbox-nls.hh"
 
+extern "C" {
 #ifdef    HAVE_LOCALE_H
 #  include <locale.h>
 #endif // HAVE_LOCALE_H
 
 #ifdef    HAVE_NL_TYPES_H
-extern "C" {
 #  include <nl_types.h>
-}
 #endif // HAVE_NL_TYPES_H
+}
 
 
 class I18n {
 private:
-  char *locale, *catalog_filename;
+  char *locale;
   bool mb;
 #ifdef HAVE_NL_TYPES_H
   nl_catd catalog_fd;
@@ -53,14 +54,10 @@ public:
 
   inline bool multibyte(void) const { return mb; }
 
-  const char *getMessage(int set, int msg, const char *msgString) const;
+  const char* operator()(int set, int msg, const char *msgString) const;
   void openCatalog(const char *catalog);
 };
 
-
-extern I18n *i18n;
-extern void NLSInit(const char *);
-
-
+extern I18n i18n;
 
 #endif // __i18n_h

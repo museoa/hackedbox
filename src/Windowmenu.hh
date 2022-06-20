@@ -29,24 +29,23 @@
 class Windowmenu;
 class SendtoWorkspaceMenu;
 
-class Blackbox;
 class BlackboxWindow;
-class Toolbar;
 
 class Windowmenu : public Basemenu {
 private:
   BlackboxWindow *window;
-  BScreen *screen;
 
   class SendtoWorkspacemenu : public Basemenu {
   private:
-    Windowmenu *windowmenu;
+    BlackboxWindow *window;
+    SendtoWorkspacemenu(const SendtoWorkspacemenu&);
+    SendtoWorkspacemenu& operator=(const SendtoWorkspacemenu&);
 
   protected:
-    virtual void itemSelected(int, int);
+    virtual void itemSelected(int button, unsigned int index);
 
   public:
-    SendtoWorkspacemenu(Windowmenu *);
+    SendtoWorkspacemenu(Windowmenu *w);
 
     void update(void);
 
@@ -57,13 +56,15 @@ private:
 
   friend class SendtoWorkspacemenu;
 
+  Windowmenu(const Windowmenu&);
+  Windowmenu& operator=(const Windowmenu&);
 
 protected:
-  virtual void itemSelected(int, int);
+  virtual void itemSelected(int button, unsigned int index);
 
 
 public:
-  Windowmenu(BlackboxWindow *);
+  Windowmenu(BlackboxWindow *win);
   virtual ~Windowmenu(void);
 
   inline Basemenu *getSendToMenu(void) { return (Basemenu *) sendToMenu; }

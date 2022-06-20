@@ -40,10 +40,10 @@ pkglibdir = $(libdir)/hackedbox
 pkgincludedir = $(includedir)/hackedbox
 top_builddir = ..
 
-ACLOCAL = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run aclocal
-AUTOCONF = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoconf
-AUTOMAKE = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run automake
-AUTOHEADER = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoheader
+ACLOCAL = ${SHELL} /usr/src/hackedbox-current/missing --run aclocal
+AUTOCONF = ${SHELL} /usr/src/hackedbox-current/missing --run autoconf
+AUTOMAKE = ${SHELL} /usr/src/hackedbox-current/missing --run automake
+AUTOHEADER = ${SHELL} /usr/src/hackedbox-current/missing --run autoheader
 
 INSTALL = /bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -57,17 +57,16 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-AMTAR = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run tar
+AMTAR = ${SHELL} /usr/src/hackedbox-current/missing --run tar
 AWK = mawk
+BLOAT_HH = 
 CC = gcc
 CXX = g++
-DEBUG = 
+DEBUG = -DNDEBUG
 DEPDIR = .deps
 EXEEXT = 
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
-INTERLACE = -DINTERLACE
 MAINT = #
-NEWWMSPEC = 
 NLS = -DNLS
 OBJEXT = o
 ORDEREDPSEUDO = 
@@ -75,7 +74,7 @@ PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
 UTILS = 
-VERSION = 0.7.2
+VERSION = 0.7.3
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
@@ -83,18 +82,16 @@ X_PRE_LIBS =  -lSM -lICE
 am__include = include
 am__quote = 
 gencat_cmd = gencat
-install_sh = /usr/src/hackedbox-0.7.3/install-sh
+install_sh = /usr/src/hackedbox-current/install-sh
 regex_cmd = sed
 
-CPPFLAGS =   -DNLS -DTIMEDCACHE  -DINTERLACE \
-
-
+CPPFLAGS =  -DNDEBUG -DNLS -DTIMEDCACHE 
 
 bin_SCRIPTS = bsetbg
 bin_PROGRAMS = bsetroot
 
 bsetroot_SOURCES = bsetroot.cc
-bsetroot_LDADD = ../src/BaseDisplay.o ../src/LinkedList.o ../src/Timer.o ../src/Image.o ../src/i18n.o
+bsetroot_LDADD = ../src/BaseDisplay.o ../src/Color.o ../src/GCCache.o ../src/Texture.o ../src/Timer.o ../src/Image.o ../src/ImageControl.o ../src/i18n.o ../src/Util.o
 
 MAINTAINERCLEANFILES = Makefile.in
 subdir = util
@@ -106,8 +103,9 @@ PROGRAMS = $(bin_PROGRAMS)
 
 am_bsetroot_OBJECTS = bsetroot.$(OBJEXT)
 bsetroot_OBJECTS = $(am_bsetroot_OBJECTS)
-bsetroot_DEPENDENCIES = ../src/BaseDisplay.o ../src/LinkedList.o \
-	../src/Timer.o ../src/Image.o ../src/i18n.o
+bsetroot_DEPENDENCIES = ../src/BaseDisplay.o ../src/Color.o \
+	../src/GCCache.o ../src/Texture.o ../src/Timer.o ../src/Image.o \
+	../src/ImageControl.o ../src/i18n.o ../src/Util.o
 bsetroot_LDFLAGS =
 SCRIPTS = $(bin_SCRIPTS)
 
@@ -122,7 +120,7 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-CXXFLAGS = -g -O2  -I/usr/X11R6/include
+CXXFLAGS = -g -O2  -I/usr/X11R6/include -Wall -W -pedantic
 DIST_SOURCES = $(bsetroot_SOURCES)
 DIST_COMMON = Makefile.am Makefile.in
 SOURCES = $(bsetroot_SOURCES)
@@ -334,10 +332,14 @@ uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
 
 
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*
 
-bsetroot.o: bsetroot.cc ../config.h bsetroot.hh ../src/BaseDisplay.hh \
- ../src/LinkedList.hh ../src/Timer.hh ../src/Image.hh
+# local dependencies
+
+bsetroot.o: bsetroot.cc ../config.h ../src/i18n.hh \
+ ../src/../nls/blackbox-nls.hh ../src/GCCache.hh ../src/BaseDisplay.hh \
+ ../src/Timer.hh ../src/Color.hh ../src/Texture.hh ../src/Util.hh \
+ bsetroot.hh ../src/Image.hh
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

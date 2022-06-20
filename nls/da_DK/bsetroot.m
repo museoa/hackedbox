@@ -4,6 +4,7 @@ $ #MustSpecify
 # %s: fejl: specificér en af følgende: -solid, -mod, -gradient\n
 $ #Usage
 # %s 2.0: (c) 1997-2000 Brad Hughes\n\n\
+	  (c) 2001-2002 Sean 'Shaleh' Perry\n\n\
   -display <string>        skærmtilslutning\n\
   -mod <x> <y>             modula mønster\n\
   -foreground, -fg <color> modula foregrundsfarve\n\
@@ -12,5 +13,4 @@ $ #Usage
   -from <color>            gradient start farve\n\
   -to <color>              gradient slut farve\n\n\
   -solid <color>           fast farve\n\n\
-  -help                    hvis denne hjælp og afslut\n
-
+  -help                    vis denne hjlp og afslut\n

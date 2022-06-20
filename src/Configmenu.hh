@@ -1,6 +1,6 @@
-// Configmenu.hh for Hackedbox
-// Copyright (c) 2002 Larry Owen <larry@scrudgeware.org>
-// Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
+// -*- mode: C++; indent-tabs-mode: nil; -*-
+// Configmenu.hh for Blackbox - An X11 Window Manager
+// Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -35,39 +35,43 @@ class Configmenu : public Basemenu {
 private:
   class Focusmenu : public Basemenu {
   private:
-    Configmenu *configmenu;
+    Focusmenu(const Focusmenu&);
+    Focusmenu& operator=(const Focusmenu&);
 
   protected:
-    virtual void itemSelected(int, int);
+    virtual void itemSelected(int button, unsigned int index);
 
   public:
-    Focusmenu(Configmenu *);
+    Focusmenu(Configmenu *cm);
   };
 
   class Placementmenu : public Basemenu {
   private:
-    Configmenu *configmenu;
+    Placementmenu(const Placementmenu&);
+    Placementmenu& operator=(const Placementmenu&);
 
   protected:
-    virtual void itemSelected(int, int);
+    virtual void itemSelected(int button, unsigned int index);
 
   public:
-    Placementmenu(Configmenu *);
+    Placementmenu(Configmenu *cm);
+    virtual void reconfigure(void);
   };
 
-  Blackbox *blackbox;
-  BScreen *screen;
   Focusmenu *focusmenu;
   Placementmenu *placementmenu;
 
   friend class Focusmenu;
   friend class Placementmenu;
 
+  Configmenu(const Configmenu&);
+  Configmenu& operator=(const Configmenu&);
+
 protected:
-  virtual void itemSelected(int, int);
+  virtual void itemSelected(int button, unsigned int index);
 
 public:
-  Configmenu(BScreen *);
+  Configmenu(BScreen *scr);
   virtual ~Configmenu(void);
 
   inline Basemenu *getFocusmenu(void) { return focusmenu; }

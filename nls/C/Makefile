@@ -40,10 +40,10 @@ pkglibdir = $(libdir)/hackedbox
 pkgincludedir = $(includedir)/hackedbox
 top_builddir = ../..
 
-ACLOCAL = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run aclocal
-AUTOCONF = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoconf
-AUTOMAKE = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run automake
-AUTOHEADER = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoheader
+ACLOCAL = ${SHELL} /usr/src/hackedbox-current/missing --run aclocal
+AUTOCONF = ${SHELL} /usr/src/hackedbox-current/missing --run autoconf
+AUTOMAKE = ${SHELL} /usr/src/hackedbox-current/missing --run automake
+AUTOHEADER = ${SHELL} /usr/src/hackedbox-current/missing --run autoheader
 
 INSTALL = /bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -57,17 +57,16 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-AMTAR = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run tar
+AMTAR = ${SHELL} /usr/src/hackedbox-current/missing --run tar
 AWK = mawk
+BLOAT_HH = 
 CC = gcc
 CXX = g++
-DEBUG = 
+DEBUG = -DNDEBUG
 DEPDIR = .deps
 EXEEXT = 
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
-INTERLACE = -DINTERLACE
 MAINT = #
-NEWWMSPEC = 
 NLS = -DNLS
 OBJEXT = o
 ORDEREDPSEUDO = 
@@ -75,7 +74,7 @@ PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
 UTILS = 
-VERSION = 0.7.2
+VERSION = 0.7.3
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
@@ -83,7 +82,7 @@ X_PRE_LIBS =  -lSM -lICE
 am__include = include
 am__quote = 
 gencat_cmd = gencat
-install_sh = /usr/src/hackedbox-0.7.3/install-sh
+install_sh = /usr/src/hackedbox-current/install-sh
 regex_cmd = sed
 
 NLSTEST = -DNLS
@@ -224,15 +223,19 @@ install-data-local: blackbox.cat
 		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/POSIX; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_US; \
 		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/en_US; \
+		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_GB; \
+		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/en_GB; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en; \
 		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/en; \
 	fi
+
 uninstall-local:
 	@if test x$(NLSTEST) = "x-DNLS"; then \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/C/blackbox.cat; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/US_ASCII; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/POSIX; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_US; \
+		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_GB; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en; \
 		rmdir $(DESTDIR)$(pkgdatadir)/nls/C; \
 	fi
@@ -251,7 +254,7 @@ blackbox.cat: Translation.m
 	fi
 
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

@@ -6,12 +6,12 @@ $ #Creating
 $ #XGetWindowAttributesFail
 # BlackboxWindow::BlackboxWindow: Echec de XGetWindowAttributres\n
 $ #CannotFindScreen
-# BlackboxWindow::BlackboxWindow: Impossible de trouver l'écran de la fenêtre racine0x%lx\n
+# BlackboxWindow::BlackboxWindow: Impossible de trouver l'écran de la fenêtre racine 0x%lx\n
 $ #Unnamed
 # Inconnu
 $ #MapRequest
 # BlackboxWindow::mapRequestEvent() pour 0x%lx\n
 $ #UnmapNotify
 # BlackboxWindow::unmapNotifyEvent() pour 0x%lx\n
-$ #UnmapNotifyReparent
-# BlackboxWindow::unmapnotifyEvent: réattribue 0x%lx à la fenêtre principale\n
+$ #ReparentNotify
+# BlackboxWindow::reparentNotifyEvent: réattribue 0x%lx à la 0x%lx\n

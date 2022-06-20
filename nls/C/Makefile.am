@@ -18,15 +18,19 @@ install-data-local: blackbox.cat
 		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/POSIX; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_US; \
 		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/en_US; \
+		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_GB; \
+		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/en_GB; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en; \
 		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/en; \
 	fi
+
 uninstall-local:
 	@if test x$(NLSTEST) = "x-DNLS"; then \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/C/blackbox.cat; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/US_ASCII; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/POSIX; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_US; \
+		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_GB; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en; \
 		rmdir $(DESTDIR)$(pkgdatadir)/nls/C; \
 	fi
@@ -45,4 +49,4 @@ blackbox.cat: Translation.m
 	fi
 
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*

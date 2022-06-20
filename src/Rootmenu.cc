@@ -1,5 +1,6 @@
-// Rootmenu.cc for Hackedbox
-// Copyright (c) 2002 Larry Owen <larry@scrudgeware.org>// Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
+// -*- mode: C++; indent-tabs-mode: nil; -*-
+// Rootmenu.cc for Blackbox - an X11 Window manager
+// Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -20,45 +21,38 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-// stupid macros needed to access some functions in version 2 of the GNU C
-// library
-#ifndef   _GNU_SOURCE
-#define   _GNU_SOURCE
-#endif // _GNU_SOURCE
-
 #ifdef    HAVE_CONFIG_H
 #  include "../config.h"
 #endif // HAVE_CONFIG_H
 
-#include "blackbox.hh"
-#include "Rootmenu.hh"
-#include "Screen.hh"
-
+extern "C" {
 #ifdef    HAVE_STDIO_H
 #  include <stdio.h>
 #endif // HAVE_STDIO_H
 
-#ifdef    STDC_HEADERS
+#ifdef HAVE_STDLIB_H
 #  include <stdlib.h>
+#endif // HAVE_STDLIB_H
+
+#ifdef HAVE_STRING_H
 #  include <string.h>
-#endif // STDC_HEADERS
+#endif // HAVE_STRING_H
 
 #ifdef    HAVE_SYS_PARAM_H
 #  include <sys/param.h>
 #endif // HAVE_SYS_PARAM_H
-
-#ifndef   MAXPATHLEN
-#define   MAXPATHLEN 255
-#endif // MAXPATHLEN
-
-
-Rootmenu::Rootmenu(BScreen *scrn) : Basemenu(scrn) {
-  screen = scrn;
-  blackbox = screen->getBlackbox();
 }
 
+#include "blackbox.hh"
+#include "Rootmenu.hh"
+#include "Screen.hh"
+#include "Util.hh"
 
-void Rootmenu::itemSelected(int button, int index) {
+
+Rootmenu::Rootmenu(BScreen *scrn) : Basemenu(scrn) { }
+
+
+void Rootmenu::itemSelected(int button, unsigned int index) {
   if (button != 1)
     return;
 
@@ -67,47 +61,36 @@ void Rootmenu::itemSelected(int button, int index) {
   if (!item->function())
     return;
 
+  if (! (getScreen()->getRootmenu()->isTorn() || isTorn()) &&
+      item->function() != BScreen::Reconfigure &&
+      item->function() != BScreen::SetStyle)
+    hide();
+
   switch (item->function()) {
   case BScreen::Execute:
-    if (item->exec()) {
-#ifndef    __EMX__
-      char displaystring[MAXPATHLEN];
-      sprintf(displaystring, "DISPLAY=%s",
-	      DisplayString(screen->getBaseDisplay()->getXDisplay()));
-      sprintf(displaystring + strlen(displaystring) - 1, "%d",
-	      screen->getScreenNumber());
-
-      bexec(item->exec(), displaystring);
-#else //   __EMX__
-      spawnlp(P_NOWAIT, "cmd.exe", "cmd.exe", "/c", item->exec(), NULL);
-#endif // !__EMX__
-    }
+    if (item->exec())
+      bexec(item->exec(), getScreen()->displayString());
     break;
 
   case BScreen::Restart:
-    blackbox->restart();
+    getScreen()->getBlackbox()->restart();
     break;
 
   case BScreen::RestartOther:
     if (item->exec())
-      blackbox->restart(item->exec());
+      getScreen()->getBlackbox()->restart(item->exec());
     break;
 
   case BScreen::Exit:
-    blackbox->shutdown();
+    getScreen()->getBlackbox()->shutdown();
     break;
 
   case BScreen::SetStyle:
     if (item->exec())
-      blackbox->saveStyleFilename(item->exec());
+      getScreen()->getBlackbox()->saveStyleFilename(item->exec());
 
   case BScreen::Reconfigure:
-    blackbox->reconfigure();
+    getScreen()->getBlackbox()->reconfigure();
     return;
   }
-
-  if (! (screen->getRootmenu()->isTorn() || isTorn()) &&
-      item->function() != BScreen::Reconfigure &&
-      item->function() != BScreen::SetStyle)
-    hide();
 }

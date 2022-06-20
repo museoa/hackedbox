@@ -59,15 +59,14 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 AMTAR = @AMTAR@
 AWK = @AWK@
+BLOAT_HH = @BLOAT_HH@
 CC = @CC@
 CXX = @CXX@
 DEBUG = @DEBUG@
 DEPDIR = @DEPDIR@
 EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTERLACE = @INTERLACE@
 MAINT = @MAINT@
-NEWWMSPEC = @NEWWMSPEC@
 NLS = @NLS@
 OBJEXT = @OBJEXT@
 ORDEREDPSEUDO = @ORDEREDPSEUDO@
@@ -224,15 +223,19 @@ install-data-local: blackbox.cat
 		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/POSIX; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_US; \
 		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/en_US; \
+		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_GB; \
+		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/en_GB; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en; \
 		ln -f -s C $(DESTDIR)$(pkgdatadir)/nls/en; \
 	fi
+
 uninstall-local:
 	@if test x$(NLSTEST) = "x-DNLS"; then \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/C/blackbox.cat; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/US_ASCII; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/POSIX; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_US; \
+		rm -f $(DESTDIR)$(pkgdatadir)/nls/en_GB; \
 		rm -f $(DESTDIR)$(pkgdatadir)/nls/en; \
 		rmdir $(DESTDIR)$(pkgdatadir)/nls/C; \
 	fi
@@ -251,7 +254,7 @@ blackbox.cat: Translation.m
 	fi
 
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

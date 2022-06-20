@@ -1,5 +1,6 @@
+// -*- mode: C++; indent-tabs-mode: nil; c-basic-offset: 2; -*-
 // Workspace.hh for Blackbox - an X11 Window manager
-// Copyright (c) 2001 Sean 'Shaleh' Perry <shaleh@debian.org>
+// Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -23,14 +24,22 @@
 #ifndef   __Workspace_hh
 #define   __Workspace_hh
 
+extern "C" {
 #include <X11/Xlib.h>
+}
 
-#include "LinkedList.hh"
+#include <list>
+#include <string>
+#include <vector>
 
 class BScreen;
 class Clientmenu;
 class Workspace;
 class BlackboxWindow;
+class Netizen;
+
+typedef std::list<BlackboxWindow*> BlackboxWindowList;
+typedef std::vector<Window> StackVector;
 
 class Workspace {
 private:
@@ -38,51 +47,61 @@ private:
   BlackboxWindow *lastfocus;
   Clientmenu *clientmenu;
 
-  LinkedList<BlackboxWindow> *stackingList, *windowList;
+  BlackboxWindowList stackingList, windowList;
 
-  char *name;
-  int id, cascade_x, cascade_y;
+  std::string name;
+  unsigned int id;
+  unsigned int cascade_x, cascade_y;
 
+  Workspace(const Workspace&);
+  Workspace& operator=(const Workspace&);
 
-protected:
-  void placeWindow(BlackboxWindow *);
+  void raiseTransients(const BlackboxWindow * const win,
+                       StackVector::iterator &stack);
+  void lowerTransients(const BlackboxWindow * const win,
+                       StackVector::iterator &stack);
 
+  void placeWindow(BlackboxWindow *win);
+  bool cascadePlacement(Rect& win, const Rect& availableArea);
+  bool smartPlacement(Rect& win, const Rect& availableArea);
 
 public:
-  Workspace(BScreen *, int = 0);
-  ~Workspace(void);
+  Workspace(BScreen *scrn, unsigned int i = 0);
 
   inline BScreen *getScreen(void) { return screen; }
 
   inline BlackboxWindow *getLastFocusedWindow(void) { return lastfocus; }
-  
+
   inline Clientmenu *getMenu(void) { return clientmenu; }
 
-  inline const char *getName(void) const { return name; }
+  inline const std::string& getName(void) const { return name; }
 
-  inline const int &getWorkspaceID(void) const { return id; }
-  
+  inline unsigned int getID(void) const { return id; }
+
   inline void setLastFocusedWindow(BlackboxWindow *w) { lastfocus = w; }
 
-  BlackboxWindow *getWindow(int);
+  BlackboxWindow* getWindow(unsigned int index);
+  BlackboxWindow* getNextWindowInList(BlackboxWindow *w);
+  BlackboxWindow* getPrevWindowInList(BlackboxWindow *w);
+  BlackboxWindow* getTopWindowOnStack(void) const;
+  void sendWindowList(Netizen &n);
+  void focusFallback(const BlackboxWindow *old_window);
 
-  Bool isCurrent(void);
-  Bool isLastWindow(BlackboxWindow *);
-  
-  const int addWindow(BlackboxWindow *, Bool = False);
-  const int removeWindow(BlackboxWindow *);
-  const int getCount(void);
+  bool isCurrent(void) const;
+  bool isLastWindow(const BlackboxWindow* w) const;
 
-  void showAll(void);
-  void hideAll(void);
+  void addWindow(BlackboxWindow *w, bool place = False);
+  unsigned int removeWindow(BlackboxWindow *w);
+  unsigned int getCount(void) const;
+
+  void show(void);
+  void hide(void);
   void removeAll(void);
-  void raiseWindow(BlackboxWindow *);
-  void lowerWindow(BlackboxWindow *);
-  void reconfigure();
-  void update();
+  void raiseWindow(BlackboxWindow *w);
+  void lowerWindow(BlackboxWindow *w);
+  void reconfigure(void);
   void setCurrent(void);
-  void setName(char *);
-  void shutdown(void);
+  void setName(const std::string& new_name);
 };
 
 

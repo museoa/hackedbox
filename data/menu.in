@@ -51,6 +51,8 @@
   [end]
  
   [submenu] (Styles) {Choose a style...}
+    [nop] ( *** Your HackedBox Styles *** )
+    [stylesdir] (~/.hackedbox/styles)
     [nop] ( *** HackedBox Styles *** )
     [stylesdir] (/usr/local/share/hackedbox/styles)
     [nop] ( *** Blackbox Styles *** )

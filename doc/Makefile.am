@@ -1,14 +1,14 @@
-# doc/Makefile.am for Hackedbox
-EXTRA_DIST=hackedbox.1.in HackedBox.* *.pl
+# doc/Makefile.am for hackedbox 
+
 CLEANFILES = hackedbox.1
 MAINTAINERCLEANFILES = Makefile.in
 man_MANS = hackedbox.1
-SUBDIRS = 
+SUBDIRS = fr_FR ja_JP nl_NL sl_SI
 
 DEFAULT_MENU=$(pkgdatadir)/menu
 
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*
 
 hackedbox.1: hackedbox.1.in
 	@regex_cmd@ -e "s,@defaultmenu@,$(DEFAULT_MENU)," \

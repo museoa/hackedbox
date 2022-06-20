@@ -13,7 +13,7 @@
 
 @SET_MAKE@
 
-# data/styles/Makefile.am for Openbox
+# data/styles/Makefile.am for Hackedbox
 
 SHELL = @SHELL@
 
@@ -59,15 +59,14 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 AMTAR = @AMTAR@
 AWK = @AWK@
+BLOAT_HH = @BLOAT_HH@
 CC = @CC@
 CXX = @CXX@
 DEBUG = @DEBUG@
 DEPDIR = @DEPDIR@
 EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTERLACE = @INTERLACE@
 MAINT = @MAINT@
-NEWWMSPEC = @NEWWMSPEC@
 NLS = @NLS@
 OBJEXT = @OBJEXT@
 ORDEREDPSEUDO = @ORDEREDPSEUDO@
@@ -88,7 +87,7 @@ regex_cmd = @regex_cmd@
 
 styledir = $(pkgdatadir)/styles
 MAINTAINERCLEANFILES = Makefile.in
-style_DATA = artwiz bluebox cthulhain deep flux frobozz frobust nyz nyzclone operation outcomes shade steelblue steelblue2 the_orange trisb twice
+style_DATA = Hackedbox artwiz bluebox cthulhain deep flux frobozz frobust nyz nyzclone operation outcomes shade steelblue steelblue2 the_orange trisb twice
 subdir = data/styles
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h

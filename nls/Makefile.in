@@ -13,6 +13,8 @@
 
 @SET_MAKE@
 
+# nls/Makefile.am for Blackbox - an X11 Window Manager
+
 SHELL = @SHELL@
 
 srcdir = @srcdir@
@@ -57,15 +59,14 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 AMTAR = @AMTAR@
 AWK = @AWK@
+BLOAT_HH = @BLOAT_HH@
 CC = @CC@
 CXX = @CXX@
 DEBUG = @DEBUG@
 DEPDIR = @DEPDIR@
 EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTERLACE = @INTERLACE@
 MAINT = @MAINT@
-NEWWMSPEC = @NEWWMSPEC@
 NLS = @NLS@
 OBJEXT = @OBJEXT@
 ORDEREDPSEUDO = @ORDEREDPSEUDO@
@@ -85,12 +86,12 @@ install_sh = @install_sh@
 regex_cmd = @regex_cmd@
 
 NLSTEST = @NLS@
-SUBDIRS = C da_DK de_DE es_ES et_EE fr_FR it_IT ja_JP  nl_NL pt_BR ru_RU \
-	sl_SI sv_SE tr_TR zh_CN
+SUBDIRS = C da_DK de_DE es_AR es_ES fr_FR hu_HU it_IT ja_JP ko_KR nl_NL \
+	  no_NO pl_PL pt_BR ro_RO ru_RU sk_SK sl_SI sv_SE tr_TR uk_UA \
+	  zh_CN zh_TW
 
 MAINTAINERCLEANFILES = Makefile.in blackbox-nls.hh
 DISTCLEANFILES = blackbox-nls.hh
-EXTRA_DIST = convert.awk *
 subdir = nls
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
@@ -326,12 +327,13 @@ uninstall-info: uninstall-info-recursive
 	uninstall-am uninstall-info-am uninstall-info-recursive \
 	uninstall-local uninstall-recursive
 
+
 uninstall-local:
 	@if test x$(NLSTEST) = "x-DNLS"; then \
 		rmdir $(DESTDIR)$(pkgdatadir)/nls; \
 	fi
 distclean-local:
-	rm -f *\~
+	rm -f *\~ .\#*
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
