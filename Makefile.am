@@ -1,5 +1,5 @@
 # Makefile.am for Hackedbox
-EXTRA_DIST = util bootstrap nls doc epist
+EXTRA_DIST = util bootstrap nls doc epist bbkeys
 
 AUTOMAKE_OPTIONS = foreign
 

@@ -73,6 +73,6 @@ bevelWidth:			2
 borderWidth:			1
 handleWidth:			5
 
-rootCommand: bsetbg -full @pkgdatadir@/hackedbox/backgrounds/tux.jpg
+rootCommand: bsetbg -full /usr/local/share/hackedbox/backgrounds/flamed_1024.jpg
 
 *Font:	-*-lucidatypewriter-medium-r-*-*-*-100-*-*-*-*-*-*

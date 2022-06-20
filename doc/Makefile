@@ -66,6 +66,7 @@ DEBUG = -DNDEBUG
 DEPDIR = .deps
 EXEEXT = 
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
+KEYCMD = epist
 KEYS = epist
 MAINT = #
 NLS = -DNLS
@@ -75,27 +76,31 @@ PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
 UTILS = 
-VERSION = 0.8.1
+VERSION = 0.8.2
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
 X_PRE_LIBS =  -lSM -lICE
 am__include = include
 am__quote = 
+browser = 
+editor = gvim
 gencat_cmd = gencat
 install_sh = /usr/src/hackedbox-current/install-sh
+launcher = launch
 regex_cmd = sed
+xterm = Eterm
 
-CLEANFILES = hackedbox.1
+CLEANFILES = hackedbox.1 epist.1
 MAINTAINERCLEANFILES = Makefile.in
-man_MANS = hackedbox.1
+man_MANS = hackedbox.1 epist.1
 SUBDIRS = fr_FR ja_JP nl_NL sl_SI
 
 DEFAULT_MENU = $(pkgdatadir)/menu
 subdir = doc
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = hackedbox.1 epist.1
 depcomp =
 DIST_SOURCES =
 
@@ -106,7 +111,7 @@ RECURSIVE_TARGETS = info-recursive dvi-recursive install-info-recursive \
 	uninstall-info-recursive all-recursive install-data-recursive \
 	install-exec-recursive installdirs-recursive install-recursive \
 	uninstall-recursive check-recursive installcheck-recursive
-DIST_COMMON = Makefile.am Makefile.in
+DIST_COMMON = Makefile.am Makefile.in epist.1.in hackedbox.1.in
 DIST_SUBDIRS = $(SUBDIRS)
 all: all-recursive
 
@@ -118,6 +123,10 @@ Makefile: # $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
+hackedbox.1: $(top_builddir)/config.status hackedbox.1.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
+epist.1: $(top_builddir)/config.status epist.1.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
 uninstall-info-am:
 
 man1dir = $(mandir)/man1

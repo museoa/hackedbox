@@ -75,8 +75,9 @@ Configmenu::Configmenu(BScreen *scr) : Basemenu(scr) {
   setItemSelected(5, getScreen()->doFocusNew());
   setItemSelected(6, getScreen()->doFocusLast());
   setItemSelected(7, getScreen()->allowScrollLock());
+#ifdef ENABLE_KEYBINDINGS
   setItemSelected(8, getScreen()->getBlackbox()->enableKeyBindings());
-  
+#endif // ENABLE_KEYBINDINGS  
 }
 
 

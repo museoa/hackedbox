@@ -224,6 +224,8 @@ do_standard()
 
 	bool $noconfig || read_config
 
+	get_apps # ADDED BY PETERSON
+
 	get_img_command $1
 	check_img_command $do_this
 

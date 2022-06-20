@@ -1,6 +1,6 @@
--- README for HackedBox 0.7.x  --
+-- README for HackedBox 0.8.x  --
 
-This is the README for HackedBox 0.7.x release.
+This is the README for HackedBox 0.8.x release.
 
 The source tree for HackedBox is comprised of five subdirectories:
 
@@ -19,7 +19,11 @@ The source tree for HackedBox is comprised of five subdirectories:
 	util/		- this holds source code for small utility programs
 			  that help HackedBox do what it does best.
 
-
+	epist/		- contains the source code for epistrophy, a keygrabber
+			  appliction.
+	
+	bbkeys/		- contains the source code for bbkeys, another
+			  keygrabber appliction.
 Quick Start:
 ------------
 The quickest and easiest way to get HackedBox up and running is to run the

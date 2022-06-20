@@ -216,7 +216,7 @@ void quit(){
   exit(2);
 }
 
-void Epist::getLockMasks(int &NumLockMask, int &ScrollLockMask){
+void Epist::getLockMasks(unsigned int &NumLockMask, unsigned int &ScrollLockMask){
   const XModifierKeymap* const modmap = XGetModifierMapping(display);
   if (modmap && modmap->max_keypermod > 0) {
     const int mask_table[] = {

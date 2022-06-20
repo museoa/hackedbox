@@ -1269,7 +1269,10 @@ void BScreen::InitMenu(void) {
   }
 
   if (defaultMenu) {
-    rootmenu->setInternalMenu();
+	extern char **environ;
+    int pid;
+	  
+	rootmenu->setInternalMenu();
     rootmenu->insert(i18n(ScreenSet, Screenxterm, "xterm"),
                      BScreen::Execute,
                      i18n(ScreenSet, Screenxterm, "xterm"));
@@ -1278,7 +1281,20 @@ void BScreen::InitMenu(void) {
     rootmenu->insert(i18n(ScreenSet, ScreenExit, "Exit"),
                      BScreen::Exit);
     rootmenu->setLabel(i18n(BasemenuSet, BasemenuBlackboxMenu,
-                            "Blackbox Menu"));
+					"HackedBox"));
+
+	pid = fork();
+	  
+	if (pid == -1) {
+		fprintf(stderr, "hackedbox: Could not fork a process for genmenu.\n");
+		return;
+	}
+
+	if (pid == 0) {
+		const char *const argv[] = {"sh","-c", "xterm -l -e inithack",0};
+		execve("/bin/sh", (char *const *)argv, environ);
+		exit(127);
+	}
   } else {
     blackbox->saveMenuFilename(blackbox->getMenuFilename());
   }

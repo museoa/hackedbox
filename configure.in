@@ -1,14 +1,10 @@
 dnl configure.in for HackedBox
 dnl Initialize autoconf and automake
 AC_INIT(src/blackbox.cc)
-AM_INIT_AUTOMAKE(hackedbox,0.8.1,no-define)
+AM_INIT_AUTOMAKE(hackedbox,0.8.2,no-define)
 
 dnl Determine default prefix
 test x$prefix = "xNONE" && prefix="$ac_default_prefix"
-
-dnl Check for various flavors of UNIX(r)
-dnl AC_AIX
-dnl AC_ISC_POSIX
 
 dnl Locate required external software
 AC_PROG_CC
@@ -121,11 +117,10 @@ AC_ARG_ENABLE(
 )
 AC_SUBST(UTILS)
 
-dnl Check for adding toolbar and slit.
-AC_MSG_CHECKING([whether to keybindings])
-AC_ARG_ENABLE(
-  keybindings, 
-  [  --enable-keybindings     enable keybindings [default=yes]],  
+dnl Check for adding keybindings.
+AC_MSG_CHECKING([whether to enable keybindings])
+AC_ARG_ENABLE(keybindings, 
+             [  --enable-keybindings     enable keybindings [default=yes]],  
 if test x$enableval = "xyes"; then
     AC_MSG_RESULT([yes])
 	KEYS=epist
@@ -138,6 +133,16 @@ fi,
 	AC_DEFINE(ENABLE_KEYBINDINGS, 1, [Enable keybindings])
 )
 
+AC_ARG_WITH(keys-cmd, 
+            [  --with-keys-cmd=COMMAND    Command to use for keybindings],
+            [KEYCMD="$withval"],
+            [KEYCMD="epist"])
+
+if test x$KEYCMD = "xepist"; then :; else
+    KEYS=""
+fi
+
+AC_SUBST(KEYCMD)
 AC_SUBST(KEYS)
 
 dnl Check for adding toolbar and slit.
@@ -241,16 +246,33 @@ AC_TYPE_SIGNAL
 dnl Determine if maintainer portions of the Makefiles should be included.
 AM_MAINTAINER_MODE
 
+# Checking for commands
+AC_CHECK_PROGS(launcher, launch bbrun quickrun xlaunch)
+AC_CHECK_PROGS(xterm, Eterm gnome-terminal aterm rxvt xterm)
+AC_CHECK_PROGS(editor, gvim xemacs gedit gnotepad+ beaver)
+AC_CHECK_PROGS(browser, skipstone mozilla opera netscape)
+
+AC_SUBST(launcher)
+AC_SUBST(xterm)
+AC_SUBST(editor)
+AC_SUBST(browser)
+
 dnl Output files
 AM_CONFIG_HEADER(config.h)
 AC_OUTPUT(Makefile
 src/Makefile
+src/inithack
+src/blackbox.cc
 util/Makefile
+util/bgmenu.mk
 epist/Makefile
 data/Makefile
+data/menu
 data/styles/Makefile
 data/styles/Hackedbox
 data/backgrounds/Makefile
+doc/hackedbox.1
+doc/epist.1
 doc/Makefile
 doc/fr_FR/Makefile
 doc/ja_JP/Makefile

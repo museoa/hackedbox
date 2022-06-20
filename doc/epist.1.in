@@ -1,0 +1,124 @@
+.\" 
+.\" Man page for Hackedbox version of Epistrophy
+.\" Copyright (c) ???? by ????
+.\" 
+.\" ..define sort of <blockquote><pre> macro
+.\" .de EX
+.\" .ne 5
+.\" .if n .sp 1
+.\" .if t .sp .5
+.\" .nf
+.\" .in +.5i
+.\" ..
+.\" .de EE
+.\" .fi
+.\" .in -.5i
+.\" .if n .sp 1
+.\" .if t .sp .5
+.\" ..
+.TH "Epistrophy" "1" "" "" ""
+.SH "NAME"
+Epistrophy \- a keygrabber for those who want keys grabbed
+.SH "SYNOPSIS"
+.BR epist
+.br 
+.SH "COMMANDS"
+The list of valid commands are as follows (hackedbox specific commands
+are denoted with a *):
+.PP 
+.B exec <command>
+\- execute a command
+.br 
+.B iconify
+\- iconify current window
+.br 
+.B raise
+\- raise current window to top
+.br 
+.B lower
+\- send current window back
+.br 
+.B close
+\- close current window
+.br 
+.B desktop1\-desktop9
+\- *go to workspace 1 through 9
+.br 
+.B shadewindow
+\- *shade current window
+.br 
+.B movedown
+\- move current window down
+.br 
+.B moveup
+\- move current window up
+.br 
+.B moveright
+\- move current window up
+.br 
+.B moveleft
+\- move current window up
+.br 
+.B maximize
+\- toggle maximization
+.br 
+.B maximizevertical
+\- toggle vertical maximization
+.br 
+.B maximizerhorizontal
+\- toggle horizontal maximization
+.br 
+.B nextWindow
+\- *cycle through the windows "forward"
+.br 
+.B prevWindow
+\- *cycle through the windows "backward"
+.PP 
+.B Note:
+The definition of "forward" and "backward" is dependent on how
+hackedbox interprets them.
+.br 
+.SH "EXAMPLE RESOURCE FILE"
+The following would be located in the file '~/.hackedbox/keys':
+.PP 
+mod1 F1 desktop1
+.br 
+mod1 F2 desktop2
+.br 
+control F1 exec aterm
+.br 
+control F2 exec aterm \-e su
+.br 
+mod1 F5 shadeWindow
+.br 
+control+mod1 Z close
+.br 
+control+mod1 Right moveright
+.br 
+control+mod1 Left moveleft
+.br 
+control+mod1 Up moveup
+.br 
+control+mod1 Down movedown
+.PP 
+As you can see, each line contains a modifier (or combination of
+modifiers) a key and a command.
+The valid modifiers might depend on your X server. Typically, control
+is your control key, mod1 is your Alt key. Those are generally the
+most common. Check you X server documentation or email me if you need
+more. none can be used if you want no modifier.
+The list of valid keys may also depend on your X server. The example
+rc file should give you an idea of the valid ones. If not check your X
+server documentation as well.
+.br 
+.SH "AUTHOR and CREDITS"
+All of the code is now maintained by Larry Owen
+.nh
+(larry@scrudgeware.org)
+.PP 
+The official Hackedbox website:
+.nh
+.B http://scrudgeware.org/projects/Hackedbox
+.hy
+.br 
+

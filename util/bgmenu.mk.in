@@ -1,0 +1,9 @@
+MENU_DIR?=${HOME}/.@PACKAGE@/
+PIC_DIR?=${HOME}/@PACKAGE@/backgrounds
+MENU?=bgMenu
+
+all:
+	echo "" > ${MENU_DIR}/${MENU};
+	for name in `ls ${PIC_DIR}` ; do \
+		echo "	[exec]    ($$name) {bsetbg -full ${PIC_DIR}/$$name} " >> ${MENU_DIR}/${MENU}; \
+	done

@@ -66,6 +66,7 @@ DEBUG = -DNDEBUG
 DEPDIR = .deps
 EXEEXT = 
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
+KEYCMD = epist
 KEYS = epist
 MAINT = #
 NLS = -DNLS
@@ -75,16 +76,20 @@ PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
 UTILS = 
-VERSION = 0.8.1
+VERSION = 0.8.2
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
 X_PRE_LIBS =  -lSM -lICE
 am__include = include
 am__quote = 
+browser = 
+editor = gvim
 gencat_cmd = gencat
 install_sh = /usr/src/hackedbox-current/install-sh
+launcher = launch
 regex_cmd = sed
+xterm = Eterm
 
 styledir = $(pkgdatadir)/styles
 MAINTAINERCLEANFILES = Makefile.in
@@ -155,7 +160,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(DATA) all-local
+all-am: Makefile $(DATA)
 
 installdirs:
 	$(mkinstalldirs) $(DESTDIR)$(styledir)
@@ -220,9 +225,9 @@ mostlyclean-am: mostlyclean-generic
 
 uninstall-am: uninstall-info-am uninstall-styleDATA
 
-.PHONY: all all-am all-local check check-am clean clean-generic \
-	distclean distclean-generic distclean-local distdir dvi dvi-am \
-	info info-am install install-am install-data install-data-am \
+.PHONY: all all-am check check-am clean clean-generic distclean \
+	distclean-generic distclean-local distdir dvi dvi-am info \
+	info-am install install-am install-data install-data-am \
 	install-exec install-exec-am install-info install-info-am \
 	install-man install-strip install-styleDATA installcheck \
 	installcheck-am installdirs maintainer-clean \
@@ -230,13 +235,9 @@ uninstall-am: uninstall-info-am uninstall-styleDATA
 	uninstall uninstall-am uninstall-info-am uninstall-styleDATA
 
 
-all-local: Hackedbox
-
-Hackedbox: Hackedbox.in
-	sed -e "s,@pkgdatadir@,$(pkgdatadir)," ./Hackedbox.in > Hackedbox
-
 distclean-local:
 	rm -f *\~
+
 uninstall-am:
 	rmdir $(styledir)
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

@@ -3,20 +3,12 @@
 SUBDIRS = styles backgrounds
 CLEANFILES = menu
 MAINTAINERCLEANFILES = Makefile.in
-EXTRA_DIST = backgrounds styles README.* menu.in 
+EXTRA_DIST = backgrounds styles README.*
 
-all-local: menu
+menudir = $(pkgdatadir)
+menu_DATA = menu
 
 distclean-local:
 	rm -f *\~
 
-menu: menu.in
-	@regex_cmd@ -e "s,@pkgdatadir@,$(pkgdatadir)," @srcdir@/menu.in > menu
-
-install-data-local: menu
-	test -f $(DESTDIR)$(pkgdatadir)/menu || \
-	$(INSTALL_DATA) menu $(DESTDIR)$(pkgdatadir)
-
-uninstall-am:
-	rm -f $(DESTDIR)$(pkgdatadir)/menu
 

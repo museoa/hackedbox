@@ -481,7 +481,7 @@ void Basemenu::move(int x, int y) {
 
 void Basemenu::redrawTitle(void) {
   const char *text = (! menu.label.empty()) ? getLabel() :
-    i18n(BasemenuSet, BasemenuBlackboxMenu, "Blackbox Menu");
+    i18n(BasemenuSet, BasemenuBlackboxMenu, "Hackedbox Menu");
   const int len = strlen(text);
   int dx = menu.bevel_w;
   unsigned int l;

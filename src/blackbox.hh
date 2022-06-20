@@ -120,6 +120,7 @@ private:
     unsigned long cache_life, cache_max;
 #ifdef ENABLE_KEYBINDINGS
     bool enable_Key_Bindings;
+	std::string  key_cmd;
 #endif // ENABLE_KEYBINDINGS
   } resource;
 
@@ -246,6 +247,7 @@ public:
 #ifdef ENABLE_KEYBINDINGS
   inline bool enableKeyBindings(void) const { return resource.enable_Key_Bindings;};
   inline void saveEnableKeyBindings(bool e) { resource.enable_Key_Bindings = e;};
+  inline const char *getkeycmd(void) const { return resource.key_cmd.c_str(); }
 
   void setKeys();
 

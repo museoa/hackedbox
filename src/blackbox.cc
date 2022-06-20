@@ -992,6 +992,9 @@ void Blackbox::save_rc(void) {
   sprintf(rc_string, "session.keyBindings: %s",
             ((enableKeyBindings()) ? "True" : "False"));
   XrmPutLineResource(&new_blackboxrc, rc_string);
+
+  sprintf(rc_string, "session.key_cmd:  %s", getkeycmd());
+  XrmPutLineResource(&new_blackboxrc, rc_string);
 #endif // ENABLE_KEYBINDINGS
 
   sprintf(rc_string, "session.menuFile:  %s", getMenuFilename());
@@ -1219,6 +1222,13 @@ void Blackbox::load_rc(void) {
       setKeys();
   } 
 #endif // ENABLE_KEYBINDINGS
+
+  if (XrmGetResource(database, "session.key_cmd", "Session.Key_Cmd",
+                     &value_type, &value)) {
+    resource.key_cmd = value.addr;
+  } else {
+    resource.key_cmd = "epist";
+  }
 
   if (XrmGetResource(database, "session.menuFile", "Session.MenuFile",
                      &value_type, &value)) {
@@ -1742,13 +1752,13 @@ void Blackbox::setKeys() {
       chpid = fork();
 		
       if (chpid < 0){
-          //cerr << "Error: Can't Fork epistrophy" << endl;
+          //cerr << "Error: Can't Fork Keybindings" << endl;
       }
 	  
       if (chpid == 0){
-	    extern char** environ;
+	    extern char **environ;
  
-	    char *args[]= {"sh", "-c", "epist", 0};
+	    char *args[]= {"sh", "-c", getkeycmd(), 0};
 	    execve("/bin/sh", args, environ);
 	    exit(0);
        }

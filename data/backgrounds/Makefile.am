@@ -2,7 +2,7 @@
 
 backgrounddir = $(pkgdatadir)/backgrounds
 MAINTAINERCLEANFILES = Makefile.in
-background_DATA = tux.jpg
+background_DATA = flamed_1024.jpg
 
 distclean-local:
 	rm -f *\~

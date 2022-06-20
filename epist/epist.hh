@@ -88,8 +88,8 @@ public:
 
 class Epist{
 private:
-  int MetaMask, HyperMask, SuperMask, AltMask, ModeMask;
-  int ScrollLockMask, NumLockMask;
+  unsigned int MetaMask, HyperMask, SuperMask, AltMask, ModeMask;
+  unsigned int ScrollLockMask, NumLockMask;
   Display* display;
   Window rootWindow;
   list<Keydef> keys;
@@ -185,7 +185,7 @@ public:
   char* index_to_name(int indice);
   void x_reset_modifier_mapping(Display * display);
   int translateModifier(const char *key);
-  void getLockMasks(int &, int &);
+  void getLockMasks(unsigned int &, unsigned int &);
 };
 void sighandler(int);
 void quit();

@@ -66,6 +66,7 @@ DEBUG = @DEBUG@
 DEPDIR = @DEPDIR@
 EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+KEYCMD = @KEYCMD@
 KEYS = @KEYS@
 MAINT = @MAINT@
 NLS = @NLS@
@@ -82,26 +83,35 @@ X_LIBS = @X_LIBS@
 X_PRE_LIBS = @X_PRE_LIBS@
 am__include = @am__include@
 am__quote = @am__quote@
+browser = @browser@
+editor = @editor@
 gencat_cmd = @gencat_cmd@
 install_sh = @install_sh@
+launcher = @launcher@
 regex_cmd = @regex_cmd@
+xterm = @xterm@
 
 SUBDIRS = styles backgrounds
 CLEANFILES = menu
 MAINTAINERCLEANFILES = Makefile.in
-EXTRA_DIST = backgrounds styles README.* menu.in 
+EXTRA_DIST = backgrounds styles README.*
+
+menudir = $(pkgdatadir)
+menu_DATA = menu
 subdir = data
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = menu
 depcomp =
 DIST_SOURCES =
+DATA = $(menu_DATA)
+
 
 RECURSIVE_TARGETS = info-recursive dvi-recursive install-info-recursive \
 	uninstall-info-recursive all-recursive install-data-recursive \
 	install-exec-recursive installdirs-recursive install-recursive \
 	uninstall-recursive check-recursive installcheck-recursive
-DIST_COMMON = README Makefile.am Makefile.in
+DIST_COMMON = README Makefile.am Makefile.in menu.in
 DIST_SUBDIRS = $(SUBDIRS)
 all: all-recursive
 
@@ -113,7 +123,26 @@ Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.s
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
+menu: $(top_builddir)/config.status menu.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
 uninstall-info-am:
+install-menuDATA: $(menu_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(menudir)
+	@list='$(menu_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(menudir)/$$f"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(menudir)/$$f; \
+	done
+
+uninstall-menuDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(menu_DATA)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(menudir)/$$f"; \
+	  rm -f $(DESTDIR)$(menudir)/$$f; \
+	done
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -243,9 +272,10 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile all-local
+all-am: Makefile $(DATA)
 installdirs: installdirs-recursive
 installdirs-am:
+	$(mkinstalldirs) $(DESTDIR)$(menudir)
 
 install: install-recursive
 install-exec: install-exec-recursive
@@ -288,7 +318,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-data-local
+install-data-am: install-menuDATA
 
 install-exec-am:
 
@@ -306,40 +336,28 @@ mostlyclean: mostlyclean-recursive
 
 mostlyclean-am: mostlyclean-generic
 
-uninstall-am: uninstall-info-am
+uninstall-am: uninstall-info-am uninstall-menuDATA
 
 uninstall-info: uninstall-info-recursive
 
-.PHONY: $(RECURSIVE_TARGETS) GTAGS all all-am all-local check check-am \
-	clean clean-generic clean-recursive distclean distclean-generic \
+.PHONY: $(RECURSIVE_TARGETS) GTAGS all all-am check check-am clean \
+	clean-generic clean-recursive distclean distclean-generic \
 	distclean-local distclean-recursive distclean-tags distdir dvi \
 	dvi-am dvi-recursive info info-am info-recursive install \
-	install-am install-data install-data-am install-data-local \
-	install-data-recursive install-exec install-exec-am \
-	install-exec-recursive install-info install-info-am \
-	install-info-recursive install-man install-recursive \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am installdirs-recursive maintainer-clean \
-	maintainer-clean-generic maintainer-clean-recursive mostlyclean \
-	mostlyclean-generic mostlyclean-recursive tags tags-recursive \
-	uninstall uninstall-am uninstall-info-am \
-	uninstall-info-recursive uninstall-recursive
+	install-am install-data install-data-am install-data-recursive \
+	install-exec install-exec-am install-exec-recursive \
+	install-info install-info-am install-info-recursive install-man \
+	install-menuDATA install-recursive install-strip installcheck \
+	installcheck-am installdirs installdirs-am \
+	installdirs-recursive maintainer-clean maintainer-clean-generic \
+	maintainer-clean-recursive mostlyclean mostlyclean-generic \
+	mostlyclean-recursive tags tags-recursive uninstall \
+	uninstall-am uninstall-info-am uninstall-info-recursive \
+	uninstall-menuDATA uninstall-recursive
 
-
-all-local: menu
 
 distclean-local:
 	rm -f *\~
-
-menu: menu.in
-	@regex_cmd@ -e "s,@pkgdatadir@,$(pkgdatadir)," @srcdir@/menu.in > menu
-
-install-data-local: menu
-	test -f $(DESTDIR)$(pkgdatadir)/menu || \
-	$(INSTALL_DATA) menu $(DESTDIR)$(pkgdatadir)
-
-uninstall-am:
-	rm -f $(DESTDIR)$(pkgdatadir)/menu
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

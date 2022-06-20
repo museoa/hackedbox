@@ -1,0 +1,600 @@
+#!/bin/bash
+# This script is developed with bash and should work with ksh. It works with
+# some versions of zsh (while some versions just segfault). It *might* work 
+# with a plain #!/bin/sh that supports "select" if there is such at thing.
+
+# Zsh has problems without this
+if [ -n "$ZSH_VERSION" ]; then
+	setopt shwordsplit
+fi
+
+# THANKS
+# Jens Gjerdbakken <m3gboy@frisurf.no>
+# BatmanX (#windowmaker@openprojects) for help with the wmaker menu format
+# Kevin Verma <kevinverma@yahoo.com> for the Fluxbox support
+
+# LICENSE
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+# -----------------------------------------------------------------------------
+# Configuration
+
+# The programs to check for. Menus are generated in the order they appear here 
+# Format: "|" = start items, "!" = run in a terminal, "+" = end submenu.
+
+MENUITEMS="
+
+terminals | aterm Eterm rxvt xterm gnome-terminal konsole +
+
+browsers | netscape mozilla phoenix galeon skipstone konqueror dillo opera !links !lynx !w3m +
+
+mail | evolution balsa pronto sylpheed spruce kmail exmh !pine !mutt !elm +
+
+news | pan knode !trn !slrn !tin +
+
+messaging | xchat !xchat-text kvirc !BitchX !epic !epic4 !irssi !tinyirc ksirc gtalk kit gaim gnome-icu sim licq +
+
+file-Transfer | gftp !yafc !ncftp !ftp iglooftp d4x pavuk gtm gnapster !teknap !nap !gnut gtk-gnutella limewire gnutmeg + 
+
+graphics | gimp sodipodi killustrator krayon kpovmodeler bitmap xpaint xfig kpaint blender ksnapshot gphoto dia compupic gqview pixie display ee xv eog qiv +
+
+multimedia | xmms gqmpeg freeamp realplayer kmid kmidi gmix gtcd alsamix !aumix !rexima grip aviplay gtv gvlc sinek xine mplayer aktion gcd xawtv xcdroast xplaycd +
+
+music | soundtracker artsbuilder artstracker artscontrol timidity grecord +
+
+editors | cooledit emacs !emacs-nox xemacs gvim !vim gnp gedit kedit kwrite !pico !nano !joe !jed xjed +
+
+games | chromium quake2 quake3 q3ut2 sof rune tribes2 unreal descent3 myth2 rt2 heretic2 kohan loki_demos xqf +
+
+emulators | vmware xdosemu !dosemu uae +
+
+viewers | ghostview kghostview ggv xdvi kdvi xpdf acroread gless +
+
+utilities | gdict gpsdrive vncviewer xvncviewer wfcmgr switch +
+
+work | abiword kword soffice kpresenter lyx klyx gnucash gnumeric kspread kchart gcalc kcalc xcalc gnomecal gnomecard korganizer kab karm quanta + 
+
+development | glimmer glade kdevelop designer kbabel idle ghex khexedit memprof !tclsh !python !gdb xxgdb !xev +
+
+system | gtop !top kpm bp6mon gw guname gnorpm red-carpet monkeytalk bug-buddy gnomecc gkrellm !sndconfig tksysv ksysv gnome-ppp kppp qtisdnlinux internet-config firewall-config printconf-gui +"
+
+# Shells to check for
+
+CHKSHELLS="mc sh bash ash sash csh tcsh ksh pdksh zsh"
+
+# Blackbox specific apps to check for
+BLACKBOX_APPS="bbtools | bbkeys bbkeysconf bbappconf toolbox whiteBOX bbrb bbmail bbsload bbppp bbdate bbws bbpager bbtime bbweather bbpal bbrun bbapm +"
+
+# Window managers to check for
+
+WINDOWMANAGERS="blackbox fluxbox openbox waimea wmaker enlightenment sawfish metacity afterstep icewm xfce 9wm aewm amaterus amiwm ctwm flwm fvwm fvwm2 fvwm95 gwm ion kwin kwm larswm lwm mwm olvwm olwm oroborus phluid pwm qvwn ratpoision sapphire scwm twm ude vtwm wm2 golem"
+
+# Fonts to check for 
+
+FONTS="fixed 5x8 6x10 6x9 6x12 6x13 6x13bold 7x13 7x13bold 7x14 7x14bold 8x13 8x
+13bold 10x20 12x24 anorexia bright bright.no bright.se cure drift edges tixus fkp gelly glisp-bold glisp kates7x14 knickers lime mints-mild mints-strong nex6x10 nu outcas t outcast.no outcast.se outcast.all peq2 peq peq.no peq.se peq.all sabvga shine shine.no shine.se shine.all smoothansi snap vga11x19 vga zaber zaber.no zone"
+
+# Browser window sizes to ask about
+
+# BROWSERSIZES="640x480 800x600 1024x768 1280x1024 1600x1200"
+
+# Terminals to check for (note: only shown in the terminal selection list)
+
+CHKTERMINALS="aterm Eterm rxvt xterm gnome-terminal konsole"
+
+# Eds
+
+CHKEDS="cooledit emacs xemacs gvim gnp gedit kedit kwrite xjed"
+
+# Screensaver command
+
+LOCKCOMMAND="xlock"
+LOCKOPTIONS="-allowroot -usefirst"
+ 
+#LOCKCOMMAND="xscreensaver-command"
+#LOCKOPTIONS="-lock"
+
+
+# Start functions 
+# -----------------------------------------------------------------------------
+
+findprog() 
+{
+	local found OLDIFS="$IFS"
+	IFS=":"
+
+	for p in $PATH; do
+		if [ -x "${p}/${1}" ]; then
+			found="1"
+		fi
+	done
+
+	if [ -z "$1" ]; then
+ 		found="0"
+	fi
+
+	IFS="$OLDIFS"
+
+	if [ "$found" = "1" ]; then
+		return 0 
+	else
+		return 1 
+	fi
+}
+
+realmenu()
+{
+ echo -e "\nBuilding menu structure\n"
+	local item app lock="0" submenu charone nritems tmp_menu 
+
+	for item in $MENUITEMS; do
+
+		echo -n "#"
+
+		if [ "$lock" = "1" -a "$item" != "+" ]; then
+			app="$item"
+			charone="$(echo $app | cut -c1)"
+
+			if [ "$charone" = "!" ]; then
+				# hack, just assume it won't be longer than 100
+				app="$(echo $app | cut -c2-100)"
+				findprog $app && submenu="${submenu}${item} "
+			else
+				findprog $app && submenu="${submenu}${item} "
+			fi
+
+		else
+			submenu="${submenu}${item} "
+		fi
+
+		if [ "$item" = "+" ]; then
+			nritems="0"
+
+			for i in $submenu; do
+				nritems="$(($nritems + 1 ))"
+			done
+
+			if [ "$nritems" -gt "3" ]; then
+				tmp_menu="${tmp_menu}${submenu} "
+			fi
+			unset submenu 
+		fi
+
+		if [ "$item" = "|" ]; then
+			lock="1"
+		elif [ "$item" = "+" ]; then
+			lock="0"
+		fi
+	done
+
+	echo
+	export MENUITEMS="$tmp_menu"
+}
+
+count_menuitems()
+{
+	local item nr="0"
+
+	for item in $MENUITEMS; do
+		nr="$(($nr + 1))"
+	done
+
+	export NR_MENUITEMS="$nr"
+}
+
+terminals()
+{
+	# Prompt user for the prefered terminal and set up $TERMINAL. All console apps
+	# (apps that are prefixed with ! will be launched with this terminal.
+
+	local thisterm foundterm tmp_terminals
+
+	for thisterm in $CHKTERMINALS; do
+		foundterm="0"
+		findprog $thisterm && foundterm="1"
+
+		if [ "$foundterm" = "1" ]; then
+			tmp_terminals="$tmp_terminals $thisterm"
+		fi
+	done
+
+	PS3="Select X terminal: "
+
+	until [ -n "$TERMINAL" ]; do
+		echo -e "\nDefault X terminal? (will be used to launch all console apps in the menu)"
+			select TERMINAL in $tmp_terminals; do
+				break
+			done
+		done
+
+	echo "You selected: \"$TERMINAL\""
+
+	export TERMINAL="$(defaults "$TERMINAL")"
+}
+
+editors()
+{
+	local thised founded tmp_ed
+
+	for thised in $CHKEDS; do
+		founded="0"
+		findprog $thised && founded="1"
+
+		if [ "$founded" = "1" ]; then
+			tmp_ed="$tmp_ed $thised"
+		fi
+	done
+
+	PS3="Select Editor For Config Files: "
+
+	until [ -n "$EDITOR" ]; do
+		echo -e "\nDefault config editor? (will be used to config files from the menu)"
+			select EDITOR in $tmp_ed; do
+				break
+			done
+		done
+
+	echo "You selected: \"$EDITOR\""
+
+	export EDITOR="$(defaults "$EDITOR")"
+}
+
+defaults()
+{
+	# How the programs that must have more sane default options specified are 
+	# handled. Otherwise the program is started with no options. 
+
+	local Etermver
+
+	case $1 in
+	aterm)  echo "aterm -rv +sb -tr -sh 50 -fn $FONT -sl 2000" ;;
+	rxvt)   echo "rxvt -rv +sb -fn $FONT -fb $FONT" ;;
+	xterm)  echo "xterm -rv +sb -fn $FONT" ;;
+	Eterm) 
+
+		Etermver="$(Eterm --version | head -n1 | cut -f2 -d" ")"
+
+		case $Etermver in
+		0.8.10) echo "Eterm -O -W --shade 50% --cursor-color rgb:0/0/0 --scrollbar=0 --menubar=off -F $FONT" ;;
+		0.9)    echo "Eterm -O --cmod 100 --cursor-color rgb:0/0/0 --scrollbar=0 -F $FONT" ;;
+		*)      echo "Eterm -O --shade 50% --cursor-color rgb:0/0/0 --scrollbar=0 --buttonbar=off -F $FONT"
+		esac
+	;;
+
+	gnome-terminal) echo "gnome-terminal --transparent --shaded --font $FONT" ;;
+	mozilla)        echo "mozilla";; # -width $WIDTH -height $HEIGHT" ;;
+	phoenix)        echo "phoenix";; # -width $WIDTH -height $HEIGHT" ;;
+	opera)          echo "opera";; # -geometry ${WIDTH}x${HEIGHT}" ;;
+	netscape)       echo "netscape";; # -geometry ${WIDTH}x${HEIGHT}" ;;
+	galeon)         echo "galeon";; # -g ${WIDTH}x${HEIGHT}" ;;
+	gdict)          echo "gdict -a" ;; # do not bring up the gnome panel
+	bbkeys)         echo "bbkeys -i" ;;
+	wmclock)        echo "wmclock -shape" ;;
+	wmdate)         echo "wmdate -s" ;;
+	wmSMPmon)       echo "wmSMPmon -g 2" ;;
+	mplayer)        echo "mplayer -gui" ;;
+	pavuk)          echo "pavuk -X" ;;
+	*)              echo $1
+	esac
+}
+
+app_translate()
+{
+	# Programs which have a longer name than the binary name we check for are 
+	# handled here. Note that I have removed the items I had here, but I will 
+	# leave the stub for others who might want this. 
+
+	case $1 in
+	program-name)   echo "The longer program name" ;;
+	gnome-terminal) echo "Gnome Terminal" ;;
+	designer)       echo "Qt Designer" ;; # The binary should be "qtdesigner" IMHO
+	quake3)         echo "Quake 3 Arena" ;;
+	q3ut2)			echo "Urban Terror" ;;
+	seals)			echo "Navy Seals - Covert Operations" ;;
+	*)              echo $1
+	esac
+}
+
+wm_translate()
+{
+	# Window managers which have a longer name than the 
+	# binary name we check for are handled here.
+
+	case $1 in
+	wmaker) echo "Window Maker" ;;
+	*)      echo $1
+	esac
+}
+
+ucfirst()
+{
+	local str="$@"
+	echo "$(echo $str | cut -c1 | tr 'a-z' 'A-Z')$(echo $str | cut -c2-100)" 
+}
+
+yesno()
+{
+	local key
+
+	echo
+
+	while :; do 
+		echo -n "$1 [y/n] "
+		read key
+
+		case $key in
+		n|N) return 1 ;;
+		y|Y) break ;;
+		esac
+	done
+}
+
+get_shells()
+{
+	# We need to weed out the shells that only are symlinks to the real shell
+
+	local shell tmpshells
+
+	for shell in $CHKSHELLS; do
+		thisshell="$(which $shell 2>/dev/null)"
+
+		if [ -f "$thisshell" -a ! -h "$thisshell" ]; then
+			tmpshells="$tmpshells !$shell"
+		fi
+
+	done
+
+	shells="shells |$tmpshells +"
+
+	export MENUITEMS="$MENUITEMS $shells"
+}
+
+select_font()
+{
+	local thisfont word foundfonts
+
+	if [ -z "$DISPLAY" ]; then
+		FONT="fixed"
+		return
+	fi
+
+	for thisfont in $FONTS; do
+		for word in $(xlsfonts $thisfont 2>&1) ; do
+			if [ "$word" != "xlsfonts:" ]; then
+				foundfonts="$foundfonts $thisfont"
+			fi
+			break
+		done
+	done
+
+	PS3="Select font: "
+	until [ -n "$FONT" ]; do
+		echo -e "\nDefault font to use in all X terminals?"
+			select FONT in $foundfonts; do
+				break
+		done
+	done
+
+	echo "You selected: \"$FONT\""
+	export FONT
+}
+
+browser_size()
+{
+	local size
+
+	PS3="Select size: "
+	until [ -n "$size" ]; do
+		echo -e "\nDefault size of all web browser windows?"
+			select size in $BROWSERSIZES; do
+				break
+			done
+		done
+	echo "You selected: \"$size\""
+
+	export WIDTH="$(echo $size | cut -d"x" -f1)"
+	export HEIGHT="$(echo $size | cut -d"x" -f2)"
+}
+
+bb_prog()
+{
+	echo "   [exec] ($1) {$2}"
+}
+
+mintospc()
+{
+	echo $@ | tr '-' ' '
+}
+
+bb_submenu()
+{
+	echo -e "$1[submenu] ($(mintospc "$2"))$3"
+}
+
+prog() 
+{
+	local app="$1" charone
+
+	charone="$(echo $app | cut -c1)"
+
+	if [ "$charone" = "!" ]; then
+		app="$(echo $app | cut -c2-100)"
+
+		bb_prog "$(ucfirst "$(app_translate $app)")" "$TERMINAL -e $(defaults $app)" 
+	else
+		bb_prog "$(ucfirst "$(app_translate $app)")" "$(defaults $app)" 
+	fi
+}
+
+programs() {
+	# this is the main menu generating function in the program
+	local sublock item item_nr="0"
+
+	bb_submenu " " "Applications" "\n"
+
+	sublock="0"
+	previtem="+"
+
+	for item in $MENUITEMS; do
+		echo -n "#" >&2
+
+		previtem="$item"
+
+		if [ "$sublock" = "0" ]; then
+			bb_submenu "  " "$(ucfirst $item)" ;
+			sublock="1"
+		elif [ "$item" != "+" -a "$item" != "|" ]; then
+			prog "$item"
+		fi
+
+		if [ "$item" = "+" ]; then
+			echo -e "  [end]\n"
+			sublock="0"
+		fi
+
+		item_nr="$(($item_nr + 1 ))"
+	done
+
+    echo -e " [end]\n"
+}
+
+bb_begin()
+{
+	echo "[begin] ($(ucfirst @PACKAGE@))"
+}
+
+bb_styles() {
+cat <<EOF
+ [submenu] (User Styles)
+   [stylesdir] (~/.@PACKAGE@/styles)
+ [end]
+ [submenu] (Default Styles)
+   [stylesdir] (@prefix@/share/@PACKAGE@/styles)
+ [end]
+ [submenu]   (Backgrounds)   {Choose a background...}
+   [exec]    (Refresh List) {make -f @prefix@/share/@PACKAGE@/bgMenu.mk
+   [include] (~/.@PACKAGE@/bgMenu)
+ [end]
+EOF
+}
+
+bb_generic() {
+cat <<EOF
+ [workspaces] (Workspace List)
+ [submenu] (Edit Config Files)
+    [exec] (menu) {$EDITOR ~/.@PACKAGE@/menu}
+    [exec] (rc)   {$EDITOR ~/.@PACKAGE@/rc}
+    [exec] (keys) {$EDITOR ~/.@PACKAGE@/keys}
+ [end]
+ [config] (Configuration)
+    
+ [reconfig] (Reconfigure)
+ [restart] (Restart)
+EOF
+}
+
+bb_others() {
+	local thiswm
+
+	echo " [submenu] (Others) {Other Window Managers}"
+
+	for thiswm in $WINDOWMANAGERS; do
+    	findprog $thiswm && echo "  [restart] ($(ucfirst "$(wm_translate $thiswm)")) {$thiswm}"
+	done
+
+	echo -e " [end]\n"
+}
+
+bb_exit()
+{
+	findprog $LOCKCOMMAND && echo " [exec] (Lock Screen) {$LOCKCOMMAND $LOCKOPTIONS}"
+	echo " [exit] (Exit)" 
+	echo "[end]"
+}
+
+bb_writemenu()
+{
+	bb_begin
+	programs
+	bb_styles
+	bb_generic
+	bb_others
+	bb_exit
+}
+
+bb_interactive() 
+{
+	local bbrc bbdir bb_menu dir chkdirs createdirs newdirs
+
+	bbdir="${HOME}/.@PACKAGE@"
+	bb_menu="${bbdir}/menu"
+
+	chkdirs="$bbdir ${bbdir}/styles ${bbdir}/backgrounds"
+
+	for dir in $chkdirs; do
+		if [ ! -e "$dir" ]; then
+			createdirs="1"
+			newdirs="$newdirs $dir"	
+ 		fi
+	done
+
+	if [ "$createdirs" = "1" ]; then
+		echo
+
+		for dir in $newdirs; do
+			echo "Creating \"$dir\""
+			mkdir $dir
+		done
+	fi
+
+    if [ -e ${HOME}/.@PACKAGE@/keys ]; then 
+		 yesno "~/.@PACKAGE@/keys does already exist. Overwrite?" && cp @prefix@/share/@PACKAGE@/keys ~/.@PACKAGE@/keys
+    else
+	     cp @prefix@/share/@PACKAGE@/keys ~/.@PACKAGE@/keys
+    fi
+
+	if [ -e "$bb_menu" ]; then
+		yesno "$bb_menu does already exist. Overwrite?" || exit 1
+	fi
+
+	echo -e "\nWriting $(ucfirst @PACKAGE@) menu\n"
+	bb_writemenu >$bb_menu
+	echo
+}
+
+main()
+{
+	local tmp_menuitems
+
+	get_shells
+	select_font
+	terminals
+	editors
+#	browser_size
+
+	tmp_menuitems="$MENUITEMS"
+
+	WM="hackedbox"
+	MENUITEMS="$tmp_menuitems $BLACKBOX_APPS"
+	realmenu
+	bb_interactive
+	
+	echo
+	echo "Default Setup Complete.  You must restart hackedbox for changes to take affect."
+}
+
+main
+
+# end

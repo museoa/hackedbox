@@ -1,18 +1,22 @@
 [begin] (ScrudgeWare)
-  [exec] (Run)     {bbrun -w}
-  [exec] (Eterm)     {Eterm}
-  [exec] (Users)     {gnuserman}
-  [exec] (Gkrellm)   {gkrellm}
-  [exec] (Edit Menu) {gvim /usr/local/share/hackedbox/menu}
+  [exec] (Run)          {@launcher@}
+  [exec] (@xterm@)      {@xterm@}
+  [exec] (Gkrellm)      {gkrellm}
   [exec] (xScreenSaver) {xscreensaver-demo}
 
   [nop] ()
 
+  [submenu] (Edit Config Files)
+    [exec] (menu) {@editor@ ~/.hackedbox/menu}
+    [exec] (rc)   {@editor@ ~/.hackedbox/rc}
+    [exec] (keys) {@editor@ ~/.hackedbox/keys}
+  [end]
+
   [submenu] (Office Tools)
-    [exec] (AbiWord)  {abiword}
-    [exec] (Gnumeric) {gnumeric}
-    [exec] (Gvim)     {gvim}
-    [exec] (Samba)    {xfsamba}
+    [exec] (AbiWord)     {abiword}
+    [exec] (Gnumeric)    {gnumeric}
+    [exec] (Text Editor) {@editor@}
+    [exec] (Samba)       {xfsamba}
   [end]
 
   [submenu] (Development)
@@ -21,8 +25,8 @@
   [end]
  
   [submenu] (Remote Terms)
-    [exec] (FTP scrudgeware)         {Eterm -e /usr/local/bin/ftp ftp.scrudgeware.org}
-    [exec] (SSH Example)         {Eterm -e /usr/local/bin/ssh you@example.com}
+    [exec] (FTP localhost) {@xterm@ -e ftp localhost}
+    [exec] (SSH Example)   {@xterm@ -e ssh localhost}
   [end]
 
   [submenu] (Multimedia)
@@ -30,16 +34,13 @@
     [exec] (Xmms)      {xmms}
     [exec] (Mixer)     {opmixer}
     [exec] (CD Play)   {gcd}
-    [exec] (Giram)  {giram}
   [end]
 
   [submenu] (Internet)
-    [exec] (SkipStone)     {skipstone}
-    [exec] (Mail)     {sylpheed}
-    [exec] (ftp) {guiftp}
-    [exec] (Gnutella) {gtk-gnutella}
-    [exec] (Mozilla)  {/usr/local/encap/mozilla/mozilla}
-    [exec] (Composer) {/usr/local/encap/mozilla/mozilla -edit}
+    [exec] (Web Browser) {@browser@}
+    [exec] (Mail)        {sylpheed}
+    [exec] (ftp)         {guiftp}
+    [exec] (Gnutella)    {gtk-gnutella}
   [end]
 
   [submenu] (X Utilities)
@@ -54,26 +55,32 @@
     [nop] ( *** Your HackedBox Styles *** )
     [stylesdir] (~/.hackedbox/styles)
     [nop] ( *** HackedBox Styles *** )
-    [stylesdir] (/usr/local/share/hackedbox/styles)
+    [stylesdir] (@prefix@/share/hackedbox/styles)
     [nop] ( *** Blackbox Styles *** )
-    [stylesdir] (/usr/local/share/blackbox/styles)
+    [stylesdir] (@prefix@/share/blackbox/styles)
   [end]
-
+  
+  [submenu]   (Backgrounds)   {Choose a background...}
+	[exec]    (Refresh List) {make -f @prefix@/share/hackedbox/bgMenu.mk
+    [include] (~/.hackedbox/bgMenu)
+  [end]
+  
   [workspaces] (Workspace List)
+  
   [config] (Configuration)
 
   [reconfig] (Reconfigure)
   
-    [submenu] (Change WM?) {Change WM?}
-        [restart] (Hackedbox)
-		[restart] (blackbox) {blackbox}
-		[restart] (openbox)  {openbox} 
-		[restart] (fluxbox)  {fluxbox}
-		[restart] (Window Maker) {wmaker}
-		[restart] (Enlightenment) {enlightenment}
-		[restart] (KWM) {kwm}
-		[restart] (TWM) {twm}
-	[end]
+  [submenu] (Change WM?) {Change WM?}
+    [restart] (Hackedbox)
+    [restart] (blackbox) {blackbox}
+    [restart] (openbox)  {openbox} 
+    [restart] (fluxbox)  {fluxbox}
+    [restart] (Window Maker) {wmaker}
+    [restart] (Enlightenment) {enlightenment}
+    [restart] (KWM) {kwm}
+    [restart] (TWM) {twm}
+  [end]
 
   [exit] (Exit)
 [end]

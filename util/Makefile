@@ -66,6 +66,7 @@ DEBUG = -DNDEBUG
 DEPDIR = .deps
 EXEEXT = 
 INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
+KEYCMD = epist
 KEYS = epist
 MAINT = #
 NLS = -DNLS
@@ -75,21 +76,28 @@ PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
 UTILS = 
-VERSION = 0.8.1
+VERSION = 0.8.2
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
 X_PRE_LIBS =  -lSM -lICE
 am__include = include
 am__quote = 
+browser = 
+editor = gvim
 gencat_cmd = gencat
 install_sh = /usr/src/hackedbox-current/install-sh
+launcher = launch
 regex_cmd = sed
+xterm = Eterm
 
 CPPFLAGS =  -DNDEBUG -DNLS -DTIMEDCACHE 
 
-bin_SCRIPTS = bsetbg
+bin_SCRIPTS = bsetbg 
 bin_PROGRAMS = bsetroot
+
+bgmenudir = $(pkgdatadir)
+bgmenu_DATA = bgmenu.mk
 
 bsetroot_SOURCES = bsetroot.cc
 bsetroot_LDADD = ../src/BaseDisplay.o ../src/Color.o ../src/GCCache.o ../src/Texture.o ../src/Timer.o ../src/Image.o ../src/ImageControl.o ../src/i18n.o ../src/Util.o
@@ -98,7 +106,7 @@ MAINTAINERCLEANFILES = Makefile.in
 subdir = util
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = bgmenu.mk
 bin_PROGRAMS = bsetroot$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
 
@@ -123,7 +131,9 @@ CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
 CXXFLAGS = -g -O2  -I/usr/X11R6/include -Wall -W -pedantic
 DIST_SOURCES = $(bsetroot_SOURCES)
-DIST_COMMON = Makefile.am Makefile.in
+DATA = $(bgmenu_DATA)
+
+DIST_COMMON = Makefile.am Makefile.in bgmenu.mk.in
 SOURCES = $(bsetroot_SOURCES)
 
 all: all-am
@@ -137,6 +147,8 @@ Makefile: # $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
+bgmenu.mk: $(top_builddir)/config.status bgmenu.mk.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= CONFIG_LINKS= $(SHELL) ./config.status
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
 	$(mkinstalldirs) $(DESTDIR)$(bindir)
@@ -197,6 +209,23 @@ distclean-compile:
 .cc.obj:
 	$(CXXCOMPILE) -c -o $@ `cygpath -w $<`
 uninstall-info-am:
+install-bgmenuDATA: $(bgmenu_DATA)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(bgmenudir)
+	@list='$(bgmenu_DATA)'; for p in $$list; do \
+	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(bgmenudir)/$$f"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(bgmenudir)/$$f; \
+	done
+
+uninstall-bgmenuDATA:
+	@$(NORMAL_UNINSTALL)
+	@list='$(bgmenu_DATA)'; for p in $$list; do \
+	  f="`echo $$p | sed -e 's|^.*/||'`"; \
+	  echo " rm -f $(DESTDIR)$(bgmenudir)/$$f"; \
+	  rm -f $(DESTDIR)$(bgmenudir)/$$f; \
+	done
 
 tags: TAGS
 
@@ -253,10 +282,10 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(PROGRAMS) $(SCRIPTS)
+all-am: Makefile $(PROGRAMS) $(SCRIPTS) $(DATA)
 
 installdirs:
-	$(mkinstalldirs) $(DESTDIR)$(bindir) $(DESTDIR)$(bindir)
+	$(mkinstalldirs) $(DESTDIR)$(bindir) $(DESTDIR)$(bindir) $(DESTDIR)$(bgmenudir)
 
 install: install-am
 install-exec: install-exec-am
@@ -299,7 +328,7 @@ info: info-am
 
 info-am:
 
-install-data-am:
+install-data-am: install-bgmenuDATA
 
 install-exec-am: install-binPROGRAMS install-binSCRIPTS
 
@@ -317,23 +346,24 @@ mostlyclean: mostlyclean-am
 
 mostlyclean-am: mostlyclean-compile mostlyclean-generic
 
-uninstall-am: uninstall-binPROGRAMS uninstall-binSCRIPTS \
-	uninstall-info-am
+uninstall-am: uninstall-bgmenuDATA uninstall-binPROGRAMS \
+	uninstall-binSCRIPTS uninstall-info-am
 
 .PHONY: GTAGS all all-am check check-am clean clean-binPROGRAMS \
 	clean-generic distclean distclean-compile distclean-generic \
 	distclean-local distclean-tags distdir dvi dvi-am info info-am \
-	install install-am install-binPROGRAMS install-binSCRIPTS \
-	install-data install-data-am install-exec install-exec-am \
-	install-info install-info-am install-man install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic tags uninstall uninstall-am \
-	uninstall-binPROGRAMS uninstall-binSCRIPTS uninstall-info-am
+	install install-am install-bgmenuDATA install-binPROGRAMS \
+	install-binSCRIPTS install-data install-data-am install-exec \
+	install-exec-am install-info install-info-am install-man \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic tags uninstall \
+	uninstall-am uninstall-bgmenuDATA uninstall-binPROGRAMS \
+	uninstall-binSCRIPTS uninstall-info-am
 
 
 distclean-local:
-	rm -f *\~ .\#*
+	rm -f *\~ .\#* bgmenu.mk
 
 # local dependencies
 

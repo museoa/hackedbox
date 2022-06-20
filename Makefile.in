@@ -66,6 +66,7 @@ DEBUG = @DEBUG@
 DEPDIR = @DEPDIR@
 EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+KEYCMD = @KEYCMD@
 KEYS = @KEYS@
 MAINT = @MAINT@
 NLS = @NLS@
@@ -82,11 +83,15 @@ X_LIBS = @X_LIBS@
 X_PRE_LIBS = @X_PRE_LIBS@
 am__include = @am__include@
 am__quote = @am__quote@
+browser = @browser@
+editor = @editor@
 gencat_cmd = @gencat_cmd@
 install_sh = @install_sh@
+launcher = @launcher@
 regex_cmd = @regex_cmd@
+xterm = @xterm@
 
-EXTRA_DIST = util bootstrap nls doc epist
+EXTRA_DIST = util bootstrap nls doc epist bbkeys
 
 AUTOMAKE_OPTIONS = foreign
 
@@ -105,9 +110,9 @@ RECURSIVE_TARGETS = info-recursive dvi-recursive install-info-recursive \
 	uninstall-info-recursive all-recursive install-data-recursive \
 	install-exec-recursive installdirs-recursive install-recursive \
 	uninstall-recursive check-recursive installcheck-recursive
-DIST_COMMON = README ./stamp-h.in AUTHORS ChangeLog INSTALL Makefile.am \
-	Makefile.in TODO aclocal.m4 config.h.in configure configure.in \
-	install-sh missing mkinstalldirs version.h.in
+DIST_COMMON = README ./stamp-h.in AUTHORS COPYING ChangeLog INSTALL \
+	Makefile.am Makefile.in TODO aclocal.m4 config.h.in configure \
+	configure.in install-sh missing mkinstalldirs version.h.in
 DIST_SUBDIRS = $(SUBDIRS)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
@@ -260,7 +265,7 @@ GZIP_ENV = --best
 distdir: $(DISTFILES)
 	-chmod -R a+w $(distdir) >/dev/null 2>&1; rm -rf $(distdir)
 	mkdir $(distdir)
-	$(mkinstalldirs) $(distdir)/. $(distdir)/data/styles
+	$(mkinstalldirs) $(distdir)/. $(distdir)/data $(distdir)/data/styles $(distdir)/doc $(distdir)/src $(distdir)/util
 	@for file in $(DISTFILES); do \
 	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
 	  dir=`echo "$$file" | sed -e 's,/[^/]*$$,,'`; \

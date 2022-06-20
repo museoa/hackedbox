@@ -1,53 +1,53 @@
-.\"
+.\" 
 .\" Man page for Hackedbox
 .\" Copyright (c) 2002 - 2003 Larry Owen <larry@scrudgeware.org>
 .\" Copyright (c) 2000 by Wilbert Berendsen <wbsoft@xs4all.nl>
-.\"
+.\" 
 .\" This manual page may be freely distributed and modified.
 .\" Parts of the text are taken from website and several README's
 .\" by His Great Hughesness himself. Why reinvent wheels?
-.\"
+.\" 
 .\" Created with NEdit, tested with ``man'' and ``tkman.''
 .\" This manpage uses only standard groff and tmac.an macros.
 .\" To all translators who didn't do manpages earlier (like me ;-):
 .\" Read the Man-Page-Mini-HOWTO and the LDP manpage ``man 7 man''
 .\" There's all I needed to know about these macros.
-.\"
+.\" 
 .\" Updated for Hackedbox 5/12/2002
 .\" Updated for bb 0.61 at Sat Sep  9 06:56:04 CEST 2000
-.\"
+.\" 
 .\" ..define sort of <blockquote><pre> macro
-.de EX
-.ne 5
-.if n .sp 1
-.if t .sp .5
-.nf
-.in +.5i
-..
-.de EE
-.fi
-.in -.5i
-.if n .sp 1
-.if t .sp .5
-..
-.TH Hackedbox 1 "May 12, 2002" "0.7.1"
-.SH NAME
+.\" .de EX
+.\" .ne 5
+.\" .if n .sp 1
+.\" .if t .sp .5
+.\" .nf
+.\" .in +.5i
+.\" ..
+.\" .de EE
+.\" .fi
+.\" .in -.5i
+.\" .if n .sp 1
+.\" .if t .sp .5
+.\" ..
+.TH "Hackedbox" "1" "@VERSION@" "Larry Owen" ""
+.SH "NAME"
 Hackedbox
-.SH SYNOPSIS
+.SH "SYNOPSIS"
 .BR Hackedbox " \-help | \-version"
-.br
+.br 
 .B Hackedbox 
 .RI "[ \-rc" " rcfile " "] [ \-display" " display " ]
-.SH DESCRIPTION
-Hackedbox is a stripped down version of Hackedbox - The X11 Window Manager 
+.SH "DESCRIPTION"
+Hackedbox is a stripped down version of Blackbox \- The X11 Window Manager 
 (http://blackboxwm.sourceforge.net/ ). The toolbar and Slit have been 
-removed. The goal of Hackedbox is to be a small 'feature-set' window 
+removed. The goal of Hackedbox is to be a small 'feature\-set' window 
 manager, with no bloat. There are no plans to add any functionality, only 
 bugfixes and speed enhancements whenever possible.
-.PP
+.PP 
 Hackedbox provides configurable window decorations,and a root menu to launch
 applications.  There is also a workspace menu to add or remove workspaces. 
-.PP
+.PP 
 Hackedbox features a special kind of icon handling: When you minimize a window,
 no icon appears; instead, you can view all minimized applications in the `Icons'
 submenu of the workspace menu.
@@ -55,47 +55,47 @@ Your desktop will never get cluttered with icons. As an alternative to icons,
 shaded windows are provided: A double click on the titlebar of a window will
 shade it (i.e. the window will disappear; only the titlebar stays visible).
 By using style files, you can determine at a great level how your desktop looks.
-.PP
-.SH OPTIONS
+.PP 
+.SH "OPTIONS"
 Hackedbox supports the following command line options:
-.TP
+.TP 
 .B \-help
-Display command line options and compiled-in features, then exit.
-.TP
+Display command line options and compiled\-in features, then exit.
+.TP 
 .B \-version
 Display version info and exit.
-.TP
+.TP 
 .BI \-rc \ rcfile
 Use another rcfile than the default
-.IR  "~/.hackedboxrc" .
-.TP
+.I "~/.hackedboxrc" .
+.TP 
 .BI \-display \ display
 Start Hackedbox on the specified display.
 Programs started by Hackedbox will have the
 .B DISPLAY
 environment variable set to this value, too.
-.SH RUNNING HACKEDBOX
+.SH "RUNNING HACKEDBOX"
 This program is usually started by the user's startup script, most times called
-.IR ~/.xinitrc .
+.I ~/.xinitrc .
 To run hackedbox, modify the script by adding
 .EX 0
 exec hackedbox
 .EE
 as the last executed command of the script.
 When Hackedbox terminates, the X session will terminate too.
-.PP
+.PP 
 When started, Hackedbox will try to find a default menu file in
-.IR @defaultmenu@ .
-You can provide a system-wide menu for your users here.
-.PP
+.I ~/.hackedbox/menu .
+You can provide a system\-wide menu for your users here.
+.PP 
 On exit or restart, Hackedbox will save user defaults in the file
-.I ~/.hackedboxrc
+.I ~/.hackedbox/rc
 in the user's home directory.
 Some resources in this file can be edited by hand.
-.SH USING HACKEDBOX
+.SH "USING HACKEDBOX"
 Hackedbox does no keyboard handling by itself; instead, it
 relies on an external program
-.IR bbkeys (1)
+.I epist(1)
 for this.
 So, in this section, we will discuss all mouse commands.
 .SS Root window (background):
@@ -106,7 +106,7 @@ A middle click (button 2) will pop up the workspace menu.
 You can add or remove a workspace, view
 applications running on all workspace, inspect your iconified applications,
 and jump directly to any workspace or application.
-.PP
+.PP 
 Left clicking (button 1) on an application in the Workspaces menu will bring
 you to that workspace and raise/focus that application;
 middle clicking (button 2) will warp the application to the current workspace.
@@ -118,41 +118,41 @@ corners resizes the window.
 Middle clicking will immediately lower the window.
 Right clicking on the border or titlebar pops up the window menu,
 containing these commands:
-.TP
+.TP 
 .B Send To...
 Send window to another workspace.
 When you select the workspace with the middle button, Hackedbox will
 send you, along with the application, to the selected workspace.
-.TP
+.TP 
 .B Shade
 Shade window (display titlebar only).
-.TP
+.TP 
 .B Iconify
 Iconify window.
 The `icon' can be found in the `Icons' submenu of the workspace menu.  It will
 *NOT* appear on screen otherwise.
-.TP
+.TP 
 .B Maximize
 (Un)Maximize window.
 When you click the middle button on this item, the
 window will maximize only vertically.
-.TP
+.TP 
 .B Raise
 Raise window.
-.TP
+.TP 
 .B Lower
 Lower window.
-.TP
+.TP 
 .B Stick
 (Un)Stick window.
 A stuck window will always be displayed in the current workspace.
-.TP
+.TP 
 .B Kill Client
-Kill (-SIGKILL) owner of window.  Only use this if the client refuses to close.
-.TP
+Kill (\-SIGKILL) owner of window.  Only use this if the client refuses to close.
+.TP 
 .B Close
 Close the application cleanly.
-.PP
+.PP 
 When you double click on the titlebar of a window, it will `shade', so
 that only the titlebar stays visible.
 Another double click will redisplay the window contents.
@@ -174,19 +174,19 @@ titlebar, you can press Alt + button 1 anywhere in the window and then
 drag it around.
 You can also use Alt + button 1 to raise a partially visible window.
 Finally, Alt + button 2 lowers a window, and Alt + button 3 resizes the window.
-.SH MENU FILE
+.SH "MENU FILE"
 A default menu file is installed in
-.IR @defaultmenu@ .
-Of course, this system-wide menu can be customized for all users at once.
+.I ~/.hackedbox/menu .
+Of course, this system\-wide menu can be customized for all users at once.
 But it is also possible to create a personal menu.
 It is a convention to create a directory
-.IR "~/.hackedbox/" " (or " "~/hackedbox/" ")"
+.I  "~/.hackedbox/"
 in your home directory, and to create a menu file, e.g.
 .I menu
-in this directory, or copy the system-wide menu file to this location.
+in this directory, or copy the system\-wide menu file to this location.
 Next, we have to tell Hackedbox to load our menu file instead of the default.
 This is accomplished by adding (or changing) a resource value in the
-.I ~/.hackedboxrc
+.I ~/.hackedbox/rc
 file, e.g.:
 .EX
 session.menuFile:       ~/.hackedbox/menu
@@ -202,32 +202,32 @@ They are of the form:
 [tag] (label or filename) {command or filename}
 .EE
 The supported tags are as follows:
-.TP
+.TP 
 .B [begin] (label for root menu)
 This tells Hackedbox to start parsing the menu file.
 This tag is required for Hackedbox to parse your menu file.
 If it cannot find it, the system default menu is used instead.
-.TP
+.TP 
 .B [end]
 This tells Hackedbox that it is at the end of a menu.
 This can either be a submenu or the main root menu.
 There must be at least one of these tags in your menu to correspond to the
 required [begin] tag.
-.TP
+.TP 
 .B [exec] (label for command) {shell command}
 Inserts a command item into the menu.
 When you select the menu item from the menu, Hackedbox runs `shell command.'
-.TP
+.TP 
 .B [exit] (label for exit)
 Inserts an item that shuts down and exits Hackedbox.
 Any running programs are not closed.
-.TP
+.TP 
 .B [include] (filename)
 Parses the file specified by
 .I filename
 and includes it with the current menu. The filename can be the full path to a
  file, or it can begin with
-.IR ~/ ,
+.I  ~/ ,
 which will be expanded into your home directory (e.g.
 .EX
 [include] (~/hackedbox/stylesmenu)
@@ -235,9 +235,9 @@ which will be expanded into your home directory (e.g.
 will include
 .I /home/bhughes/hackedbox/stylesmenu
 in my menu).
-.TP
-.B [nop] (label - optional)
-Insert a non-operational item into the current menu.
+.TP 
+.B [nop] (label \- optional)
+Insert a non\-operational item into the current menu.
 This can be used to help format the menu into blocks or sections
 if so desired.
 .B [nop]
@@ -250,14 +250,14 @@ named
 .I filename
 and applies the new textures, colors, and fonts to the current
 running session.
-.TP
+.TP 
 .B [stylesdir] (directory name)
 Reads all filenames (directories are ignored) from the specified directory and
  creates menu items in the current menu for every filename.  Hackedbox assumes
  that each file is a valid style file.  When selected by the user, Hackedbox 
 applies the selected style file to the current session.
 The labels that are created in the menu are the filenames of the style files.
-.TP
+.TP 
 .B [stylesmenu] (label) {directory name}
 Creates a submenu entry with
 .I label 
@@ -265,11 +265,11 @@ Creates a submenu entry with
 filenames in the specified directory, in the same way as the
 .B [stylesdir]
 command does.
-.IP
+.IP 
 .RB Both\  [stylesdir] \ and\  [stylesmenu]
 commands make it possible to install style files without editing your menu file.
-.TP
-.B [submenu] (label) {title for menu - optional}
+.TP 
+.B [submenu] (label) {title for menu \- optional}
 This tells Hackedbox to create and parse a new menu.
 This menu is inserted as a submenu into the parent menu.
 These menus are parsed recursively, so there is no limit to the number of levels
@@ -279,45 +279,45 @@ the new menu's title is the same as the item label.
 An
 .B [end]
 tag is required to end the submenu.
-.TP
+.TP 
 .B [reconfig] (label)
 When selected, this item rereads the current style and menu files and
 applies any changes.
 This is useful for creating a new style or theme, as you don't have to
 constantly restart Hackedbox every time you save your style.
 However, Hackedbox automagically rereads the menu whenever it changes.
-.TP
-.B [restart] (label) {shell command - optional}
+.TP 
+.B [restart] (label) {shell command \- optional}
 This tells Hackedbox to restart.
 If `shell command' is supplied, it shuts down and runs the command (which is
 commonly the name of another window manager).
 If the command is omitted, Hackedbox restarts itself.
-.TP
+.TP 
 .B [config] (label)
 Inserts a Hackedbox generated submenu item containing numerous configuration
 options concerning window placement, focus style, window moving style, etc.
-.TP
+.TP 
 .B [workspaces] (label)
 This tells Hackedbox to insert a link to the workspaces menu directly
 into your menu.
 This is handy for those users who can't access the
 workspace menu directly (e.g. if you don't have a 3 button mouse).
-.PP
+.PP 
 Any line that starts with a `#' is considered a comment and ignored by Hackedbox.
 Also, in the labels/commands/filenames fields,
 you can escape any character like so:
 .EX
-[exec] (\\(my cool\\) \\{XTERM\\}) {xterm -T \\"cool XTERM\\"}
+[exec] (\\(my cool\\) \\{XTERM\\}) {xterm \-T \\"cool XTERM\\"}
 .EE
-Using `\\\\' inserts a literal back-slash into the label/command/filename field.
+Using `\\\\' inserts a literal back\-slash into the label/command/filename field.
 .SS Menu example
 Now let's put together some things.
 Here is a short example of a menu file:
-.PP
-.nf
+.PP 
+.nf 
 # Hackedbox menu file
 [begin] (Hackedbox @version@)
-  [exec] (rxvt) {rxvt -ls}
+  [exec] (rxvt) {rxvt \-ls}
   [exec] (Mozilla) {mozilla}
   [exec] (The GIMP) {gimp}
   [submenu] (Window Manager)
@@ -333,23 +333,23 @@ Here is a short example of a menu file:
   [exit] (Log Out)
 [end]
 # end of menu file
-.fi
-.SH STYLES
+.fi 
+.SH "STYLES"
 Hackedbox enables you to use specialized files that contain
-.IR X (1)
+.I  X(1)
 resources to specify colors, textures, and fonts and therefore
 the overall look of your window  and the borders, menus.
-.PP
+.PP 
 The default installation of Hackedbox provides some of these style files.
 Usually they are put in
-.IR @pkgdatadir@/styles .
+.I @pkgdatadir@/styles .
 You can study or edit these files to grasp how the Hackedbox style mechanism
 works.
 You can use the
 .BR [style] ", " [stylesdir] " and " [stylesmenu]
 menu commands in your menu file to be able to select and change between styles
 on the fly.
-.PP
+.PP 
 You can also create a directory in your home directory (usually named
 .I ~/.hackedbox/styles)
 and put your own style files there.
@@ -357,23 +357,23 @@ Of course, you may choose any name for this directory, but many downloadable
 themes will rely on the name
 .I styles
 (following the bb.themes.org naming scheme).
-.PP
+.PP 
 To understand how the style mechanism works, you should have a little knowledge
 of how X resources work.
-.PP
+.PP 
 X resources consist of a key and a value.
 The key is constructed of several smaller keys (sometimes referred to as
 children), delimited by a period (`.').
 Keys may also contain a star (`*') to serve as a wildcard, which means that one
 line of typed text will match several keys.
 This is useful for styles that are based on one or two colors.
-.PP
+.PP 
 Hackedbox allows you to configure its four main components: the menus, and the 
 window decorations.
-.PP
-The little window that shows the x-y position while dragging windows borrows
+.PP 
+The little window that shows the x\-y position while dragging windows borrows
 its style from the window's titlebar.
-.PP
+.PP 
 Here are some quick examples:
 .EX
 toolbar.clock.color:	green
@@ -386,17 +386,17 @@ This sets the color resource of the menu
 .I and all of its `children'
 to `rgb:3/4/5'.
 (For a description of color names, see
-.IR X (1).)
+.I  X(1).)
 So this one also applies to
-.IR menu.title.color " and " menu.frame.color .
+.I menu.title.color " and " menu.frame.color .
 And with
 .EX
-*font:	-b&h-lucida-medium-r-normal-*-*-140-*
+*font:	\-b&h\-lucida\-medium\-r\-normal\-*\-*\-140\-*
 .EE
 you set the font resource for all keys to this font name all at once.
 (For information about the fonts installed on your system, you can use a program like
-.IR xfontsel "(1), " gtkfontsel ", or " xlsfonts "(1).)"
-.PP
+.I xfontsel "(1), " gtkfontsel ", or " xlsfonts "(1).)"
+.PP 
 Now what makes Hackedbox just so spectacular is its ability to render textures
 on the fly.
 Texture descriptions are specified in a similar way to the colors shown above
@@ -409,37 +409,37 @@ toolbar.clock.colorTo:	rgb:4/3/2
 .EE
 Don't worry; we will explain right now!
 A texture description consists of up to five fields, which are as follows:
-.TP
+.TP 
 .B Flat / Raised / Sunken
 gives the component either a flat, raised, or sunken appearance.
-.TP
+.TP 
 .B Gradient / Solid
 tells Hackedbox to draw either a solid color or a texture with gradient.
-.TP
+.TP 
 .B Horizontal / Vertical / Diagonal / Crossdiagonal / Pipecross / Elliptic / Rectangle / Pyramid
 Select one of these texture types. They only work when
 .B Gradient
 is also specified!
-.TP
+.TP 
 .B Interlaced
 tells Hackedbox to interlace the texture (darken every other line).
 This option is most commonly used with gradiented textures, but, from Hackedbox
 version 0.60.3 on, it also works in solid textures.
-.TP
+.TP 
 .B Bevel1 / Bevel2
 tells Hackedbox which type of bevel to use.
 Bevel1 is the default bevel.
 The shading is placed on the edge of the image.
 Bevel2 is an alternative.
 The shading is placed one pixel in from the edge of the image.
-.PP
+.PP 
 Instead of a texture description, the option
 .B ParentRelative
 is also available, which makes the component appear as a part of its parent, i.e.
 totally transparent.
-.PP
+.PP 
 All gradient textures are composed of two color values: the
-.IR color " and " colorTo " resources."
+.I  color " and " colorTo " resources."
 color represents the initial color, colorTo represents the final color of the
 gradient.
 When
@@ -449,14 +449,14 @@ is used in
 mode, the
 .I colorTo
 resource is used to specify the interlacing color.
-.PP
+.PP 
 Well, here is the complete component list; also, all components together with
 which kind of value they can contain.
 Comments are preceded with an exclamation sign (!), which is also used for
 comments in Hackedbox style c.q. X resource files.
-.PP
+.PP 
 .ta \w'window.button.unfocus.picColor:\ 'u 
-.nf
+.nf 
 .\"
 .\" The comments also to be translated!
 .\"
@@ -565,13 +565,13 @@ frameWidth:	a number of pixels >= 0
 
 ! This command is executed whenever this style is selected.
 ! Typically it sets the root window to a nice picture.
-rootCommand:	Shell command, e.g. \fIbsetroot -mod 4 4 -fg rgb:	5/6/6 -bg grey20\fR
+rootCommand:	Shell command, e.g. \fIbsetroot \-mod 4 4 \-fg rgb:	5/6/6 \-bg grey20\fR
 
 ! Some of the bbtools read these old 0.51 resources.
 menuFont:	Font
 titleFont:	Font
-.fi
-.PP
+.fi 
+.PP 
 Now, this seems a long list, but, remember, when you create your own style, you
 can easily set lots of keys with a single command, e.g.
 .EX
@@ -582,87 +582,90 @@ can easily set lots of keys with a single command, e.g.
 *unfocus.colorTo:	black
 *textColor:	white
 *unfocus.textColor:	lightgrey
-*font:	lucidasans-10
+*font:	lucidasans\-10
 .EE
 This sets already nice defaults for many components.
-.SH RESOURCE FILE
+.SH "RESOURCE FILE"
 Usually the
-.I ~/.hackedboxrc
+.I ~/.hackedbox/rc
 resource file is created and maintained by hackedbox itself.
 All options from the
 .B [config]
 menu (from 0.60.x on), the last selected style file, your workspace names and
 so on are saved automatically in this file.
 However, there are some resources in it you might want to edit yourself:
-.TP
+.TP 
 .B session.menuFile:
-This tells Hackboxed where to look for its menu file.
-.TP
+This tells Hackedbox where to look for its menu file.
+.TP 
 .B session.autoRaiseDelay:
 This adjusts the delay (in ms) before focused windows will raise when using the
 Auto Raise option.
 Default value is:
-.IR 250 .
-.TP
+.I R 250 .
+.TP 
 .B session.doubleClickInterval:
 This adjusts the delay (in ms) between mouse clicks for Hackedbox to consider a double click.
 Default value is:
-.IR 250 .
-.TP
+.I R 250 .
+.TP 
 .B session.screen0.edgeSnapThreshold:
 When moving a window across your screen, Hackedbox is able to have it `snap' to
 the edges of the screen for easy placement.
 This variable tells Hackedbox the distance (in pixels) at which the window will
 jump to the edge.
 Default value is:
-.IR 0 .
-.TP
+.I R 0 .
+.TP 
 .B session.cacheMax:
 This tells Hackedbox how much memory (in Kb) it may use to store cached pixmaps on
 the X server.
 If your machine runs short of memory, you may lower this value.
 Default value is:
-.IR 200 .
-.TP
+.I R 200 .
+.TP 
 .B session.cacheLife:
 This tells Hackedbox how long (in minutes) unused pixmaps may stay in the X
 server's memory.
 Default value is:
-.IR 5 .
-.TP
+.I R 5 .
+.TP 
 .B session.colorsPerChannel:
 This tells Hackedbox how many colors to take from the X server on pseudocolor
 displays.  A channel would be red, green, or blue.
 Hackedbox will allocate this variable ^ 3 colors and make them always available.
 This value must be between 2 and 6.
-When you run Hackedbox on an 8-bit display, you must set this resource to 4.
+When you run Hackedbox on an 8\-bit display, you must set this resource to 4.
 Default value is:
-.IR 4.
-.PP
+.I R 4.
+.PP 
 When running Hackedbox in a multiple desktop environment, the
 .B screen0
 key can also be
 .B screen1, 2
 etc. for any appropriate desktop.
-.SH ENVIRONMENT
-.TP
+.SH "ENVIRONMENT"
+.TP 
 .B HOME
 Hackedbox uses
 .RB $ HOME
 to find its
-.I .hackedboxrc
+.I .hackedbox/rc
 file, and to resolve style file and directory names.
-.TP
+.TP 
 .B DISPLAY
 When no other display was given on the command line, Hackedbox will start on the
 display specified by this variable.
-.SH AUTHOR and CREDITS
+.SH "AUTHOR and CREDITS"
 All of the code is now maintained by Larry Owen
 .nh
 (larry@scrudgeware.org)
-.PP
+.PP 
 The official Hackedbox website:
 .nh
 .B http://scrudgeware.org/projects/Hackedbox
 .hy
-.br
+.br 
+.SH "SEE ALSO"
+.LP 
+epist(1)
