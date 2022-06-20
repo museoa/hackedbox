@@ -1,0 +1,14 @@
+mod1 F1 desktop1
+mod1 F2 desktop2
+mod1 F3 desktop3
+mod1 F4 desktop4
+control F1 exec x-terminal-emulator
+control F2 exec x-terminal-emulator -e su
+control F3 exec gnuclient
+control F5 exec ~/mozilla/mozilla
+control+mod1 Z  close
+control+mod1 Right moveright
+control+mod1 Left moveleft
+control+mod1 Up moveup
+control+mod1 Down movedown
+ 

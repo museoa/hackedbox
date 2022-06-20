@@ -128,7 +128,7 @@ Blackbox::Blackbox(char **m_argv, char *dpy_name, char *rc)
 
   ::blackbox = this;
   argv = m_argv;
-  if (! rc) rc = "~/.hackedboxrc";
+  if (! rc) rc = "~/.hackedbox/rc";
   rc_file = expandTilde(rc);
 
   no_focus = False;

@@ -3,6 +3,9 @@
 /* Enable Slit and Toolbar */
 #undef ADD_BLOAT
 
+/* Enable keybindings */
+#undef ENABLE_KEYBINDINGS
+
 /* Define if you have the `basename' function. */
 #undef HAVE_BASENAME
 

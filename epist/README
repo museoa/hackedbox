@@ -1,0 +1,59 @@
+    Epistrophy -- a keygrabber for those who want keys grabbed
+------------------------------------------------------------------------------
+Epistrophy is a keygrabber for those who want keys to be grabbed and
+not much else. 
+
+To build:
+make
+
+To run:
+epist
+
+It is just that easy. Epistrophy takes an optional command line
+argument specifying the location of an rc file. $HOME/.hackedbox/keys
+ is used and if that's not found the ${prefix}/share/hackedbox/keys
+is loaded by default.
+The rc file format is very simple (and an example is included):
+mod1 F1 desktop1
+mod1 F2 desktop2
+control F1 exec aterm
+control F2 exec aterm -e su
+mod1 F5 shadeWindow
+control+mod1 Z close
+control+mod1 Right moveright
+control+mod1 Left moveleft
+control+mod1 Up moveup
+control+mod1 Down movedown
+
+As you can see, each line contains a modifier (or combination of
+modifiers) a key and a command.
+The valid modifiers might depend on your X server. Typically, control
+is your control key, mod1 is your Alt key. Those are generally the
+most common. Check you X server documentation or email me if you need
+more. none can be used if you want no modifier.
+The list of valid keys may also depend on your X server. The example
+rc file should give you an idea of the valid ones. If not check your X
+server documentation as well.
+The list of valid commands are as follows (hackedbox specific commands
+are denoted with a *):
+
+exec command - execute a command.
+iconify - iconify current window
+raise - raise current window to top
+lower - send current window back
+close - close current window
+desktop1-desktop9* - go to workspace 1 through 9. 
+	(email me if you want more)
+shadewindow* - shade current window
+movedown - move current window down
+moveup - move current window up
+moveright - move current window up
+moveleft - move current window up
+maximize - toggle maximization
+maximizevertical - toggle vertical maximization
+maximizerhorizontal - toggle horizontal maximization
+nextWindow* - cycle through the windows "forward"
+prevWindow* - cycle through the windows "backward"
+Note: The definition of "forward" and "backward" is dependent on how
+hackedbox interprets them.
+

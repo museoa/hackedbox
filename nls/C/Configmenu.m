@@ -40,3 +40,5 @@ $ #TopBottom
 # Top to Bottom
 $ #BottomTop
 # Bottom to Top
+$ #EnableKeybindings
+# Enable Keybindings

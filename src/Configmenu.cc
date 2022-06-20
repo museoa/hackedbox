@@ -25,6 +25,12 @@
 # include "../config.h"
 #endif // HAVE_CONFIG_H
 
+#ifdef    ENABLE_KEYBINDINGS
+#include <signal.h>
+#include <sys/types.h>
+#include <unistd.h>
+#endif // ENABLE_KEYBINDINGS
+
 #include "i18n.hh"
 #include "Configmenu.hh"
 #include "Image.hh"
@@ -55,6 +61,15 @@ Configmenu::Configmenu(BScreen *scr) : Basemenu(scr) {
               "Focus Last Window on Workspace"), 5);
   insert(i18n(ConfigmenuSet, ConfigmenuDisableBindings,
               "Disable Bindings with Scroll Lock"), 6);
+			  
+#ifdef ENABLE_KEYBINDINGS
+  insert(i18n(ConfigmenuSet, ConfigmenuEnableKeybindings, 
+              "Enable Keybindings"), 7);
+
+  pid = getpid();
+  chpid = getpid();
+#endif // ENABLE_KEYBINDINGS
+
   update();
 
   setItemSelected(2, getScreen()->getImageControl()->doDither());
@@ -125,6 +140,35 @@ void Configmenu::itemSelected(int button, unsigned int index) {
     getScreen()->reconfigure();
     break;
   }
+#ifdef ENABLE_KEYBINDINGS
+  case 7:{ //enable keybindings
+    setItemSelected(index,pid==chpid); 
+	  
+    if (getpid() != chpid){
+      kill(chpid,SIGTERM);
+      chpid = getpid();
+      break;
+    }
+	
+    if (pid == chpid){ 
+      chpid = fork();
+		
+      if (chpid < 0){
+          //cerr << "Error: Can't Fork epistrophy" << endl;
+      }
+	  
+      if (chpid == 0){
+	    extern char** environ;
+ 
+	    char *args[]= {"sh", "-c", "epist", 0};
+	    execve("/bin/sh", args, environ);
+	    exit(0);
+      }
+    } 
+	else
+      break;
+  }
+#endif // ENABLE_KEYBINDINGS
   } // switch
 }
 

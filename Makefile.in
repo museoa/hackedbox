@@ -66,6 +66,7 @@ DEBUG = @DEBUG@
 DEPDIR = @DEPDIR@
 EXEEXT = @EXEEXT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+KEYS = @KEYS@
 MAINT = @MAINT@
 NLS = @NLS@
 OBJEXT = @OBJEXT@
@@ -85,11 +86,11 @@ gencat_cmd = @gencat_cmd@
 install_sh = @install_sh@
 regex_cmd = @regex_cmd@
 
-EXTRA_DIST = util bootstrap nls doc
+EXTRA_DIST = util bootstrap nls doc epist
 
 AUTOMAKE_OPTIONS = foreign
 
-SUBDIRS = data doc nls src @UTILS@
+SUBDIRS = data doc nls src @UTILS@ @KEYS@
 
 MAINTAINERCLEANFILES = aclocal.m4 config.h.in configure Makefile.in stamp-h.in
 subdir = .
