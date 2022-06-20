@@ -1,0 +1,5 @@
+ChangeLog for 0.7.0
+
+Changes from 0.62.x to 0.7.0:
+  - stripped all toobar and slit references
+

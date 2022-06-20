@@ -1,0 +1,61 @@
+[begin] (ScrudgeWare)
+  [exec] (Run)     {bbrun -w}
+  [exec] (Eterm)     {Eterm}
+  [exec] (Users)     {gnuserman}
+  [exec] (Gkrellm)   {gkrellm}
+  [exec] (Edit Menu) {gvim /usr/local/share/hackedbox/menu}
+  [exec] (xScreenSaver) {xscreensaver-demo}
+
+  [submenu] (Office Tools)
+    [exec] (AbiWord)   {abiword}
+    [exec] (Gnumeric)   {gnumeric}
+    [exec] (Gvim)   {gvim}
+    [exec] (Samba)   {xfsamba}
+  [end]
+
+  [submenu] (Development)
+    [exec] (Anjuta)   {anjuta}
+    [exec] (BlueFish)  {bluefish -s}
+  [end]
+ 
+  [submenu] (Remote Terms)
+    [exec] (FTP scrudgeware)         {Eterm -e /usr/local/bin/ftp ftp.scrudgeware.org}
+    [exec] (SSH Black)         {Eterm -e /usr/local/bin/ssh -2 larry@10.0.0.1}
+  [end]
+
+  [submenu] (Multimedia)
+    [exec] (The GIMP)  {gimp}
+    [exec] (Xmms)      {xmms}
+    [exec] (Mixer)     {opmixer}
+    [exec] (CD Play)   {gcd}
+    [exec] (Giram)  {giram}
+  [end]
+
+  [submenu] (Internet)
+    [exec] (SkipStone)     {skipstone}
+    [exec] (Mail)     {sylpheed}
+    [exec] (ftp) {guiftp}
+    [exec] (Gnutella) {gtk-gnutella}
+    [exec] (Mozilla)  {/usr/local/encap/mozilla/mozilla}
+    [exec] (Composer) {/usr/local/encap/mozilla/mozilla -edit}
+  [end]
+
+  [submenu] (X Utilities)
+    [exec] (Xkill) {xkill}
+    [exec] (Xfontsel) {xfontsel}
+    [exec] (Xman)     {xman}
+    [exec] (Xcalc)    {xcalc}
+    [exec] (Xload)    {xload}
+  [end]
+ 
+  [submenu] (Styles) {Choose a style...}
+    [stylesdir] (/usr/local/share/hackedbox/styles)
+  [end]
+
+  [workspaces] (Workspace List)
+  [config] (Configuration)
+
+  [reconfig] (Reconfigure)
+  [restart] (Restart)
+  [exit] (Exit)
+[end]

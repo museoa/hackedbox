@@ -1,0 +1,67 @@
+-- README for HackedBox 0.7.x  --
+
+This is the README for HackedBox 0.7.x release.
+
+The source tree for HackedBox is comprised of five subdirectories:
+
+	data/		- this holds the default data files that HackedBox
+                          requires for proper operation
+
+	doc/		- this holds the documentation files that explain
+	                  the various aspects of HackedBox
+
+	nls/		- this holds the message files used to generate
+			  message catalogs for different languages
+
+	src/		- this holds the actual C++ source code for the window
+			  manager.
+
+	util/		- this holds source code for small utility programs
+			  that help HackedBox do what it does best.
+
+
+Quick Start:
+------------
+The quickest and easiest way to get HackedBox up and running is to run the
+following commands:
+
+# cd HackedBox-0.7.x
+# ./configure
+# make
+# su -c 'make install'
+
+This will configure, compile and install HackedBox the quickest.  For those
+who like to spend the extra 15 seconds reading ./configure --help, some
+compile time options can be turned on and off before the build.
+
+For general information on GNU's ./configure, see the file INSTALL.
+
+
+Configuring HackedBox:
+---------------------
+The next thing most users want to do after installing HackedBox is to configure
+the colors, fonts, menus, etc. to their liking.  This is covered by the files
+data/README, data/README.menu and data/README.style.  These files give
+detailed information on how to customize your new window manager.
+
+
+Included utilities:
+-------------------
+Currently, the only included utilities are a program named bsetroot and a
+script called bsetbg. bsetroot is a replacement for xsetroot, minus a few
+options.  The difference between xsetroot and bsetroot is that bsetroot has
+been coded for multiple screens (e.g. multi-headed displays), where as the
+stock xsetroot is not. The bsetbg script acts as a wrapper for most of the
+popular programs used to set background pixmaps, making it possible
+for styles to provide a machine-independent rootCommand.
+
+
+Third-party utilities:
+----------------------
+
+Supported Platforms:
+--------------------
+PPC-Linux 2.4.x (glibc2.1)
+
+Please email larry@scrudgeware.org for other success reports.
+

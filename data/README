@@ -1,0 +1,24 @@
+-- data/README for HackedBox --
+
+The data/ directory holds some menu and style (or theme) examples for HackedBox.
+
+
+The styles are installed as system defaults, and are ALWAYS overwritten when
+upgrading or otherwise re-installing HackedBox.  Changes to them are
+discouraged, because of this reason.
+
+In the data/ directory, you will find a directory named `styles.'  These are
+the system defaults that are installed when HackedBox is built, and they are
+intended as examples on how to customize and control the appearance of
+HackedBox.
+In the event that a user does not have a defined style, HackedBox falls back on
+the example styles included here.
+
+Also in the data/ directory is a file named `menu'.  This is meant as an
+example but is also installed if make install detects that no menu exists.
+If HackedBox is ever started without a valid menu the user will get a backup
+menu which gives the ability to launch and xterm and exit the window manager.
+
+For information on creating/editing a menu, see the file README.menu.
+
+For information on creating/editing a style, see the file README.style.
