@@ -1,7 +1,7 @@
 dnl configure.in for HackedBox
 dnl Initialize autoconf and automake
 AC_INIT(src/blackbox.cc)
-AM_INIT_AUTOMAKE(hackedbox,0.8.4,no-define)
+AM_INIT_AUTOMAKE(hackedbox,0.8.5,no-define)
 
 dnl Determine default prefix
 test x$prefix = "xNONE" && prefix="$ac_default_prefix"
