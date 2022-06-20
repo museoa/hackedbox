@@ -1624,7 +1624,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=hackedbox
- VERSION=0.8.3
+ VERSION=0.8.4
 
 
 # Some tools Automake needs.
@@ -2810,9 +2810,14 @@ else
        grep sub/conftest.${OBJEXT-o} sub/conftest.Po > /dev/null 2>&1 &&
        ${MAKE-make} -s -f confmf > /dev/null 2>&1; then
       # icc doesn't choke on unknown options, it will just issue warnings
-      # (even with -Werror).  So we grep stderr for any message
-      # that says an option was ignored.
-      if grep 'ignoring option' conftest.err >/dev/null 2>&1; then :; else
+      # or remarks (even with -Werror).  So we grep stderr for any message
+      # that says an option was ignored or not supported.
+      # When given -MP, icc 7.0 and 7.1 complain thusly:
+      #   icc: Command line warning: ignoring option '-M'; no argument required
+      # The diagnosis changed in icc 8.0:
+      #   icc: Command line remark: option '-MP' not supported
+      if (grep 'ignoring option' conftest.err ||
+          grep 'not supported' conftest.err) >/dev/null 2>&1; then :; else
         am_cv_CC_dependencies_compiler_type=$depmode
         break
       fi
@@ -3269,9 +3274,14 @@ else
        grep sub/conftest.${OBJEXT-o} sub/conftest.Po > /dev/null 2>&1 &&
        ${MAKE-make} -s -f confmf > /dev/null 2>&1; then
       # icc doesn't choke on unknown options, it will just issue warnings
-      # (even with -Werror).  So we grep stderr for any message
-      # that says an option was ignored.
-      if grep 'ignoring option' conftest.err >/dev/null 2>&1; then :; else
+      # or remarks (even with -Werror).  So we grep stderr for any message
+      # that says an option was ignored or not supported.
+      # When given -MP, icc 7.0 and 7.1 complain thusly:
+      #   icc: Command line warning: ignoring option '-M'; no argument required
+      # The diagnosis changed in icc 8.0:
+      #   icc: Command line remark: option '-MP' not supported
+      if (grep 'ignoring option' conftest.err ||
+          grep 'not supported' conftest.err) >/dev/null 2>&1; then :; else
         am_cv_CXX_dependencies_compiler_type=$depmode
         break
       fi
@@ -5971,8 +5981,8 @@ echo "$as_me: error: Hackedbox requires the X Window System libraries and header
 test x$x_includes = "x" && x_includes="/usr/include"
 test x$x_libraries = "x" && x_libraries="/usr/lib"
 
-CFLAGS="$CFLAGS $X_CFLAGS -lXpm"
-CXXFLAGS="$CXXFLAGS $X_CFLAGS -lXpm"
+CFLAGS="$CFLAGS $X_CFLAGS"
+CXXFLAGS="$CXXFLAGS $X_CFLAGS"
 LIBS="$LIBS $X_LIBS"
 LDFLAGS="$LDFLAGS $LIBS $X_PRE_LIBS"
 

@@ -1,6 +1,6 @@
 // -*- mode: C++; indent-tabs-mode: nil; c-basic-offset: 2; -*-
 // Window.hh for Blackbox - an X11 Window manager
-// Copyright (c) 2003 Larry Owen <larry@scrudgeware.org>
+// Copyright (c) 2003-2004 Larry Owen <larry@scrudgeware.org>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
 // copy of this software and associated documentation files (the "Software"),

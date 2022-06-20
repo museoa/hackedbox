@@ -257,6 +257,7 @@ public:
 
   inline void iconUpdate(void) { iconmenu->update(); }
 
+  /*
 #ifdef    HAVE_STRFTIME
   inline const char *getStrftimeFormat(void)
   { return resource.strftime_format.c_str(); }
@@ -267,7 +268,8 @@ public:
   inline bool isClock24Hour(void) { return resource.clock24hour; }
   inline void saveClock24Hour(bool c) { resource.clock24hour = c; }
 #endif // HAVE_STRFTIME
-
+*/
+  
   inline WindowStyle *getWindowStyle(void) { return &resource.wstyle; }
   inline MenuStyle *getMenuStyle(void) { return &resource.mstyle; }
 

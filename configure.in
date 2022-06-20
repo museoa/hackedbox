@@ -1,7 +1,7 @@
 dnl configure.in for HackedBox
 dnl Initialize autoconf and automake
 AC_INIT(src/blackbox.cc)
-AM_INIT_AUTOMAKE(hackedbox,0.8.3,no-define)
+AM_INIT_AUTOMAKE(hackedbox,0.8.4,no-define)
 
 dnl Determine default prefix
 test x$prefix = "xNONE" && prefix="$ac_default_prefix"
@@ -36,8 +36,8 @@ test x$no_x = "xyes" && AC_MSG_ERROR([Hackedbox requires the X Window System lib
 test x$x_includes = "x" && x_includes="/usr/include"
 test x$x_libraries = "x" && x_libraries="/usr/lib"
 
-CFLAGS="$CFLAGS $X_CFLAGS -lXpm"
-CXXFLAGS="$CXXFLAGS $X_CFLAGS -lXpm"
+CFLAGS="$CFLAGS $X_CFLAGS"
+CXXFLAGS="$CXXFLAGS $X_CFLAGS"
 LIBS="$LIBS $X_LIBS"
 LDFLAGS="$LDFLAGS $LIBS $X_PRE_LIBS"
 

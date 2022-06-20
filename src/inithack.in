@@ -29,7 +29,7 @@ MENUITEMS="
 
 terminals | aterm Eterm rxvt xterm gnome-terminal konsole +
 
-browsers | netscape mozilla phoenix galeon skipstone konqueror dillo opera !links !lynx !w3m +
+browsers | firefox netscape mozilla phoenix galeon skipstone konqueror dillo opera !links !lynx !w3m +
 
 mail | evolution balsa pronto sylpheed spruce kmail exmh !pine !mutt !elm +
 
@@ -230,16 +230,16 @@ editors()
 
 	PS3="Select Editor For Config Files: "
 
-	until [ -n "$EDITOR" ]; do
+	until [ -n "$GEDITOR" ]; do
 		echo -e "\nDefault config editor? (will be used to config files from the menu)"
-			select EDITOR in $tmp_ed; do
+			select GEDITOR in $tmp_ed; do
 				break
 			done
 		done
 
-	echo "You selected: \"$EDITOR\""
+	echo "You selected: \"$GEDITOR\""
 
-	export EDITOR="$(defaults "$EDITOR")"
+	export EDITOR="$(defaults "$GEDITOR")"
 }
 
 defaults()
@@ -475,8 +475,8 @@ cat <<EOF
    [stylesdir] (@prefix@/share/@PACKAGE@/styles)
  [end]
  [submenu]   (Backgrounds)   {Choose a background...}
-   [exec]    (Refresh List) {make -f @prefix@/share/@PACKAGE@/bgMenu.mk
-   [include] (~/.@PACKAGE@/bgMenu)
+   [exec]    (Refresh List) {make -f @prefix@/share/@PACKAGE@/bgmenu.mk}
+   [include] (${HOME}/.@PACKAGE@/bgMenu)
  [end]
 EOF
 }

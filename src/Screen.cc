@@ -930,13 +930,13 @@ void BScreen::raiseWindows(Window *workspace_stack, unsigned int num) {
   delete [] session_stack;
 }
 
-
+/*
 #ifdef    HAVE_STRFTIME
 void BScreen::saveStrftimeFormat(const string& format) {
   resource.strftime_format = format;
 }
 #endif // HAVE_STRFTIME
-
+*/
 
 void BScreen::addWorkspaceName(const string& name) {
   workspaceNames.push_back(name);

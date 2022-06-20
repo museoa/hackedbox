@@ -1,5 +1,6 @@
 // -*- mode: C++; indent-tabs-mode: nil; c-basic-offset: 2; -*-
 // blackbox.cc for Blackbox - an X11 Window manager
+// Copyright (c) 2003 - 2004 Larry Owen <larry@scrudgeware.org>
 // Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
@@ -862,7 +863,7 @@ void Blackbox::save_rc(void) {
             ((enableKeyBindings()) ? "True" : "False"));
   XrmPutLineResource(&new_blackboxrc, rc_string);
 
-/*  sprintf(rc_string, "session.key_cmd:  %s", getkeycmd()); */
+//  sprintf(rc_string, "session.key_cmd:  %s", getkeycmd()); 
   XrmPutLineResource(&new_blackboxrc, rc_string);
 #endif // ENABLE_KEYBINDINGS
 
@@ -971,6 +972,7 @@ void Blackbox::save_rc(void) {
     // time... but loading the defaults before saving allows us to rewrite the
     // users changes...
 
+/*
 #ifdef    HAVE_STRFTIME
     sprintf(rc_string, "session.screen%d.strftimeFormat: %s", screen_number,
             screen->getStrftimeFormat());
@@ -985,6 +987,7 @@ void Blackbox::save_rc(void) {
             ((screen->isClock24Hour()) ? 24 : 12));
     XrmPutLineResource(&new_blackboxrc, rc_string);
 #endif // HAVE_STRFTIME
+*/
 
     sprintf(rc_string, "session.screen%d.edgeSnapThreshold: %d",
             screen_number, screen->getEdgeSnapThreshold());
@@ -1030,13 +1033,14 @@ void Blackbox::load_rc(void) {
       setKeys();
   } 
 #endif // ENABLE_KEYBINDINGS
-
+/*
   if (XrmGetResource(database, "session.key_cmd", "Session.Key_Cmd",
                      &value_type, &value)) {
     resource.key_cmd = value.addr;
   } else {
     resource.key_cmd = "@KEYCMD@";
   }
+*/
 
   if (XrmGetResource(database, "session.menuFile", "Session.MenuFile",
                      &value_type, &value)) {
@@ -1225,7 +1229,7 @@ void Blackbox::load_rc(BScreen *screen) {
     else if (! strncasecmp(value.addr, "CascadePlacement", value.size))
       screen->savePlacementPolicy(BScreen::CascadePlacement);
   }
-
+/*
 #ifdef    HAVE_STRFTIME
   sprintf(name_lookup,  "session.screen%d.strftimeFormat", screen_number);
   sprintf(class_lookup, "Session.Screen%d.StrftimeFormat", screen_number);
@@ -1254,6 +1258,7 @@ void Blackbox::load_rc(BScreen *screen) {
     screen->saveClock24Hour(True);
   }
 #endif // HAVE_STRFTIME
+*/
 
   sprintf(name_lookup,  "session.screen%d.edgeSnapThreshold", screen_number);
   sprintf(class_lookup, "Session.Screen%d.EdgeSnapThreshold", screen_number);
@@ -1436,35 +1441,3 @@ void Blackbox::setKeys() {
     } 
 }
 #endif // ENABLE_KEYBINDINGS
-
-/*
-void Blackbox::CreateIconWindow(BlackboxWindow *tmp_win, int def_x, int def_y)
-{
-
-  
-/*   XSetWindowAttributes attributes; 
-    
-  attributes.background_pixel = XWhitePixel(blackbox->getXDisplay(),
-                                            DefaultScreen(blackbox->getXDisplay()));     
-  tmp_win->icon.window = XCreateWindow(blackbox->getXDisplay(),
-                       DefaultRootWindow(blackbox->getXDisplay()), 
-                       def_x, def_y, 
-                       36, 36, 
-                       2, 
-                       DefaultDepth(blackbox->getXDisplay(),DefaultScreen(blackbox->getXDisplay())), 
-                       InputOutput,
-                       DefaultVisual(blackbox->getXDisplay(),DefaultScreen(blackbox->getXDisplay())), 
-                       CWBackPixel, &attributes);
-
-  new_icon = XCreateSimpleWindow(getXDisplay(),
-                       DefaultRootWindow(getXDisplay()), 
-                       15, 15, 500, 500, 
-                       0, 
-                       1, 
-                       1);
-
-  active_screen->manageWindow(new_icon);
-  XMapWindow(getXDisplay(), new_icon);
-  XFlush(getXDisplay());
-}
-*/

@@ -1,5 +1,6 @@
 // -*- mode: C++; indent-tabs-mode: nil; c-basic-offset: 2; -*-
 // Window.hh for Blackbox - an X11 Window manager
+// Copyright (c) 2003-2004 Larry Owen <larry@scrudgeware.org>
 // Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //

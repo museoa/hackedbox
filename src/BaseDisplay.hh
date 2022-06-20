@@ -1,5 +1,6 @@
 // -*- mode: C++; indent-tabs-mode: nil; -*-
 // BaseDisplay.hh for Blackbox - an X11 Window manager
+// Copyright (c) 2003-2004 Larry Owen <larry@scrudgeware.org>
 // Copyright (c) 2001 - 2002 Sean 'Shaleh' Perry <shaleh@debian.org>
 // Copyright (c) 1997 - 2000 Brad Hughes (bhughes@tcac.net)
 //
@@ -27,7 +28,7 @@
 extern "C" {
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
-#include <X11/xpm.h>
+// #include <X11/xpm.h>
 }
 
 #include <vector>
