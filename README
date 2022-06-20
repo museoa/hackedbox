@@ -64,6 +64,7 @@ Supported Platforms:
 Linux 2.4.x PPC (glibc2.1)
 Linux i686
 WinNT (XFree cygwin)
+FreeBSD 4.6-STABLE i686
 
 Please email larry@scrudgeware.org for other success reports.
 

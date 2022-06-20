@@ -1,8 +1,9 @@
-# data/Makefile.am for Openbox
+# data/Makefile.am for Hackedbox
 
 SUBDIRS = styles
 CLEANFILES = menu
 MAINTAINERCLEANFILES = Makefile.in
+EXTRA_DIST = styles README.* menu.in
 
 all-local: menu
 

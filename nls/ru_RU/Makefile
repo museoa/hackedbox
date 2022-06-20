@@ -11,87 +11,87 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-@SET_MAKE@
 
-# nls/zh_CN/Makefile.am for Blackbox - an X11 Window Manager
 
-SHELL = @SHELL@
+# nls/ru_RU/Makefile.am for Blackbox - an X11 Window Manager
 
-srcdir = @srcdir@
-top_srcdir = @top_srcdir@
-VPATH = @srcdir@
-prefix = @prefix@
-exec_prefix = @exec_prefix@
+SHELL = /bin/sh
 
-bindir = @bindir@
-sbindir = @sbindir@
-libexecdir = @libexecdir@
-datadir = @datadir@
-sysconfdir = @sysconfdir@
-sharedstatedir = @sharedstatedir@
-localstatedir = @localstatedir@
-libdir = @libdir@
-infodir = @infodir@
-mandir = @mandir@
-includedir = @includedir@
+srcdir = .
+top_srcdir = ../..
+
+prefix = /usr/local
+exec_prefix = ${prefix}
+
+bindir = ${exec_prefix}/bin
+sbindir = ${exec_prefix}/sbin
+libexecdir = ${exec_prefix}/libexec
+datadir = ${prefix}/share
+sysconfdir = ${prefix}/etc
+sharedstatedir = ${prefix}/com
+localstatedir = ${prefix}/var
+libdir = ${exec_prefix}/lib
+infodir = ${prefix}/info
+mandir = ${prefix}/man
+includedir = ${prefix}/include
 oldincludedir = /usr/include
-pkgdatadir = $(datadir)/@PACKAGE@
-pkglibdir = $(libdir)/@PACKAGE@
-pkgincludedir = $(includedir)/@PACKAGE@
+pkgdatadir = $(datadir)/hackedbox
+pkglibdir = $(libdir)/hackedbox
+pkgincludedir = $(includedir)/hackedbox
 top_builddir = ../..
 
-ACLOCAL = @ACLOCAL@
-AUTOCONF = @AUTOCONF@
-AUTOMAKE = @AUTOMAKE@
-AUTOHEADER = @AUTOHEADER@
+ACLOCAL = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run aclocal
+AUTOCONF = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoconf
+AUTOMAKE = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run automake
+AUTOHEADER = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoheader
 
-INSTALL = @INSTALL@
-INSTALL_PROGRAM = @INSTALL_PROGRAM@
-INSTALL_DATA = @INSTALL_DATA@
-INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL = /bin/install -c
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_DATA = ${INSTALL} -m 644
+INSTALL_SCRIPT = ${INSTALL}
 INSTALL_HEADER = $(INSTALL_DATA)
-transform = @program_transform_name@
+transform = s,x,x,
 NORMAL_INSTALL = :
 PRE_INSTALL = :
 POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-AMTAR = @AMTAR@
-AWK = @AWK@
-CC = @CC@
-CXX = @CXX@
-DEBUG = @DEBUG@
-DEPDIR = @DEPDIR@
-EXEEXT = @EXEEXT@
-INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTERLACE = @INTERLACE@
-MAINT = @MAINT@
-NEWWMSPEC = @NEWWMSPEC@
-NLS = @NLS@
-OBJEXT = @OBJEXT@
-ORDEREDPSEUDO = @ORDEREDPSEUDO@
-PACKAGE = @PACKAGE@
-SHAPE = @SHAPE@
-TIMEDCACHE = @TIMEDCACHE@
-UTILS = @UTILS@
-VERSION = @VERSION@
-X_CFLAGS = @X_CFLAGS@
-X_EXTRA_LIBS = @X_EXTRA_LIBS@
-X_LIBS = @X_LIBS@
-X_PRE_LIBS = @X_PRE_LIBS@
-am__include = @am__include@
-am__quote = @am__quote@
-gencat_cmd = @gencat_cmd@
-install_sh = @install_sh@
-regex_cmd = @regex_cmd@
+AMTAR = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run tar
+AWK = mawk
+CC = gcc
+CXX = g++
+DEBUG = 
+DEPDIR = .deps
+EXEEXT = 
+INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
+INTERLACE = -DINTERLACE
+MAINT = #
+NEWWMSPEC = 
+NLS = -DNLS
+OBJEXT = o
+ORDEREDPSEUDO = 
+PACKAGE = hackedbox
+SHAPE = -DSHAPE
+TIMEDCACHE = -DTIMEDCACHE
+UTILS = 
+VERSION = 0.7.2
+X_CFLAGS =  -I/usr/X11R6/include
+X_EXTRA_LIBS = 
+X_LIBS =  -L/usr/X11R6/lib
+X_PRE_LIBS =  -lSM -lICE
+am__include = include
+am__quote = 
+gencat_cmd = gencat
+install_sh = /usr/src/hackedbox-0.7.3/install-sh
+regex_cmd = sed
 
-NLSTEST = @NLS@
+NLSTEST = -DNLS
 CLEANFILES = blackbox.cat
 MAINTAINERCLEANFILES = Makefile.in Translation.m
 DISTCLEANFILES = Translation.m
-MFILES = @srcdir@/BaseDisplay.m @srcdir@/Basemenu.m @srcdir@/Configmenu.m @srcdir@/Icon.m @srcdir@/Image.m @srcdir@/Screen.m @srcdir@/Toolbar.m @srcdir@/Window.m @srcdir@/Windowmenu.m @srcdir@/Workspace.m @srcdir@/Workspacemenu.m @srcdir@/blackbox.m @srcdir@/common.m @srcdir@/main.m @srcdir@/bsetroot.m
-subdir = nls/zh_CN
+MFILES = ./BaseDisplay.m ./Basemenu.m ./Configmenu.m ./Icon.m ./Image.m ./Screen.m ./Slit.m ./Toolbar.m ./Window.m ./Windowmenu.m ./Workspace.m ./Workspacemenu.m ./blackbox.m ./common.m ./main.m ./bsetroot.m
+subdir = nls/ru_RU
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
@@ -101,10 +101,10 @@ DIST_COMMON = Makefile.am Makefile.in
 all: all-am
 
 .SUFFIXES:
-$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
+$(srcdir)/Makefile.in: # Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  --ignore-deps nls/zh_CN/Makefile
-Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	  $(AUTOMAKE) --gnu  --ignore-deps nls/ru_RU/Makefile
+Makefile: # $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
@@ -215,19 +215,19 @@ uninstall-am: uninstall-info-am uninstall-local
 all-local: blackbox.cat
 install-data-local: blackbox.cat
 	@if test x$(NLSTEST) = "x-DNLS"; then \
-		echo "Installing catalog in $(DESTDIR)$(pkgdatadir)/nls/zh_CN"; \
-		$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/nls/zh_CN; \
-		$(INSTALL_DATA) blackbox.cat $(DESTDIR)$(pkgdatadir)/nls/zh_CN; \
+		echo "Installing catalog in $(DESTDIR)$(pkgdatadir)/nls/ru_RU"; \
+		$(mkinstalldirs) $(DESTDIR)$(pkgdatadir)/nls/ru_RU; \
+		$(INSTALL_DATA) blackbox.cat $(DESTDIR)$(pkgdatadir)/nls/ru_RU; \
 	fi
 uninstall-local:
 	@if test x$(NLSTEST) = "x-DNLS"; then \
-		rm -f $(DESTDIR)$(pkgdatadir)/nls/zh_CN/blackbox.cat; \
-		rmdir $(DESTDIR)$(pkgdatadir)/nls/zh_CN; \
+		rm -f $(DESTDIR)$(pkgdatadir)/nls/ru_RU/blackbox.cat; \
+		rmdir $(DESTDIR)$(pkgdatadir)/nls/ru_RU; \
 	fi
 
 Translation.m: $(MFILES)
 	@if test x$(NLSTEST) = "x-DNLS"; then \
-		awk -f @srcdir@/../convert.awk output=Translation.m $(MFILES); \
+		awk -f ./../convert.awk output=Translation.m $(MFILES); \
 	fi
 
 blackbox.cat: Translation.m

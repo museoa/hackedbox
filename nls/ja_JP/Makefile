@@ -40,10 +40,10 @@ pkglibdir = $(libdir)/hackedbox
 pkgincludedir = $(includedir)/hackedbox
 top_builddir = ../..
 
-ACLOCAL = aclocal
-AUTOCONF = autoconf
-AUTOMAKE = automake
-AUTOHEADER = autoheader
+ACLOCAL = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run aclocal
+AUTOCONF = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoconf
+AUTOMAKE = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run automake
+AUTOHEADER = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoheader
 
 INSTALL = /bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -57,23 +57,33 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+AMTAR = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run tar
+AWK = mawk
 CC = gcc
 CXX = g++
 DEBUG = 
+DEPDIR = .deps
+EXEEXT = 
+INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
 INTERLACE = -DINTERLACE
 MAINT = #
 NEWWMSPEC = 
 NLS = -DNLS
+OBJEXT = o
 ORDEREDPSEUDO = 
 PACKAGE = hackedbox
 SHAPE = -DSHAPE
 TIMEDCACHE = -DTIMEDCACHE
-VERSION = 0.7.0
+UTILS = 
+VERSION = 0.7.2
 X_CFLAGS =  -I/usr/X11R6/include
 X_EXTRA_LIBS = 
 X_LIBS =  -L/usr/X11R6/lib
 X_PRE_LIBS =  -lSM -lICE
+am__include = include
+am__quote = 
 gencat_cmd = gencat
+install_sh = /usr/src/hackedbox-0.7.3/install-sh
 regex_cmd = sed
 
 NLSTEST = -DNLS
@@ -85,6 +95,7 @@ subdir = nls/ja_JP
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
+depcomp =
 DIST_SOURCES =
 DIST_COMMON = Makefile.am Makefile.in
 all: all-am
@@ -92,7 +103,7 @@ all: all-am
 .SUFFIXES:
 $(srcdir)/Makefile.in: # Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  nls/ja_JP/Makefile
+	  $(AUTOMAKE) --gnu  --ignore-deps nls/ja_JP/Makefile
 Makefile: # $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \

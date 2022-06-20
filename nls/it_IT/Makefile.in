@@ -57,23 +57,33 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+AMTAR = @AMTAR@
+AWK = @AWK@
 CC = @CC@
 CXX = @CXX@
 DEBUG = @DEBUG@
+DEPDIR = @DEPDIR@
+EXEEXT = @EXEEXT@
+INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INTERLACE = @INTERLACE@
 MAINT = @MAINT@
 NEWWMSPEC = @NEWWMSPEC@
 NLS = @NLS@
+OBJEXT = @OBJEXT@
 ORDEREDPSEUDO = @ORDEREDPSEUDO@
 PACKAGE = @PACKAGE@
 SHAPE = @SHAPE@
 TIMEDCACHE = @TIMEDCACHE@
+UTILS = @UTILS@
 VERSION = @VERSION@
 X_CFLAGS = @X_CFLAGS@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_LIBS = @X_LIBS@
 X_PRE_LIBS = @X_PRE_LIBS@
+am__include = @am__include@
+am__quote = @am__quote@
 gencat_cmd = @gencat_cmd@
+install_sh = @install_sh@
 regex_cmd = @regex_cmd@
 
 NLSTEST = @NLS@
@@ -85,6 +95,7 @@ subdir = nls/it_IT
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
+depcomp =
 DIST_SOURCES =
 DIST_COMMON = Makefile.am Makefile.in
 all: all-am
@@ -92,7 +103,7 @@ all: all-am
 .SUFFIXES:
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  nls/it_IT/Makefile
+	  $(AUTOMAKE) --gnu  --ignore-deps nls/it_IT/Makefile
 Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \

@@ -587,8 +587,8 @@ can easily set lots of keys with a single command, e.g.
 This sets already nice defaults for many components.
 .SH RESOURCE FILE
 Usually the
-.I ~/.blackboxrc
-resource file is created and maintained by blackbox itself.
+.I ~/.hackedboxrc
+resource file is created and maintained by hackedbox itself.
 All options from the
 .B [config]
 menu (from 0.60.x on), the last selected style file, your workspace names and
@@ -596,7 +596,7 @@ so on are saved automatically in this file.
 However, there are some resources in it you might want to edit yourself:
 .TP
 .B session.menuFile:
-This tells Blackbox where to look for its menu file.
+This tells Hackboxed where to look for its menu file.
 .TP
 .B session.autoRaiseDelay:
 This adjusts the delay (in ms) before focused windows will raise when using the
@@ -618,24 +618,24 @@ Default value is:
 .IR 0 .
 .TP
 .B session.cacheMax:
-This tells Blackbox how much memory (in Kb) it may use to store cached pixmaps on
+This tells Hackedbox how much memory (in Kb) it may use to store cached pixmaps on
 the X server.
 If your machine runs short of memory, you may lower this value.
 Default value is:
 .IR 200 .
 .TP
 .B session.cacheLife:
-This tells Blackbox how long (in minutes) unused pixmaps may stay in the X
+This tells Hackedbox how long (in minutes) unused pixmaps may stay in the X
 server's memory.
 Default value is:
 .IR 5 .
 .TP
 .B session.colorsPerChannel:
-This tells Blackbox how many colors to take from the X server on pseudocolor
+This tells Hackedbox how many colors to take from the X server on pseudocolor
 displays.  A channel would be red, green, or blue.
-Blackbox will allocate this variable ^ 3 colors and make them always available.
+Hackedbox will allocate this variable ^ 3 colors and make them always available.
 This value must be between 2 and 6.
-When you run Blackbox on an 8-bit display, you must set this resource to 4.
+When you run Hackedbox on an 8-bit display, you must set this resource to 4.
 Default value is:
 .IR 4.
 .PP
@@ -650,7 +650,7 @@ etc. for any appropriate desktop.
 Hackedbox uses
 .RB $ HOME
 to find its
-.I .blackboxrc
+.I .hackedboxrc
 file, and to resolve style file and directory names.
 .TP
 .B DISPLAY
@@ -663,6 +663,6 @@ All of the code is now maintained by Larry Owen
 .PP
 The official Hackedbox website:
 .nh
-.B http://scrudgeware.org/hackedbox
+.B http://scrudgeware.org/projects/Hackedbox
 .hy
 .br

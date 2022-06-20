@@ -1,5 +1,5 @@
 # doc/Makefile.am for Hackedbox
-
+EXTRA_DIST=hackedbox.1.in HackedBox.* *.pl
 CLEANFILES = hackedbox.1
 MAINTAINERCLEANFILES = Makefile.in
 man_MANS = hackedbox.1

@@ -28,11 +28,13 @@ CPPFLAGS= @CPPFLAGS@ @SHAPE@  @INTERLACE@ @ORDEREDPSEUDO@ \
 -DDEFAULTMENU=\"$(DEFAULT_MENU)\" \
 -DDEFAULTSTYLE=\"$(DEFAULT_STYLE)\"
 
-bin_PROGRAMS= blackbox
+bin_PROGRAMS= hackedbox
 
-blackbox_SOURCES= BaseDisplay.cc Basemenu.cc Clientmenu.cc Configmenu.cc Iconmenu.cc Image.cc LinkedList.cc Netizen.cc Rootmenu.cc Screen.cc  Timer.cc  Window.cc Windowmenu.cc Workspace.cc Workspacemenu.cc blackbox.cc bsd-snprintf.c i18n.cc main.cc
+hackedbox_SOURCES= BaseDisplay.cc Basemenu.cc Clientmenu.cc Configmenu.cc Iconmenu.cc Image.cc LinkedList.cc Netizen.cc Rootmenu.cc Screen.cc  Timer.cc  Window.cc Windowmenu.cc Workspace.cc Workspacemenu.cc blackbox.cc bsd-snprintf.c i18n.cc main.cc
 
 MAINTAINERCLEANFILES= Makefile.in
+
+EXTRA_DIST=*.hh *.h
 
 distclean-local:
 	rm -f *\~ *.orig *.rej

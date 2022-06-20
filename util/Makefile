@@ -11,83 +11,83 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-@SET_MAKE@
+
 
 # util/Makefile.am for Blackbox - an X11 Window manager
 
-SHELL = @SHELL@
+SHELL = /bin/sh
 
-srcdir = @srcdir@
-top_srcdir = @top_srcdir@
-VPATH = @srcdir@
-prefix = @prefix@
-exec_prefix = @exec_prefix@
+srcdir = .
+top_srcdir = ..
 
-bindir = @bindir@
-sbindir = @sbindir@
-libexecdir = @libexecdir@
-datadir = @datadir@
-sysconfdir = @sysconfdir@
-sharedstatedir = @sharedstatedir@
-localstatedir = @localstatedir@
-libdir = @libdir@
-infodir = @infodir@
-mandir = @mandir@
-includedir = @includedir@
+prefix = /usr/local
+exec_prefix = ${prefix}
+
+bindir = ${exec_prefix}/bin
+sbindir = ${exec_prefix}/sbin
+libexecdir = ${exec_prefix}/libexec
+datadir = ${prefix}/share
+sysconfdir = ${prefix}/etc
+sharedstatedir = ${prefix}/com
+localstatedir = ${prefix}/var
+libdir = ${exec_prefix}/lib
+infodir = ${prefix}/info
+mandir = ${prefix}/man
+includedir = ${prefix}/include
 oldincludedir = /usr/include
-pkgdatadir = $(datadir)/@PACKAGE@
-pkglibdir = $(libdir)/@PACKAGE@
-pkgincludedir = $(includedir)/@PACKAGE@
+pkgdatadir = $(datadir)/hackedbox
+pkglibdir = $(libdir)/hackedbox
+pkgincludedir = $(includedir)/hackedbox
 top_builddir = ..
 
-ACLOCAL = @ACLOCAL@
-AUTOCONF = @AUTOCONF@
-AUTOMAKE = @AUTOMAKE@
-AUTOHEADER = @AUTOHEADER@
+ACLOCAL = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run aclocal
+AUTOCONF = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoconf
+AUTOMAKE = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run automake
+AUTOHEADER = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoheader
 
-INSTALL = @INSTALL@
-INSTALL_PROGRAM = @INSTALL_PROGRAM@
-INSTALL_DATA = @INSTALL_DATA@
-INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL = /bin/install -c
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_DATA = ${INSTALL} -m 644
+INSTALL_SCRIPT = ${INSTALL}
 INSTALL_HEADER = $(INSTALL_DATA)
-transform = @program_transform_name@
+transform = s,x,x,
 NORMAL_INSTALL = :
 PRE_INSTALL = :
 POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-AMTAR = @AMTAR@
-AWK = @AWK@
-CC = @CC@
-CXX = @CXX@
-DEBUG = @DEBUG@
-DEPDIR = @DEPDIR@
-EXEEXT = @EXEEXT@
-INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTERLACE = @INTERLACE@
-MAINT = @MAINT@
-NEWWMSPEC = @NEWWMSPEC@
-NLS = @NLS@
-OBJEXT = @OBJEXT@
-ORDEREDPSEUDO = @ORDEREDPSEUDO@
-PACKAGE = @PACKAGE@
-SHAPE = @SHAPE@
-TIMEDCACHE = @TIMEDCACHE@
-UTILS = @UTILS@
-VERSION = @VERSION@
-X_CFLAGS = @X_CFLAGS@
-X_EXTRA_LIBS = @X_EXTRA_LIBS@
-X_LIBS = @X_LIBS@
-X_PRE_LIBS = @X_PRE_LIBS@
-am__include = @am__include@
-am__quote = @am__quote@
-gencat_cmd = @gencat_cmd@
-install_sh = @install_sh@
-regex_cmd = @regex_cmd@
+AMTAR = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run tar
+AWK = mawk
+CC = gcc
+CXX = g++
+DEBUG = 
+DEPDIR = .deps
+EXEEXT = 
+INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
+INTERLACE = -DINTERLACE
+MAINT = #
+NEWWMSPEC = 
+NLS = -DNLS
+OBJEXT = o
+ORDEREDPSEUDO = 
+PACKAGE = hackedbox
+SHAPE = -DSHAPE
+TIMEDCACHE = -DTIMEDCACHE
+UTILS = 
+VERSION = 0.7.2
+X_CFLAGS =  -I/usr/X11R6/include
+X_EXTRA_LIBS = 
+X_LIBS =  -L/usr/X11R6/lib
+X_PRE_LIBS =  -lSM -lICE
+am__include = include
+am__quote = 
+gencat_cmd = gencat
+install_sh = /usr/src/hackedbox-0.7.3/install-sh
+regex_cmd = sed
 
-CPPFLAGS = @CPPFLAGS@ @DEBUG@ @NLS@ @TIMEDCACHE@ @NEWWMSPEC@ @INTERLACE@ \
-@ORDEREDPSEUDO@
+CPPFLAGS =   -DNLS -DTIMEDCACHE  -DINTERLACE \
+
 
 
 bin_SCRIPTS = bsetbg
@@ -112,17 +112,17 @@ bsetroot_LDFLAGS =
 SCRIPTS = $(bin_SCRIPTS)
 
 
-DEFS = @DEFS@
+DEFS = -DHAVE_CONFIG_H
 DEFAULT_INCLUDES =  -I. -I$(srcdir) -I$(top_builddir)
-LDFLAGS = @LDFLAGS@
-LIBS = @LIBS@
+LDFLAGS =    -L/usr/X11R6/lib  -lSM -lICE
+LIBS =   -L/usr/X11R6/lib -lX11  -lXext
 depcomp =
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-CXXFLAGS = @CXXFLAGS@
+CXXFLAGS = -g -O2  -I/usr/X11R6/include
 DIST_SOURCES = $(bsetroot_SOURCES)
 DIST_COMMON = Makefile.am Makefile.in
 SOURCES = $(bsetroot_SOURCES)
@@ -131,10 +131,10 @@ all: all-am
 
 .SUFFIXES:
 .SUFFIXES: .cc .o .obj
-$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
+$(srcdir)/Makefile.in: # Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
 	  $(AUTOMAKE) --gnu  --ignore-deps util/Makefile
-Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
+Makefile: # $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status

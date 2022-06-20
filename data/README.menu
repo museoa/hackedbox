@@ -10,11 +10,11 @@ write access anywhere else.  You place the menu file in any directory, and
 give it any name you choose, as we will later tell Hackedbox the path or
 location for this file.
 
-As an example, let's assume that my home directory is `/home/bhughes' (which it
-is).  I've decided to keep all my Hackedbox related files in a directory named
+As an example, let's assume that my home directory is `/home/bhughes' 
+.  I've decided to keep all my Hackedbox related files in a directory named
 `hackedbox.'  After creating the directory, I now have two options for creating
 my new menu.  I can either copy the system default (usually in
-`/usr/local/share/Hackedbox/menu') to this directory, or I can create a new
+`/usr/local/share/hackedbox/menu') to this directory, or I can create a new
 one from scratch.  Let's do the latter, for the sake of completeness.
 
 I've decided to name the file `rootmenu.'  I fire up my favorite text editor
@@ -208,9 +208,8 @@ we take advantage of the [nop] tag:
 ...
 
 Now, let's create a submenu to put some items to change between all these
-themes we downloaded from http://bb.classic.themes.org/.  Let's assume we
-untarred the themes into the ~/.hackedbox directory like the documentation on
-the themes.org site recommends.
+themes we downloaded from http://themes.org/ (You can use BlackBox themes).  Let's assume we
+untarred the themes into the ~/.hackedbox directory.
 
 ...
 [begin] (Example \[Menu\])
@@ -249,10 +248,6 @@ Even better.  Now hold on a second, if we have our themes and styles in
 ~/.hackedbox why do we have to have our menu in ~/hackedbox?  Answer:  WE DON'T!
 This is where the choice comes.  Do we keep our stuff in two separate
 directories? Do we put it all in one directory?  That is up to you to decide.
-I personally prefer to keep everything in one directory (but, I use ~/.hackedbox
-and have been for a long, long time; long before bb.classic.themes.org was
-even thought of... and again that is *personal* preference, not a hard-fast
-rule).
 
 Now that we've gotten a feel for the menu syntax, we decide to finish off our
 menu.  In addition to the styles we downloaded, we decide we also want to
@@ -359,11 +354,3 @@ If we've done everything correctly, Hackedbox restarts itself and our new menu
 is now ready for use.  If something doesn't work, read over the above example
 again to make sure you didn't forget a step or leave out the necessary tags.
 
-Now that Hackedbox has been told where to find it's menu, it does a little more.
-Hackedbox 0.51.x introduced automagic menu updates.  As long as you never
-change session.menuFile, you will never have to restart or reconfigure Hackedbox
-whenever you change your menu.  Hackedbox watches the timestamps on all the
-files it reads to build your menu.  If any of them change, they are reread and
-your menu updated.  This check is done everytime you open the root menu.  Like
-I said... it is a check, it doesn't reread the menu everytime, it just looks
-at the modification time and rereads when it changes.

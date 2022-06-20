@@ -11,86 +11,87 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-@SET_MAKE@
 
-# data/Makefile.am for Hackedbox
 
-SHELL = @SHELL@
+SHELL = /bin/sh
 
-srcdir = @srcdir@
-top_srcdir = @top_srcdir@
-VPATH = @srcdir@
-prefix = @prefix@
-exec_prefix = @exec_prefix@
+srcdir = .
+top_srcdir = ..
 
-bindir = @bindir@
-sbindir = @sbindir@
-libexecdir = @libexecdir@
-datadir = @datadir@
-sysconfdir = @sysconfdir@
-sharedstatedir = @sharedstatedir@
-localstatedir = @localstatedir@
-libdir = @libdir@
-infodir = @infodir@
-mandir = @mandir@
-includedir = @includedir@
+prefix = /usr/local
+exec_prefix = ${prefix}
+
+bindir = ${exec_prefix}/bin
+sbindir = ${exec_prefix}/sbin
+libexecdir = ${exec_prefix}/libexec
+datadir = ${prefix}/share
+sysconfdir = ${prefix}/etc
+sharedstatedir = ${prefix}/com
+localstatedir = ${prefix}/var
+libdir = ${exec_prefix}/lib
+infodir = ${prefix}/info
+mandir = ${prefix}/man
+includedir = ${prefix}/include
 oldincludedir = /usr/include
-pkgdatadir = $(datadir)/@PACKAGE@
-pkglibdir = $(libdir)/@PACKAGE@
-pkgincludedir = $(includedir)/@PACKAGE@
+pkgdatadir = $(datadir)/hackedbox
+pkglibdir = $(libdir)/hackedbox
+pkgincludedir = $(includedir)/hackedbox
 top_builddir = ..
 
-ACLOCAL = @ACLOCAL@
-AUTOCONF = @AUTOCONF@
-AUTOMAKE = @AUTOMAKE@
-AUTOHEADER = @AUTOHEADER@
+ACLOCAL = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run aclocal
+AUTOCONF = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoconf
+AUTOMAKE = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run automake
+AUTOHEADER = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run autoheader
 
-INSTALL = @INSTALL@
-INSTALL_PROGRAM = @INSTALL_PROGRAM@
-INSTALL_DATA = @INSTALL_DATA@
-INSTALL_SCRIPT = @INSTALL_SCRIPT@
+INSTALL = /bin/install -c
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_DATA = ${INSTALL} -m 644
+INSTALL_SCRIPT = ${INSTALL}
 INSTALL_HEADER = $(INSTALL_DATA)
-transform = @program_transform_name@
+transform = s,x,x,
 NORMAL_INSTALL = :
 PRE_INSTALL = :
 POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-AMTAR = @AMTAR@
-AWK = @AWK@
-CC = @CC@
-CXX = @CXX@
-DEBUG = @DEBUG@
-DEPDIR = @DEPDIR@
-EXEEXT = @EXEEXT@
-INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
-INTERLACE = @INTERLACE@
-MAINT = @MAINT@
-NEWWMSPEC = @NEWWMSPEC@
-NLS = @NLS@
-OBJEXT = @OBJEXT@
-ORDEREDPSEUDO = @ORDEREDPSEUDO@
-PACKAGE = @PACKAGE@
-SHAPE = @SHAPE@
-TIMEDCACHE = @TIMEDCACHE@
-UTILS = @UTILS@
-VERSION = @VERSION@
-X_CFLAGS = @X_CFLAGS@
-X_EXTRA_LIBS = @X_EXTRA_LIBS@
-X_LIBS = @X_LIBS@
-X_PRE_LIBS = @X_PRE_LIBS@
-am__include = @am__include@
-am__quote = @am__quote@
-gencat_cmd = @gencat_cmd@
-install_sh = @install_sh@
-regex_cmd = @regex_cmd@
+AMTAR = ${SHELL} /usr/src/hackedbox-0.7.3/missing --run tar
+AWK = mawk
+CC = gcc
+CXX = g++
+DEBUG = 
+DEPDIR = .deps
+EXEEXT = 
+INSTALL_STRIP_PROGRAM = ${SHELL} $(install_sh) -c -s
+INTERLACE = -DINTERLACE
+MAINT = #
+NEWWMSPEC = 
+NLS = -DNLS
+OBJEXT = o
+ORDEREDPSEUDO = 
+PACKAGE = hackedbox
+SHAPE = -DSHAPE
+TIMEDCACHE = -DTIMEDCACHE
+UTILS = 
+VERSION = 0.7.2
+X_CFLAGS =  -I/usr/X11R6/include
+X_EXTRA_LIBS = 
+X_LIBS =  -L/usr/X11R6/lib
+X_PRE_LIBS =  -lSM -lICE
+am__include = include
+am__quote = 
+gencat_cmd = gencat
+install_sh = /usr/src/hackedbox-0.7.3/install-sh
+regex_cmd = sed
 
-SUBDIRS = styles
-CLEANFILES = menu
-MAINTAINERCLEANFILES = Makefile.in
-EXTRA_DIST = styles README.* menu.in
-subdir = data
+NLSTEST = -DNLS
+SUBDIRS = C da_DK de_DE es_ES et_EE fr_FR it_IT ja_JP  nl_NL pt_BR ru_RU \
+	sl_SI sv_SE tr_TR zh_CN
+
+MAINTAINERCLEANFILES = Makefile.in blackbox-nls.hh
+DISTCLEANFILES = blackbox-nls.hh
+EXTRA_DIST = convert.awk *
+subdir = nls
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
@@ -101,15 +102,15 @@ RECURSIVE_TARGETS = info-recursive dvi-recursive install-info-recursive \
 	uninstall-info-recursive all-recursive install-data-recursive \
 	install-exec-recursive installdirs-recursive install-recursive \
 	uninstall-recursive check-recursive installcheck-recursive
-DIST_COMMON = README Makefile.am Makefile.in
+DIST_COMMON = Makefile.am Makefile.in
 DIST_SUBDIRS = $(SUBDIRS)
 all: all-recursive
 
 .SUFFIXES:
-$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
+$(srcdir)/Makefile.in: # Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  --ignore-deps data/Makefile
-Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	  $(AUTOMAKE) --gnu  --ignore-deps nls/Makefile
+Makefile: # $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
 	  CONFIG_FILES=$(subdir)/$@ $(SHELL) ./config.status
@@ -243,7 +244,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile all-local
+all-am: Makefile
 installdirs: installdirs-recursive
 installdirs-am:
 
@@ -263,10 +264,10 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-rm -f Makefile $(CONFIG_CLEAN_FILES) stamp-h stamp-h[0-9]*
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -288,7 +289,7 @@ info: info-recursive
 
 info-am:
 
-install-data-am: install-data-local
+install-data-am:
 
 install-exec-am:
 
@@ -306,40 +307,31 @@ mostlyclean: mostlyclean-recursive
 
 mostlyclean-am: mostlyclean-generic
 
-uninstall-am: uninstall-info-am
+uninstall-am: uninstall-info-am uninstall-local
 
 uninstall-info: uninstall-info-recursive
 
-.PHONY: $(RECURSIVE_TARGETS) GTAGS all all-am all-local check check-am \
-	clean clean-generic clean-recursive distclean distclean-generic \
+.PHONY: $(RECURSIVE_TARGETS) GTAGS all all-am check check-am clean \
+	clean-generic clean-recursive distclean distclean-generic \
 	distclean-local distclean-recursive distclean-tags distdir dvi \
 	dvi-am dvi-recursive info info-am info-recursive install \
-	install-am install-data install-data-am install-data-local \
-	install-data-recursive install-exec install-exec-am \
-	install-exec-recursive install-info install-info-am \
-	install-info-recursive install-man install-recursive \
-	install-strip installcheck installcheck-am installdirs \
-	installdirs-am installdirs-recursive maintainer-clean \
-	maintainer-clean-generic maintainer-clean-recursive mostlyclean \
-	mostlyclean-generic mostlyclean-recursive tags tags-recursive \
-	uninstall uninstall-am uninstall-info-am \
-	uninstall-info-recursive uninstall-recursive
+	install-am install-data install-data-am install-data-recursive \
+	install-exec install-exec-am install-exec-recursive \
+	install-info install-info-am install-info-recursive install-man \
+	install-recursive install-strip installcheck installcheck-am \
+	installdirs installdirs-am installdirs-recursive \
+	maintainer-clean maintainer-clean-generic \
+	maintainer-clean-recursive mostlyclean mostlyclean-generic \
+	mostlyclean-recursive tags tags-recursive uninstall \
+	uninstall-am uninstall-info-am uninstall-info-recursive \
+	uninstall-local uninstall-recursive
 
-
-all-local: menu
-
+uninstall-local:
+	@if test x$(NLSTEST) = "x-DNLS"; then \
+		rmdir $(DESTDIR)$(pkgdatadir)/nls; \
+	fi
 distclean-local:
 	rm -f *\~
-
-menu: menu.in
-	@regex_cmd@ -e "s,@pkgdatadir@,$(pkgdatadir)," @srcdir@/menu.in > menu
-
-install-data-local: menu
-	test -f $(DESTDIR)$(pkgdatadir)/menu || \
-	$(INSTALL_DATA) menu $(DESTDIR)$(pkgdatadir)
-
-uninstall-am:
-	rm -f $(DESTDIR)$(pkgdatadir)/menu
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

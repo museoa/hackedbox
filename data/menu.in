@@ -22,7 +22,7 @@
  
   [submenu] (Remote Terms)
     [exec] (FTP scrudgeware)         {Eterm -e /usr/local/bin/ftp ftp.scrudgeware.org}
-    [exec] (SSH Black)         {Eterm -e /usr/local/bin/ssh -2 larry@10.0.0.1}
+    [exec] (SSH Example)         {Eterm -e /usr/local/bin/ssh you@example.com}
   [end]
 
   [submenu] (Multimedia)

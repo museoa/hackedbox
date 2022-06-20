@@ -13,8 +13,6 @@
 
 @SET_MAKE@
 
-# nls/Makefile.am for Blackbox - an X11 Window Manager
-
 SHELL = @SHELL@
 
 srcdir = @srcdir@
@@ -57,35 +55,47 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
+AMTAR = @AMTAR@
+AWK = @AWK@
 CC = @CC@
 CXX = @CXX@
 DEBUG = @DEBUG@
+DEPDIR = @DEPDIR@
+EXEEXT = @EXEEXT@
+INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 INTERLACE = @INTERLACE@
 MAINT = @MAINT@
 NEWWMSPEC = @NEWWMSPEC@
 NLS = @NLS@
+OBJEXT = @OBJEXT@
 ORDEREDPSEUDO = @ORDEREDPSEUDO@
 PACKAGE = @PACKAGE@
 SHAPE = @SHAPE@
 TIMEDCACHE = @TIMEDCACHE@
+UTILS = @UTILS@
 VERSION = @VERSION@
 X_CFLAGS = @X_CFLAGS@
 X_EXTRA_LIBS = @X_EXTRA_LIBS@
 X_LIBS = @X_LIBS@
 X_PRE_LIBS = @X_PRE_LIBS@
+am__include = @am__include@
+am__quote = @am__quote@
 gencat_cmd = @gencat_cmd@
+install_sh = @install_sh@
 regex_cmd = @regex_cmd@
 
 NLSTEST = @NLS@
-SUBDIRS = C da_DK de_DE es_ES et_EE fr_FR it_IT  nl_NL pt_BR ru_RU \
-	sl_SI sv_SE tr_TR 
+SUBDIRS = C da_DK de_DE es_ES et_EE fr_FR it_IT ja_JP  nl_NL pt_BR ru_RU \
+	sl_SI sv_SE tr_TR zh_CN
 
 MAINTAINERCLEANFILES = Makefile.in blackbox-nls.hh
 DISTCLEANFILES = blackbox-nls.hh
+EXTRA_DIST = convert.awk *
 subdir = nls
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
+depcomp =
 DIST_SOURCES =
 
 RECURSIVE_TARGETS = info-recursive dvi-recursive install-info-recursive \
@@ -99,7 +109,7 @@ all: all-recursive
 .SUFFIXES:
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am  $(top_srcdir)/configure.in $(ACLOCAL_M4)
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  nls/Makefile
+	  $(AUTOMAKE) --gnu  --ignore-deps nls/Makefile
 Makefile: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.in  $(top_builddir)/config.status
 	cd $(top_builddir) && \
 	  CONFIG_HEADERS= CONFIG_LINKS= \
@@ -315,7 +325,6 @@ uninstall-info: uninstall-info-recursive
 	mostlyclean-recursive tags tags-recursive uninstall \
 	uninstall-am uninstall-info-am uninstall-info-recursive \
 	uninstall-local uninstall-recursive
-
 
 uninstall-local:
 	@if test x$(NLSTEST) = "x-DNLS"; then \

@@ -8,7 +8,7 @@ put anywhere on the filesystem; as long as you have read access to the file,
 Hackedbox can use it.
 
 First, we need to decide where to put our style file, and what to name it.
-I recommend using the naming scheme described on http://bb.classic.themes.org/
+I recommend using the naming scheme described on http://themes.org/
 when creating styles.
 
 Let's get started.  Let's put our new style into a file named `results.'
@@ -21,7 +21,7 @@ smaller keys, delimited by a period (`.').  Keys may also contain a star (`*')
 to serve as a wildcard, which means that one line of typed text will match
 several keys.  This is useful for styles that are based on one or two colors.
 
-Hackedbox allows you to configure it's three main components: the toolbar, the
+Hackedbox allows you to configure it's two main components:  the
 menus and the window decorations.  Lets begin by creating a style for our
 toolbar.
 
@@ -48,53 +48,17 @@ Bevel1 is the default bevel.  The shading is placed on the edge of the image.
 Bevel2 is an alternative.  The shading is placed one pixel in from the edge
 of the image.
 
-Now that we understand that, let's define the textures for the toolbar.  The
-toolbar has a main frame, buttons, two labels and a clock label.  The buttons
-have 2 states, so we provide textures for both the normal and the pressed
-state.
-
-...
-toolbar:                        Raised Diagonal Gradient Bevel1
-toolbar.button:                 Raised Diagonal Gradient Bevel1
-toolbar.button.pressed:         Sunken Diagonal Interlaced Gradient Bevel1
-toolbar.clock:                  Flat Interlaced Gradient
-toolbar.label:                  Flat Interlaced Gradient
-...
-
 NOTE: the texture strings don't have to be capitalized like they did in
 previous versions.  They are still placed in capitals here, because things like
 the bbtools still use the old method.
 
-Next we define colors for the textures.  Colors can be any valid X colorname
+We define colors for the textures.  Colors can be any valid X colorname
 (from the RGB database) or it can be a color specifier, as described by
 'man 1 X.'
 
-Let's see how our file looks after adding colors:
-
-...
-toolbar:                        Raised Diagonal Gradient Bevel1
-toolbar.button:                 Raised Diagonal Gradient Bevel1
-toolbar.button.pressed:         Sunken Diagonal Interlaced Gradient Bevel1
-toolbar.clock:                  Flat Interlaced Gradient
-toolbar.label:                  Flat Interlaced Gradient
-
-toolbar.color:                  rgb:8/8/7
-toolbar.colorTo:                grey20
-toolbar.button.color:           grey
-toolbar.button.colorTo:         grey20
-toolbar.button.pressed.color:   rgb:4/4/38
-toolbar.button.pressed.colorTo: rgb:f/f/d
-toolbar.clock.color:            grey20
-toolbar.clock.colorTo:          rgb:8/8/7
-toolbar.label.color:            grey20
-toolbar.label.colorTo:          rgb:8/8/7
-toolbar.textColor:              grey85
-...
-
-As you have noticed, all textures have a color and a colorTo key.  These keys
-are required for gradient images.  For solids, only color is needed.  You will
-also notice that we have supplied the color for the text on the toolbar.  Not
-all textures have a text color, just certain base textures.
+All textures have a color and a colorTo key.  These keys
+are required for gradient images.  For solids, only color is needed.
+Not all textures have a text color, just certain base textures.
 
 Next, let's move onto the menus.  Since Hackedbox was written in C++, all of
 the menus used in it are subclasses of one generic base class.  Hackedbox reads
@@ -109,24 +73,6 @@ some textures and colors to our menu, and see what our style file looks like
 so far:
 
 ...
-toolbar:                        Raised Diagonal Gradient Bevel1
-toolbar.button:                 Raised Diagonal Gradient Bevel1
-toolbar.button.pressed:         Sunken Diagonal Interlaced Gradient Bevel1
-toolbar.clock:                  Flat Interlaced Gradient
-toolbar.label:                  Flat Interlaced Gradient
-
-toolbar.color:                  rgb:8/8/7
-toolbar.colorTo:                grey20
-toolbar.button.color:           grey
-toolbar.button.colorTo:         grey20
-toolbar.button.pressed.color:   rgb:4/4/38
-toolbar.button.pressed.colorTo: rgb:f/f/d
-toolbar.clock.color:            grey20
-toolbar.clock.colorTo:          rgb:8/8/7
-toolbar.label.color:            grey20
-toolbar.label.colorTo:          rgb:8/8/7
-toolbar.textColor:              grey85
-
 menu.title:                     Raised Diagonal Interlaced Gradient Bevel1
 menu.frame:                     Raised Diagonal Gradient Bevel1
 
@@ -151,25 +97,6 @@ is the thin border around the client window. Let's be sure to catch it as well.
 After adding the window config, our style now looks like this:
 
 ...
-
-toolbar:                        Raised Diagonal Gradient Bevel1
-toolbar.button:                 Raised Diagonal Gradient Bevel1
-toolbar.button.pressed:         Sunken Diagonal Interlaced Gradient Bevel1
-toolbar.clock:                  Flat Interlaced Gradient
-toolbar.label:                  Flat Interlaced Gradient
-
-toolbar.color:                  rgb:8/8/7
-toolbar.colorTo:                grey20
-toolbar.button.color:           grey
-toolbar.button.colorTo:         grey20
-toolbar.button.pressed.color:   rgb:4/4/38
-toolbar.button.pressed.colorTo: rgb:f/f/d
-toolbar.clock.color:            grey20
-toolbar.clock.colorTo:          rgb:8/8/7
-toolbar.label.color:            grey20
-toolbar.label.colorTo:          rgb:8/8/7
-toolbar.textColor:              grey85
-
 menu.title:                     Raised Diagonal Interlaced Gradient Bevel1
 menu.frame:                     Raised Diagonal Gradient Bevel1
 
@@ -239,27 +166,6 @@ Let's finish off the details and take a look at our finished style:
 
 ...
 ! Results - theme for Hackedbox
-! by Brad Hughes bhughes@tcac.net
-
-toolbar:                        Raised Diagonal Gradient Bevel1
-toolbar.button:                 Raised Diagonal Gradient Bevel1
-toolbar.button.pressed:         Sunken Diagonal Interlaced Gradient Bevel1
-toolbar.clock:                  Flat Interlaced Gradient
-toolbar.label:                  Flat Interlaced Gradient
-
-! toolbar colors
-toolbar.color:                  rgb:8/8/7
-toolbar.colorTo:                grey20
-toolbar.button.color:           grey
-toolbar.button.colorTo:         grey20
-toolbar.button.pressed.color:   rgb:4/4/38
-toolbar.button.pressed.colorTo: rgb:f/f/d
-toolbar.clock.color:            grey20
-toolbar.clock.colorTo:          rgb:8/8/7
-toolbar.label.color:            grey20
-toolbar.label.colorTo:          rgb:8/8/7
-toolbar.textColor:              grey85
-
 ! menu textures
 menu.title:                     Raised Diagonal Interlaced Gradient Bevel1
 menu.frame:                     Raised Diagonal Gradient Bevel1

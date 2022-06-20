@@ -1,4 +1,5 @@
 # Makefile.am for Hackedbox
+EXTRA_DIST = util bootstrap
 
 AUTOMAKE_OPTIONS = foreign
 
