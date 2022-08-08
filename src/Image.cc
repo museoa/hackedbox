@@ -26,10 +26,11 @@
 #endif // HAVE_CONFIG_H
 
 #ifdef    HAVE_STDIO_H
-#  include <stdio.h>
+#  include <cstdio>
 #endif // HAVE_STDIO_H
 
 #include <algorithm>
+#include <cstring>
 using std::max;
 using std::min;
 

@@ -3,7 +3,6 @@
 CLEANFILES = hackedbox.1
 MAINTAINERCLEANFILES = Makefile.in
 man_MANS = hackedbox.1
-SUBDIRS = fr_FR ja_JP nl_NL sl_SI
 
 DEFAULT_MENU=$(pkgdatadir)/menu
 

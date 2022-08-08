@@ -41,16 +41,16 @@ POST_UNINSTALL = :
 bin_PROGRAMS = bsetroot$(EXEEXT)
 subdir = util
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
-	$(srcdir)/bgmenu.mk.in
+	$(srcdir)/hgmenu.mk.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES = bgmenu.mk
+CONFIG_CLEAN_FILES = hgmenu.mk
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" \
-	"$(DESTDIR)$(bgmenudir)"
+	"$(DESTDIR)$(hgmenudir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
 am_bsetroot_OBJECTS = bsetroot.$(OBJEXT)
@@ -77,8 +77,8 @@ am__vpath_adj = case $$p in \
     *) f=$$p;; \
   esac;
 am__strip_dir = `echo $$p | sed -e 's|^.*/||'`;
-bgmenuDATA_INSTALL = $(INSTALL_DATA)
-DATA = $(bgmenu_DATA)
+hgmenuDATA_INSTALL = $(INSTALL_DATA)
+DATA = $(hgmenu_DATA)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -189,8 +189,8 @@ target_alias = @target_alias@
 xterm = @xterm@
 AM_CPPFLAGS = @DEBUG@ @NLS@ @TIMEDCACHE@ @ORDEREDPSEUDO@
 bin_SCRIPTS = bsetbg 
-bgmenudir = $(pkgdatadir)
-bgmenu_DATA = bgmenu.mk
+hgmenudir = $(pkgdatadir)
+hgmenu_DATA = hgmenu.mk
 bsetroot_SOURCES = bsetroot.cc
 bsetroot_LDADD = ../src/BaseDisplay.o ../src/Color.o ../src/GCCache.o ../src/Texture.o ../src/Timer.o ../src/Image.o ../src/ImageControl.o ../src/i18n.o ../src/Util.o
 MAINTAINERCLEANFILES = Makefile.in
@@ -227,7 +227,7 @@ $(top_srcdir)/configure: @MAINTAINER_MODE_TRUE@ $(am__configure_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(ACLOCAL_M4): @MAINTAINER_MODE_TRUE@ $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
-bgmenu.mk: $(top_builddir)/config.status $(srcdir)/bgmenu.mk.in
+hgmenu.mk: $(top_builddir)/config.status $(srcdir)/hgmenu.mk.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
@@ -287,22 +287,22 @@ distclean-compile:
 .cc.obj:
 	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 uninstall-info-am:
-install-bgmenuDATA: $(bgmenu_DATA)
+install-hgmenuDATA: $(hgmenu_DATA)
 	@$(NORMAL_INSTALL)
-	test -z "$(bgmenudir)" || $(mkdir_p) "$(DESTDIR)$(bgmenudir)"
-	@list='$(bgmenu_DATA)'; for p in $$list; do \
+	test -z "$(hgmenudir)" || $(mkdir_p) "$(DESTDIR)$(hgmenudir)"
+	@list='$(hgmenu_DATA)'; for p in $$list; do \
 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
 	  f=$(am__strip_dir) \
-	  echo " $(bgmenuDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(bgmenudir)/$$f'"; \
-	  $(bgmenuDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(bgmenudir)/$$f"; \
+	  echo " $(hgmenuDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(hgmenudir)/$$f'"; \
+	  $(hgmenuDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(hgmenudir)/$$f"; \
 	done
 
-uninstall-bgmenuDATA:
+uninstall-hgmenuDATA:
 	@$(NORMAL_UNINSTALL)
-	@list='$(bgmenu_DATA)'; for p in $$list; do \
+	@list='$(hgmenu_DATA)'; for p in $$list; do \
 	  f=$(am__strip_dir) \
-	  echo " rm -f '$(DESTDIR)$(bgmenudir)/$$f'"; \
-	  rm -f "$(DESTDIR)$(bgmenudir)/$$f"; \
+	  echo " rm -f '$(DESTDIR)$(hgmenudir)/$$f'"; \
+	  rm -f "$(DESTDIR)$(hgmenudir)/$$f"; \
 	done
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
@@ -384,7 +384,7 @@ check-am: all-am
 check: check-am
 all-am: Makefile $(PROGRAMS) $(SCRIPTS) $(DATA)
 installdirs:
-	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bgmenudir)"; do \
+	for dir in "$(DESTDIR)$(bindir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(hgmenudir)"; do \
 	  test -z "$$dir" || $(mkdir_p) "$$dir"; \
 	done
 install: install-am
@@ -431,7 +431,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-bgmenuDATA
+install-data-am: install-hgmenuDATA
 
 install-exec-am: install-binPROGRAMS install-binSCRIPTS
 
@@ -457,25 +457,25 @@ ps: ps-am
 
 ps-am:
 
-uninstall-am: uninstall-bgmenuDATA uninstall-binPROGRAMS \
+uninstall-am: uninstall-hgmenuDATA uninstall-binPROGRAMS \
 	uninstall-binSCRIPTS uninstall-info-am
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-binPROGRAMS \
 	clean-generic ctags distclean distclean-compile \
 	distclean-generic distclean-local distclean-tags distdir dvi \
 	dvi-am html html-am info info-am install install-am \
-	install-bgmenuDATA install-binPROGRAMS install-binSCRIPTS \
+	install-hgmenuDATA install-binPROGRAMS install-binSCRIPTS \
 	install-data install-data-am install-exec install-exec-am \
 	install-info install-info-am install-man install-strip \
 	installcheck installcheck-am installdirs maintainer-clean \
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-bgmenuDATA uninstall-binPROGRAMS \
+	uninstall-am uninstall-hgmenuDATA uninstall-binPROGRAMS \
 	uninstall-binSCRIPTS uninstall-info-am
 
 
 distclean-local:
-	rm -f *\~ .\#* bgmenu.mk
+	rm -f *\~ .\#* hgmenu.mk
 
 # local dependencies
 

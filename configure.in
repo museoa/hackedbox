@@ -22,7 +22,7 @@ AC_HEADER_TIME
 
 dnl Check for existance of basename(), setlocale() and strftime()
 AC_CHECK_FUNCS(basename, , AC_CHECK_LIB(gen, basename,
-			  AC_DEFINE(HAVE_BASENAME) LIBS="$LIBS -lgen"))
+              AC_DEFINE(HAVE_BASENAME) LIBS="$LIBS -lgen"))
 AC_CHECK_FUNCS(getpid setlocale sigaction strftime strcasestr snprintf vsnprintf catopen catgets catclose)
 AC_CHECK_LIB(nsl, t_open, LIBS="$LIBS -lnsl")
 AC_CHECK_LIB(socket, socket, LIBS="$LIBS -lsocket")
@@ -61,7 +61,7 @@ else
     else
       AC_MSG_RESULT([already set.])
     fi
-  fi 
+  fi
 fi
 
 dnl Check for required functions in -lX11
@@ -78,7 +78,7 @@ dnl Check for XShape extension support and proper library files.
 SHAPE=""
 AC_MSG_CHECKING([whether to build support for the XShape extension])
 AC_ARG_ENABLE(
-  shape, 
+  shape,
   [  --enable-shape          enable support of the XShape extension [default=yes]])
   : ${enableval="yes"}
 if test x$enableval = "xyes"; then
@@ -103,10 +103,10 @@ AC_SUBST(SHAPE)
 LIBS="$LIBS $Xext_lib"
 
 dnl Check for enable utils.
-AC_MSG_CHECKING([whether to build utils bsetroot and bsetbg])
+AC_MSG_CHECKING([whether to build utils hsetroot and hsetbg])
 AC_ARG_ENABLE(
-  bg-utils, 
-  [  --enable-bg-utils        enable build utils bsetroot and bsetbg [default=no]],
+  hg-utils,
+  [  --enable-hg-utils        enable build utils hsetroot and hsetbg [default=no]],
   if test x$enableval = "xyes"; then
     AC_MSG_RESULT([yes])
     UTILS="util"
@@ -119,21 +119,21 @@ AC_SUBST(UTILS)
 
 dnl Check for adding keybindings.
 AC_MSG_CHECKING([whether to enable keybindings])
-AC_ARG_ENABLE(keybindings, 
-             [  --enable-keybindings     enable keybindings [default=yes]],  
+AC_ARG_ENABLE(keybindings,
+             [  --enable-keybindings     enable keybindings [default=yes]],
 if test x$enableval = "xyes"; then
     AC_MSG_RESULT([yes])
-	KEYS=epist
-	AC_DEFINE(ENABLE_KEYBINDINGS, 1, [Enable keybindings])
+    KEYS=epist
+    AC_DEFINE(ENABLE_KEYBINDINGS, 1, [Enable keybindings])
 else
     AC_MSG_RESULT([no])
 fi,
     AC_MSG_RESULT([yes])
-	KEYS=epist
-	AC_DEFINE(ENABLE_KEYBINDINGS, 1, [Enable keybindings])
+    KEYS=epist
+    AC_DEFINE(ENABLE_KEYBINDINGS, 1, [Enable keybindings])
 )
 
-AC_ARG_WITH(keys-cmd, 
+AC_ARG_WITH(keys-cmd,
             [  --with-keys-cmd=COMMAND    Command to use for keybindings],
             [KEYCMD="$withval"],
             [KEYCMD="bbkeys"])
@@ -148,9 +148,9 @@ AC_ARG_ENABLE(ordered-pseudo,
                           dithering [default=no]],
   if test x$enableval = "xyes"; then
     AC_MSG_RESULT([yes])
-    ORDEREDPSEUDO="-DORDEREDPSEUDO" 
+    ORDEREDPSEUDO="-DORDEREDPSEUDO"
   else
-    AC_MSG_RESULT([no]) 
+    AC_MSG_RESULT([no])
   fi,
   AC_MSG_RESULT([no])
 )
@@ -170,10 +170,10 @@ AC_ARG_ENABLE(debug,
     fi
   else
     AC_MSG_RESULT([no])
-    DEBUG="-DNDEBUG" 
+    DEBUG="-DNDEBUG"
 fi,
   AC_MSG_RESULT([no])
-  DEBUG="-DNDEBUG" 
+  DEBUG="-DNDEBUG"
 )
 AC_SUBST(DEBUG)
 
@@ -242,7 +242,7 @@ src/Makefile
 src/inithack
 src/blackbox.cc
 util/Makefile
-util/bgmenu.mk
+util/hgmenu.mk
 data/Makefile
 data/menu
 data/styles/Makefile
