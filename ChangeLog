@@ -1,3 +1,6 @@
+Changes from 0.8.5 to 0.8.5.1:
+  - applied patches from Fedora
+  - fixed compilation bugs
 Changes from blackbox to hackedbox:
   - added two configure options "--enable-bg-utils and --enable-bloat"
   - Made all the neccesary hacks to make it "hackedbox" :-)
