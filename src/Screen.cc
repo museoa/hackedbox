@@ -96,7 +96,7 @@ using std::string;
 static bool running = True;
 
 static int anotherWMRunning(Display *display, XErrorEvent *) {
-  fprintf(stderr, i18n(ScreenSet, ScreenAnotherWMRunning,
+  fprintf(stderr, "%s", i18n(ScreenSet, ScreenAnotherWMRunning,
           "BScreen::BScreen: an error occured while querying the X server.\n"
           "  another window manager already running on display %s.\n"),
           DisplayString(display));
@@ -121,7 +121,7 @@ BScreen::BScreen(Blackbox *bb, unsigned int scrn) : ScreenInfo(bb, scrn) {
   managed = running;
   if (! managed) return;
 
-  fprintf(stderr, i18n(ScreenSet, ScreenManagingScreen,
+  fprintf(stderr, "%s", i18n(ScreenSet, ScreenManagingScreen,
                        "BScreen::BScreen: managing screen %d "
                        "using visual 0x%lx, depth %d\n"),
           getScreenNumber(), XVisualIDFromVisual(getVisual()),
@@ -1080,7 +1080,7 @@ void BScreen::InitMenu(void) {
       perror(blackbox->getMenuFilename());
     } else {
       if (feof(menu_file)) {
-        fprintf(stderr, i18n(ScreenSet, ScreenEmptyMenuFile,
+        fprintf(stderr, "%s", i18n(ScreenSet, ScreenEmptyMenuFile,
                              "%s: Empty menu file"),
                 blackbox->getMenuFilename());
       } else {
@@ -1144,7 +1144,7 @@ void BScreen::InitMenu(void) {
 	pid = fork();
 	  
 	if (pid == -1) {
-		fprintf(stderr, i18n(ScreenSet, ScreenInitHackError,
+		fprintf(stderr, "%s", i18n(ScreenSet, ScreenInitHackError,
                 "hackedbox: Could not fork a process for inithack.\n"));
 		return;
 	}
@@ -1239,7 +1239,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
 
     case 421: // exec
       if (! (*label && *command)) {
-        fprintf(stderr, i18n(ScreenSet, ScreenEXECError,
+        fprintf(stderr, "%s", i18n(ScreenSet, ScreenEXECError,
                              "BScreen::parseMenuFile: [exec] error, "
                              "no menu label and/or command defined\n"));
         continue;
@@ -1251,7 +1251,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
 
     case 442: // exit
       if (! *label) {
-        fprintf(stderr, i18n(ScreenSet, ScreenEXITError,
+        fprintf(stderr, "%s", i18n(ScreenSet, ScreenEXITError,
                              "BScreen::parseMenuFile: [exit] error, "
                              "no menu label defined\n"));
         continue;
@@ -1263,7 +1263,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
 
     case 561: { // style
       if (! (*label && *command)) {
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 i18n(ScreenSet, ScreenSTYLEError,
                      "BScreen::parseMenuFile: [style] error, "
                      "no menu label and/or filename defined\n"));
@@ -1278,7 +1278,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
 
     case 630: // config
       if (! *label) {
-        fprintf(stderr, i18n(ScreenSet, ScreenCONFIGError,
+        fprintf(stderr, "%s", i18n(ScreenSet, ScreenCONFIGError,
                              "BScreen::parseMenufile: [config] error, "
                              "no label defined"));
         continue;
@@ -1290,7 +1290,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
 
     case 740: { // include
       if (! *label) {
-        fprintf(stderr, i18n(ScreenSet, ScreenINCLUDEError,
+        fprintf(stderr, "%s", i18n(ScreenSet, ScreenINCLUDEError,
                              "BScreen::parseMenuFile: [include] error, "
                              "no filename defined\n"));
         continue;
@@ -1307,7 +1307,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
       struct stat buf;
       if (fstat(fileno(submenufile), &buf) ||
           ! S_ISREG(buf.st_mode)) {
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 i18n(ScreenSet, ScreenINCLUDEErrorReg,
                      "BScreen::parseMenuFile: [include] error: "
                      "'%s' is not a regular file\n"), newfile.c_str());
@@ -1326,7 +1326,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
 
     case 767: { // submenu
       if (! *label) {
-        fprintf(stderr, i18n(ScreenSet, ScreenSUBMENUError,
+        fprintf(stderr, "%s", i18n(ScreenSet, ScreenSUBMENUError,
                              "BScreen::parseMenuFile: [submenu] error, "
                              "no menu label defined\n"));
         continue;
@@ -1349,7 +1349,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
 
     case 773: { // restart
       if (! *label) {
-        fprintf(stderr, i18n(ScreenSet, ScreenRESTARTError,
+        fprintf(stderr, "%s", i18n(ScreenSet, ScreenRESTARTError,
                              "BScreen::parseMenuFile: [restart] error, "
                              "no menu label defined\n"));
         continue;
@@ -1365,7 +1365,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
 
     case 845: { // reconfig
       if (! *label) {
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 i18n(ScreenSet, ScreenRECONFIGError,
                      "BScreen::parseMenuFile: [reconfig] error, "
                      "no menu label defined\n"));
@@ -1382,7 +1382,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
       bool newmenu = ((key == 1113) ? True : False);
 
       if (! *label || (! *command && newmenu)) {
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 i18n(ScreenSet, ScreenSTYLESDIRError,
                      "BScreen::parseMenuFile: [stylesdir/stylesmenu]"
                      " error, no directory defined\n"));
@@ -1396,14 +1396,14 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
       struct stat statbuf;
 
       if (stat(stylesdir.c_str(), &statbuf) == -1) {
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 i18n(ScreenSet, ScreenSTYLESDIRErrorNoExist,
                      "BScreen::parseMenuFile: [stylesdir/stylesmenu]"
                      " error, %s does not exist\n"), stylesdir.c_str());
         continue;
       }
       if (! S_ISDIR(statbuf.st_mode)) {
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 i18n(ScreenSet, ScreenSTYLESDIRErrorNotDir,
                      "BScreen::parseMenuFile:"
                      " [stylesdir/stylesmenu] error, %s is not a"
@@ -1459,7 +1459,7 @@ bool BScreen::parseMenuFile(FILE *file, Rootmenu *menu) {
 
     case 1090: { // workspaces
       if (! *label) {
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 i18n(ScreenSet, ScreenWORKSPACESError,
                      "BScreen:parseMenuFile: [workspaces] error, "
                      "no menu label defined\n"));
@@ -1750,7 +1750,7 @@ XFontSet BScreen::readDatabaseFontSet(const string &rname,
     fontset = createFontSet(defaultFont);
 
     if (! fontset) {
-      fprintf(stderr,
+      fprintf(stderr, "%s",
               i18n(ScreenSet, ScreenDefaultFontLoadFail,
                    "BScreen::setCurrentStyle(): couldn't load default font.\n"));
       exit(2);
@@ -1772,7 +1772,7 @@ XFontStruct *BScreen::readDatabaseFont(const string &rname,
   if (XrmGetResource(resource.stylerc, rname.c_str(), rclass.c_str(),
                      &value_type, &value)) {
     if ((font = XLoadQueryFont(blackbox->getXDisplay(), value.addr)) == NULL) {
-      fprintf(stderr,
+      fprintf(stderr, "%s",
               i18n(ScreenSet, ScreenFontLoadFail,
                    "BScreen::setCurrentStyle(): couldn't load font '%s'\n"),
               value.addr);
@@ -1786,7 +1786,7 @@ XFontStruct *BScreen::readDatabaseFont(const string &rname,
   if (load_default) {
     font = XLoadQueryFont(blackbox->getXDisplay(), defaultFont);
     if (font == NULL) {
-      fprintf(stderr,
+      fprintf(stderr, "%s",
               i18n(ScreenSet, ScreenDefaultFontLoadFail,
                    "BScreen::setCurrentStyle(): couldn't load default font.\n"));
       exit(2);

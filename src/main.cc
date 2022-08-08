@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
       // look for alternative rc file to use
 
       if ((++i) >= argc) {
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 i18n(mainSet, mainRCRequiresArg,
                                  "error: '-rc' requires and argument\n"));
 
@@ -123,7 +123,7 @@ int main(int argc, char **argv) {
       // set by the environment variable DISPLAY
 
       if ((++i) >= argc) {
-        fprintf(stderr,
+        fprintf(stderr, "%s",
                 i18n(mainSet, mainDISPLAYRequiresArg,
                                  "error: '-display' requires an argument\n"));
 
@@ -135,7 +135,7 @@ int main(int argc, char **argv) {
       dtmp += session_display;
 
       if (putenv(const_cast<char*>(dtmp.c_str()))) {
-        fprintf(stderr, i18n(mainSet, mainWarnDisplaySet,
+        fprintf(stderr, "%s", i18n(mainSet, mainWarnDisplaySet,
                 "warning: couldn't set environment variable 'DISPLAY'\n"));
         perror("putenv()");
       }

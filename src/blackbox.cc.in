@@ -118,10 +118,10 @@ Blackbox *blackbox;
 Blackbox::Blackbox(char **m_argv, char *dpy_name, char *rc)
   : BaseDisplay(m_argv[0], dpy_name) {
   if (! XSupportsLocale())
-    fprintf(stderr, "X server does not support locale\n");
+    fprintf(stderr, "%s", "X server does not support locale\n");
 
   if (XSetLocaleModifiers("") == NULL)
-    fprintf(stderr, "cannot set locale modifiers\n");
+    fprintf(stderr, "%s", "cannot set locale modifiers\n");
 
   ::blackbox = this;
   argv = m_argv;
@@ -157,7 +157,7 @@ Blackbox::Blackbox(char **m_argv, char *dpy_name, char *rc)
   }
 
   if (screenList.empty()) {
-    fprintf(stderr,
+    fprintf(stderr, "%s",
             i18n(blackboxSet, blackboxNoManagableScreens,
               "Blackbox::Blackbox: no managable screens found, aborting.\n"));
     ::exit(3);
@@ -264,7 +264,7 @@ void Blackbox::process_event(XEvent *e) {
 
   case MapRequest: {
 #ifdef    DEBUG
-    fprintf(stderr, "Blackbox::process_event(): MapRequest for 0x%lx\n",
+    fprintf(stderr, "%s", "Blackbox::process_event(): MapRequest for 0x%lx\n",
             e->xmaprequest.window);
 #endif // DEBUG
 

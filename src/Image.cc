@@ -89,7 +89,7 @@ Pixmap BImage::render_solid(const BTexture &texture) {
 				control->getDrawable(), width,
 				height, control->getDepth());
   if (pixmap == None) {
-    fprintf(stderr, i18n(ImageSet, ImageErrorCreatingSolidPixmap,
+    fprintf(stderr, "%s", i18n(ImageSet, ImageErrorCreatingSolidPixmap,
                          "BImage::render_solid: error creating pixmap\n"));
     return None;
   }
@@ -446,7 +446,7 @@ XImage *BImage::renderXImage(void) {
                  width, height, 32, 0);
 
   if (! image) {
-    fprintf(stderr, i18n(ImageSet, ImageErrorCreatingXImage,
+    fprintf(stderr, "%s", i18n(ImageSet, ImageErrorCreatingXImage,
                          "BImage::renderXImage: error creating XImage\n"));
     return (XImage *) 0;
   }
@@ -542,7 +542,7 @@ XImage *BImage::renderXImage(void) {
   }
 
   if (unsupported) {
-    fprintf(stderr, i18n(ImageSet, ImageUnsupVisual,
+    fprintf(stderr, "%s", i18n(ImageSet, ImageUnsupVisual,
                          "BImage::renderXImage: unsupported visual\n"));
     delete [] d;
     XDestroyImage(image);
@@ -561,7 +561,7 @@ Pixmap BImage::renderPixmap(void) {
                   control->getDrawable(), width, height, control->getDepth());
 
   if (pixmap == None) {
-    fprintf(stderr, i18n(ImageSet, ImageErrorCreatingPixmap,
+    fprintf(stderr, "%s", i18n(ImageSet, ImageErrorCreatingPixmap,
                          "BImage::renderPixmap: error creating pixmap\n"));
     return None;
   }
@@ -599,8 +599,8 @@ void BImage::bevel1(void) {
   if (width > 2 && height > 2) {
     unsigned char *pr = red, *pg = green, *pb = blue;
 
-    register unsigned char r, g, b, rr ,gg ,bb;
-    register unsigned int w = width, h = height - 1, wh = w * h;
+    unsigned char r, g, b, rr ,gg ,bb;
+    unsigned int w = width, h = height - 1, wh = w * h;
 
     while (--w) {
       r = *pr;
@@ -813,7 +813,7 @@ void BImage::bevel2(void) {
 
 
 void BImage::invert(void) {
-  register unsigned int i, j, wh = (width * height) - 1;
+  unsigned int i, j, wh = (width * height) - 1;
   unsigned char tmp;
 
   for (i = 0, j = wh; j > i; j--, i++) {
@@ -843,7 +843,7 @@ void BImage::dgradient(void) {
   unsigned char *pr = red, *pg = green, *pb = blue;
   unsigned int w = width * 2, h = height * 2, *xt = xtable, *yt = ytable;
 
-  register unsigned int x, y;
+  unsigned int x, y;
 
   dry = drx = (float) (to.red() - from.red());
   dgy = dgx = (float) (to.green() - from.green());
@@ -940,7 +940,7 @@ void BImage::hgradient(void) {
     xb = (float) from.blue();
   unsigned char *pr = red, *pg = green, *pb = blue;
 
-  register unsigned int x, y;
+  unsigned int x, y;
 
   drx = (float) (to.red() - from.red());
   dgx = (float) (to.green() - from.green());
@@ -1032,7 +1032,7 @@ void BImage::vgradient(void) {
     yb = (float) from.blue();
   unsigned char *pr = red, *pg = green, *pb = blue;
 
-  register unsigned int y;
+  unsigned int y;
 
   dry = (float) (to.red() - from.red());
   dgy = (float) (to.green() - from.green());
@@ -1110,7 +1110,7 @@ void BImage::pgradient(void) {
   unsigned int tr = to.red(), tg = to.green(), tb = to.blue(),
     *xt = xtable, *yt = ytable;
 
-  register unsigned int x, y;
+  unsigned int x, y;
 
   dry = drx = (float) (to.red() - from.red());
   dgy = dgx = (float) (to.green() - from.green());
@@ -1219,7 +1219,7 @@ void BImage::rgradient(void) {
   unsigned int tr = to.red(), tg = to.green(), tb = to.blue(),
     *xt = xtable, *yt = ytable;
 
-  register unsigned int x, y;
+  unsigned int x, y;
 
   dry = drx = (float) (to.red() - from.red());
   dgy = dgx = (float) (to.green() - from.green());
@@ -1330,7 +1330,7 @@ void BImage::egradient(void) {
     tg = (unsigned long) to.green(),
     tb = (unsigned long) to.blue();
 
-  register unsigned int x, y;
+  unsigned int x, y;
 
   dry = drx = (float) (to.red() - from.red());
   dgy = dgx = (float) (to.green() - from.green());
@@ -1450,7 +1450,7 @@ void BImage::pcgradient(void) {
     tg = to.green(),
     tb = to.blue();
 
-  register unsigned int x, y;
+  unsigned int x, y;
 
   dry = drx = (float) (to.red() - from.red());
   dgy = dgx = (float) (to.green() - from.green());
@@ -1560,7 +1560,7 @@ void BImage::cdgradient(void) {
   unsigned char *pr = red, *pg = green, *pb = blue;
   unsigned int w = width * 2, h = height * 2, *xt, *yt;
 
-  register unsigned int x, y;
+  unsigned int x, y;
 
   dry = drx = (float) (to.red() - from.red());
   dgy = dgx = (float) (to.green() - from.green());

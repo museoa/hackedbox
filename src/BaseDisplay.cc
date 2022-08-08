@@ -99,7 +99,7 @@ static int handleXErrors(Display *d, XErrorEvent *e) {
   char errtxt[128];
 
   XGetErrorText(d, e->error_code, errtxt, 128);
-  fprintf(stderr,
+  fprintf(stderr, "%s",
           i18n(BaseDisplaySet, BaseDisplayXError,
                "%s:  X error: %s(%d) opcodes %d/%d\n  resource 0x%lx\n"),
           base_display->getApplicationName(), errtxt, e->error_code,
@@ -149,7 +149,7 @@ static void signalhandler(int sig) {
       return;
     }
 
-    fprintf(stderr, i18n(BaseDisplaySet, BaseDisplaySignalCaught,
+    fprintf(stderr, "%s", i18n(BaseDisplaySet, BaseDisplaySignalCaught,
                          "%s:  signal %d caught\n"),
             base_display->getApplicationName(), sig);
 
@@ -157,13 +157,13 @@ static void signalhandler(int sig) {
       internal_error = True;
 
       re_enter = 1;
-      fprintf(stderr, i18n(BaseDisplaySet, BaseDisplayShuttingDown,
+      fprintf(stderr, "%s", i18n(BaseDisplaySet, BaseDisplayShuttingDown,
                            "shutting down\n"));
       base_display->shutdown();
     }
 
     if (sig != SIGTERM && sig != SIGINT) {
-      fprintf(stderr, i18n(BaseDisplaySet, BaseDisplayAborting,
+      fprintf(stderr, "%s", i18n(BaseDisplaySet, BaseDisplayAborting,
                            "aborting... dumping core\n"));
       abort();
     }
@@ -211,12 +211,12 @@ BaseDisplay::BaseDisplay(const char *app_name, const char *dpy_name) {
 #endif // HAVE_SIGACTION
 
   if (! (display = XOpenDisplay(dpy_name))) {
-    fprintf(stderr,
+    fprintf(stderr, "%s",
             i18n(BaseDisplaySet, BaseDisplayXConnectFail,
                "BaseDisplay::BaseDisplay: connection to X server failed.\n"));
     ::exit(2);
   } else if (fcntl(ConnectionNumber(display), F_SETFD, 1) == -1) {
-    fprintf(stderr,
+    fprintf(stderr, "%s",
             i18n(BaseDisplaySet, BaseDisplayCloseOnExecFail,
                  "BaseDisplay::BaseDisplay: couldn't mark display connection "
                  "as close-on-exec\n"));

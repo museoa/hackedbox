@@ -105,7 +105,7 @@ bsetroot::bsetroot(int argc, char **argv, char *dpy_name)
   }
 
   if ((mod + sol + grd) != True) {
-    fprintf(stderr,
+    fprintf(stderr, "%s",
 	    i18n(bsetrootSet, bsetrootMustSpecify,
 	         "%s: error: must specify one of: -solid, -mod, -gradient\n"),
 	    getApplicationName());
@@ -347,7 +347,7 @@ void bsetroot::gradient(void) {
 
 
 void bsetroot::usage(int exit_code) {
-    fprintf(stderr,
+    fprintf(stderr, "%s",
 	    i18n(bsetrootSet, bsetrootUsage,
 		 "%s 2.0\n\n"
          "Copyright (c) 2003 Larry Owen\n"
@@ -377,7 +377,7 @@ int main(int argc, char **argv) {
       // check for -display option
 
       if ((++i) >= argc) {
-        fprintf(stderr, i18n(mainSet, mainDISPLAYRequiresArg,
+        fprintf(stderr, "%s", i18n(mainSet, mainDISPLAYRequiresArg,
 		             "error: '-display' requires an argument\n"));
 
         ::exit(1);

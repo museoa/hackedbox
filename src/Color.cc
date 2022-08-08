@@ -93,7 +93,7 @@ void BColor::parseColorName(void) {
   assert(dpy != 0);
 
   if (colorname.empty()) {
-    fprintf(stderr, "BColor: empty colorname, cannot parse (using black)\n");
+    fprintf(stderr, "%s", "BColor: empty colorname, cannot parse (using black)\n");
     setRGB(0, 0, 0);
   }
 
@@ -110,7 +110,7 @@ void BColor::parseColorName(void) {
 
   if (! XParseColor(display()->getXDisplay(), colormap,
                     colorname.c_str(), &xcol)) {
-    fprintf(stderr, "BColor::allocate: color parse error: \"%s\"\n",
+    fprintf(stderr, "%s", "BColor::allocate: color parse error: \"%s\"\n",
             colorname.c_str());
     setRGB(0, 0, 0);
     return;
@@ -128,7 +128,7 @@ void BColor::allocate(void) {
 
   if (! isValid()) {
     if (colorname.empty()) {
-      fprintf(stderr, "BColor: cannot allocate invalid color (using black)\n");
+      fprintf(stderr, "%s", "BColor: cannot allocate invalid color (using black)\n");
       setRGB(0, 0, 0);
     } else {
       parseColorName();
@@ -154,7 +154,7 @@ void BColor::allocate(void) {
   xcol.pixel = 0;
 
   if (! XAllocColor(display()->getXDisplay(), colormap, &xcol)) {
-    fprintf(stderr, "BColor::allocate: color alloc error: rgb:%x/%x/%x\n",
+    fprintf(stderr, "%s", "BColor::allocate: color alloc error: rgb:%x/%x/%x\n",
             r, g, b);
     xcol.pixel = 0;
   }

@@ -151,7 +151,7 @@ BImageControl::BImageControl(BaseDisplay *dpy, const ScreenInfo *scrn,
     }
 
     if (colors_per_channel < 2 || ncolors > (1 << screen_depth)) {
-      fprintf(stderr,
+      fprintf(stderr, "%s",
 	      i18n(ImageSet, ImageInvalidColormapSize,
                    "BImageControl::BImageControl: invalid colormap size %d "
                    "(%d/%d/%d) - reducing"),
@@ -163,7 +163,7 @@ BImageControl::BImageControl(BaseDisplay *dpy, const ScreenInfo *scrn,
 
     colors = new XColor[ncolors];
     if (! colors) {
-      fprintf(stderr, i18n(ImageSet, ImageErrorAllocatingColormap,
+      fprintf(stderr, "%s", i18n(ImageSet, ImageErrorAllocatingColormap,
                            "BImageControl::BImageControl: error allocating "
                            "colormap\n"));
       exit(1);
@@ -194,7 +194,7 @@ BImageControl::BImageControl(BaseDisplay *dpy, const ScreenInfo *scrn,
 
     for (i = 0; i < ncolors; i++) {
       if (! XAllocColor(basedisplay->getXDisplay(), colormap, &colors[i])) {
-	fprintf(stderr, i18n(ImageSet, ImageColorAllocFail,
+	fprintf(stderr, "%s", i18n(ImageSet, ImageColorAllocFail,
                              "couldn't alloc color %i %i %i\n"),
 		colors[i].red, colors[i].green, colors[i].blue);
 	colors[i].flags = 0;
@@ -259,7 +259,7 @@ BImageControl::BImageControl(BaseDisplay *dpy, const ScreenInfo *scrn,
     }
 
     if (colors_per_channel < 2 || ncolors > (1 << screen_depth)) {
-      fprintf(stderr,
+      fprintf(stderr, "%s",
               i18n(ImageSet, ImageInvalidColormapSize,
 	           "BImageControl::BImageControl: invalid colormap size %d "
 	            "(%d/%d/%d) - reducing"),
@@ -271,7 +271,7 @@ BImageControl::BImageControl(BaseDisplay *dpy, const ScreenInfo *scrn,
 
     colors = new XColor[ncolors];
     if (! colors) {
-      fprintf(stderr,
+      fprintf(stderr, "%s",
               i18n(ImageSet, ImageErrorAllocatingColormap,
                  "BImageControl::BImageControl: error allocating colormap\n"));
       exit(1);
@@ -292,7 +292,7 @@ BImageControl::BImageControl(BaseDisplay *dpy, const ScreenInfo *scrn,
 
       if (! XAllocColor(basedisplay->getXDisplay(), colormap,
 			&colors[i])) {
-	fprintf(stderr, i18n(ImageSet, ImageColorAllocFail,
+	fprintf(stderr, "%s", i18n(ImageSet, ImageColorAllocFail,
 			     "couldn't alloc color %i %i %i\n"),
 		colors[i].red, colors[i].green, colors[i].blue);
 	colors[i].flags = 0;
@@ -344,7 +344,7 @@ BImageControl::BImageControl(BaseDisplay *dpy, const ScreenInfo *scrn,
   }
 
   default:
-    fprintf(stderr,
+    fprintf(stderr, "%s",
             i18n(ImageSet, ImageUnsupVisual,
                  "BImageControl::BImageControl: unsupported visual %d\n"),
 	    getVisual()->c_class);
@@ -373,7 +373,7 @@ BImageControl::~BImageControl(void) {
 
   if (!cache.empty()) {
     //#ifdef DEBUG
-    fprintf(stderr, i18n(ImageSet, ImagePixmapRelease,
+    fprintf(stderr, "%s", i18n(ImageSet, ImagePixmapRelease,
 		         "BImageContol::~BImageControl: pixmap cache - "
 	                 "releasing %d pixmaps\n"), cache.size());
     //#endif
@@ -450,7 +450,7 @@ Pixmap BImageControl::renderImage(unsigned int width, unsigned int height,
 
   if (cache.size() > cache_max) {
 #ifdef    DEBUG
-    fprintf(stderr, i18n(ImageSet, ImagePixmapCacheLarge,
+    fprintf(stderr, "%s", i18n(ImageSet, ImagePixmapCacheLarge,
 			 "BImageControl::renderImage: cache is large, "
 			 "forcing cleanout\n"));
 #endif // DEBUG

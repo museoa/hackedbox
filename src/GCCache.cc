@@ -117,7 +117,7 @@ BGCCacheContext *BGCCache::nextContext(unsigned int scr) {
       return c;
   }
 
-  fprintf(stderr, "BGCCache: context fault!\n");
+  fprintf(stderr, "%s", "BGCCache: context fault!\n");
   abort();
   return (BGCCacheContext*) 0; // not reached
 }
@@ -160,7 +160,7 @@ BGCCacheItem *BGCCache::find(const BColor &_color,
       return c;
     }
     // cache fault!
-    fprintf(stderr, "BGCCache: cache fault, count: %d, screen: %d, item screen: %d\n", c->count, screen, c->ctx->screen);
+    fprintf(stderr, "%s", "BGCCache: cache fault, count: %d, screen: %d, item screen: %d\n", c->count, screen, c->ctx->screen);
     abort();
   }
 

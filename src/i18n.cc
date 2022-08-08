@@ -60,7 +60,7 @@ I18n::I18n(void) {
 #ifdef    HAVE_SETLOCALE
   locale = setlocale(LC_ALL, "");
   if (! locale) {
-    fprintf(stderr, "failed to set locale, reverting to \"C\"\n");
+    fprintf(stderr, "%s", "failed to set locale, reverting to \"C\"\n");
 #endif // HAVE_SETLOCALE
     locale = "C";
 #ifdef    HAVE_SETLOCALE
@@ -105,7 +105,7 @@ void I18n::openCatalog(const char *catalog) {
 #  endif // MCLoadBySet
 
   if (catalog_fd == (nl_catd) -1)
-    fprintf(stderr, "failed to open catalog, using default messages\n");
+    fprintf(stderr, "%s", "failed to open catalog, using default messages\n");
 #endif // HAVE_CATOPEN
 }
 

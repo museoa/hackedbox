@@ -66,11 +66,11 @@ extern "C" {
  * Initializes the class with default values/the window's set initial values.
  */
 BlackboxWindow::BlackboxWindow(Blackbox *b, Window w, BScreen *s) {
-  // fprintf(stderr, "BlackboxWindow size: %d bytes\n",
+  // fprintf(stderr, "%s", "BlackboxWindow size: %d bytes\n",
   // sizeof(BlackboxWindow));
 
 #ifdef    DEBUG
-  fprintf(stderr, "BlackboxWindow::BlackboxWindow(): creating 0x%lx\n", w);
+  fprintf(stderr, "%s", "BlackboxWindow::BlackboxWindow(): creating 0x%lx\n", w);
 #endif // DEBUG
 
   /*
@@ -94,7 +94,7 @@ BlackboxWindow::BlackboxWindow(Blackbox *b, Window w, BScreen *s) {
                              client.window, &wattrib) ||
       ! wattrib.screen || wattrib.override_redirect) {
 #ifdef    DEBUG
-    fprintf(stderr,
+    fprintf(stderr, "%s",
             "BlackboxWindow::BlackboxWindow(): XGetWindowAttributes failed\n");
 #endif // DEBUG
 
@@ -297,7 +297,7 @@ BlackboxWindow::BlackboxWindow(Blackbox *b, Window w, BScreen *s) {
 
 BlackboxWindow::~BlackboxWindow(void) {
 #ifdef    DEBUG
-  fprintf(stderr, "BlackboxWindow::~BlackboxWindow: destroying 0x%lx\n",
+  fprintf(stderr, "%s", "BlackboxWindow::~BlackboxWindow: destroying 0x%lx\n",
           client.window);
 #endif // DEBUG
 
@@ -1528,7 +1528,7 @@ void BlackboxWindow::show(void) {
   XTranslateCoordinates(blackbox->getXDisplay(), client.window,
                         screen->getRootWindow(),
                         0, 0, &real_x, &real_y, &child);
-  fprintf(stderr, "%s -- assumed: (%d, %d), real: (%d, %d)\n", getTitle(),
+  fprintf(stderr, "%s", "%s -- assumed: (%d, %d), real: (%d, %d)\n", getTitle(),
           client.rect.left(), client.rect.top(), real_x, real_y);
   assert(client.rect.left() == real_x && client.rect.top() == real_y);
 #endif
@@ -2358,7 +2358,7 @@ void BlackboxWindow::mapRequestEvent(const XMapRequestEvent *re) {
     return;
 
 #ifdef    DEBUG
-  fprintf(stderr, "BlackboxWindow::mapRequestEvent() for 0x%lx\n",
+  fprintf(stderr, "%s", "BlackboxWindow::mapRequestEvent() for 0x%lx\n",
           client.window);
 #endif // DEBUG
 
@@ -2391,7 +2391,7 @@ void BlackboxWindow::unmapNotifyEvent(const XUnmapEvent *ue) {
     return;
 
 #ifdef    DEBUG
-  fprintf(stderr, "BlackboxWindow::unmapNotifyEvent() for 0x%lx\n",
+  fprintf(stderr, "%s", "BlackboxWindow::unmapNotifyEvent() for 0x%lx\n",
           client.window);
 #endif // DEBUG
 
@@ -2404,7 +2404,7 @@ void BlackboxWindow::destroyNotifyEvent(const XDestroyWindowEvent *de) {
     return;
 
 #ifdef    DEBUG
-  fprintf(stderr, "BlackboxWindow::destroyNotifyEvent() for 0x%lx\n",
+  fprintf(stderr, "%s", "BlackboxWindow::destroyNotifyEvent() for 0x%lx\n",
           client.window);
 #endif // DEBUG
 
@@ -2417,7 +2417,7 @@ void BlackboxWindow::reparentNotifyEvent(const XReparentEvent *re) {
     return;
 
 #ifdef    DEBUG
-  fprintf(stderr, "BlackboxWindow::reparentNotifyEvent(): reparent 0x%lx to "
+  fprintf(stderr, "%s", "BlackboxWindow::reparentNotifyEvent(): reparent 0x%lx to "
           "0x%lx.\n", client.window, re->parent);
 #endif // DEBUG
 
@@ -2433,7 +2433,7 @@ void BlackboxWindow::propertyNotifyEvent(const XPropertyEvent *pe) {
     return;
 
 #ifdef    DEBUG
-  fprintf(stderr, "BlackboxWindow::propertyNotifyEvent(): for 0x%lx\n",
+  fprintf(stderr, "%s", "BlackboxWindow::propertyNotifyEvent(): for 0x%lx\n",
           client.window);
 #endif
 
@@ -2528,7 +2528,7 @@ void BlackboxWindow::propertyNotifyEvent(const XPropertyEvent *pe) {
 
 void BlackboxWindow::exposeEvent(const XExposeEvent *ee) {
 #ifdef DEBUG
-  fprintf(stderr, "BlackboxWindow::exposeEvent() for 0x%lx\n", client.window);
+  fprintf(stderr, "%s", "BlackboxWindow::exposeEvent() for 0x%lx\n", client.window);
 #endif
 
   if (frame.label == ee->window && (decorations & Decor_Titlebar))
@@ -2589,7 +2589,7 @@ void BlackboxWindow::configureRequestEvent(const XConfigureRequestEvent *cr) {
 
 void BlackboxWindow::buttonPressEvent(const XButtonEvent *be) {
 #ifdef DEBUG
-  fprintf(stderr, "BlackboxWindow::buttonPressEvent() for 0x%lx\n",
+  fprintf(stderr, "%s", "BlackboxWindow::buttonPressEvent() for 0x%lx\n",
           client.window);
 #endif
 
@@ -2677,7 +2677,7 @@ void BlackboxWindow::buttonPressEvent(const XButtonEvent *be) {
 
 void BlackboxWindow::buttonReleaseEvent(const XButtonEvent *re) {
 #ifdef DEBUG
-  fprintf(stderr, "BlackboxWindow::buttonReleaseEvent() for 0x%lx\n",
+  fprintf(stderr, "%s", "BlackboxWindow::buttonReleaseEvent() for 0x%lx\n",
           client.window);
 #endif
 
@@ -2750,7 +2750,7 @@ void BlackboxWindow::buttonReleaseEvent(const XButtonEvent *re) {
 
 void BlackboxWindow::motionNotifyEvent(const XMotionEvent *me) {
 #ifdef DEBUG
-  fprintf(stderr, "BlackboxWindow::motionNotifyEvent() for 0x%lx\n",
+  fprintf(stderr, "%s", "BlackboxWindow::motionNotifyEvent() for 0x%lx\n",
           client.window);
 #endif
 
